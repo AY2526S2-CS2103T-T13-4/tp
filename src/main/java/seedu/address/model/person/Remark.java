@@ -10,6 +10,11 @@ public class Remark {
 
     public final String value;
 
+    /**
+     * Constructs a Remark.
+     *
+     * @param remark A remark string, which can be empty.
+     */
     public Remark(String remark) {
         requireNonNull(remark);
         this.value = remark;
