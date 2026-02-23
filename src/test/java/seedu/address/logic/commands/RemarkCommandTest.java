@@ -14,13 +14,14 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Remark;
 
 public class RemarkCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute() {
-        final String remark = "Some remark";
+        final Remark remark = new Remark("Some remark");
 
         assertCommandFailure(new RemarkCommand(INDEX_FIRST_PERSON, remark), model,
                 String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(), remark));
