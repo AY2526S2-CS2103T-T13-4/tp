@@ -262,27 +262,49 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+Home-based online F&B business owners who
+* has a need to manage significant number of custom orders
+* take custom orders through chat and social media platforms
+* need a simple, centralized way to track orders, scheduling, delivery, and payment status.
+* is reasonably comfortable using desktop apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**:
+This app helps home-based and online F&B sellers keep customer and order details in one organised place. 
+
+It tracks repeat orders, feedback, payment, and delivery status so sellers do not lose messages or mix up orders across chats, improving reliability and customer satisfaction. 
+
+It highlights potential scheduling issues to help sellers manage deliveries.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​            | I want to …​                                           | So that I can…​                                                                 |
+|----------|--------------------|-------------------------------------------------------|--------------------------------------------------------------------------------|
+| `* * *`  | user               | add payment information to orders                    | I know who owes me money                                                      |
+| `*`      | user               | add a new person                                     | add a new customer to the system                                              |
+| `* * *`  | user               | add a new order linked to an existing customer       | record what they ordered and when it's due                                    |
+| `* * *`  | user               | view all orders due for delivery today               | see my workload for the day at a glance                                        |
+| `* * *`  | user               | delete a cancelled order from the system             | avoid confusing it with active orders that need to be fulfilled               |
+| `* * *`  | user               | add dietary restrictions or special instructions     | remember to make the cake nut-free or sugar-free as requested                 |
+| `* * *`  | user               | mark an order as paid / unpaid / partially paid      | track outstanding payments or balances easily                                 |
+| `* * *`  | user               | mark order completion status                         | know the state of my current orders                                           |
+| `* *`    | user               | edit contact information after the order is complete | modify and update information if records were incorrect                       |
+| `* *`    | expert user        | use shortcuts for commands                           | efficiently type out commands                                                 |
+| `* *`    | user               | search for a customer by name or phone number        | quickly find their information without scrolling through the entire list      |
+| `* *`    | user               | view schedule of orders ordered by time              | quickly see the total schedule of work                                        |
+| `* *`    | professional user  | generate a simple order summary                      | send customers a confirmation of the order details                            |
+| `* *`    | new user           | view a user guide                                    | learn how to use the program properly                                         |
+| `* *`    | long-time user     | see revenue breakdown by product                     | know which products are most profitable for the business                      |
+| `* *`    | user               | use natural language for entering times or dates     | avoid entering precise dates in a strict format                               |
+| `*`      | user               | see which order is urgent                            | know which order to prioritise                                                |
+| `*`      | user               | mark unavailable dates                               | stop accepting orders that cannot be fulfilled                                |
+| `*`      | user               | detect scheduling conflicts                          | avoid overcommitting and missing deliveries                                   |
+| `*`      | long-time user     | tag repeat customers                                 | prioritise or cater to their needs differently                                |
+| `*`      | user               | export data to a spreadsheet                         | back up data or use it for other purposes                                     |
+| `*`      | new user           | undo the last action                                 | recover order details after accidental deletions                              |
+| `*`      | user               | set limits on orders for a selected day              | avoid accepting too many orders and becoming burnt out                        |
 
 *{More to be added}*
 
