@@ -9,15 +9,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Omgeta
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/omgeta.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
+[[github](https://github.com/Omgeta)]
 [[portfolio](team/johndoe.md)]
 
-* Role: Project Advisor
+- Role: Code Quality
+- Responsibilities: Logic
 
 ### Shan Selvan
 
@@ -26,8 +26,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/shanselvan)]
 [[portfolio](team/johndoe.md)]
 
-* Role: Developer
-* Responsibilities: UI
+- Role: Developer
+- Responsibilities: UI
 
 ### Sern Yuan
 
@@ -35,8 +35,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](http://github.com/serny-afk)] [[portfolio](team/johndoe.md)]
 
-* Role: Developer
-* Responsibilities: Data
+- Role: Developer
+- Responsibilities: Data
 
 ### Joshua Teo
 
@@ -44,8 +44,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](http://github.com/JoshTKx)]
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+- Role: Developer
+- Responsibilities: Dev Ops + Threading
 
 ### Oh Yi Xian
 
@@ -54,5 +54,5 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/Yixiannya)]
 [[portfolio](team/johndoe.md)]
 
-* Role: Documentation
-* Responsibilities: Model
+- Role: Documentation
+- Responsibilities: Model
