@@ -269,9 +269,9 @@ Home-based online F&B business owners who
 * is reasonably comfortable using desktop apps
 
 **Value proposition**:
-This app helps home-based and online F&B sellers keep customer and order details in one organised place. 
+This app helps home-based and online F&B sellers keep customer and order details in one organised place.
 
-It tracks repeat orders, feedback, payment, and delivery status so sellers do not lose messages or mix up orders across chats, improving reliability and customer satisfaction. 
+It tracks repeat orders, feedback, payment, and delivery status so sellers do not lose messages or mix up orders across chats, improving reliability and customer satisfaction.
 
 It highlights potential scheduling issues to help sellers manage deliveries.
 
@@ -451,7 +451,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 5.  The application should not require an internet connection for normal operation.
 6.  The system should respond to any user command within 2 seconds under normal operating conditions.
 7.  The total size of the application (JAR file) should not exceed 100MB to ensure easy distribution and download.
-8.  The data file format should be human-readable (e.g. JSON) so that data can be manually inspected or recovered if necessary. 
+8.  The data file format should be human-readable (e.g. JSON) so that data can be manually inspected or recovered if necessary.
 9.  The application should be usable by a new user with no prior training, allowing them to complete core tasks within 10 minutes of first launch using only the built-in help command.
 
 *{More to be added}*
