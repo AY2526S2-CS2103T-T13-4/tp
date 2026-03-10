@@ -9,9 +9,12 @@ import org.junit.jupiter.api.Test;
 public class PaymentStatusTest {
 
     @Test
-    public void constructor_default_isUnpaid() {
-        PaymentStatus status = new PaymentStatus();
-        assertFalse(status.status);
+    public void constructor_paidAndUnpaid_setsStatusCorrectly() {
+        PaymentStatus paidStatus = new PaymentStatus(true);
+        PaymentStatus unpaidStatus = new PaymentStatus(false);
+
+        assertTrue(paidStatus.isPaid());
+        assertFalse(unpaidStatus.isPaid());
     }
 
 }
