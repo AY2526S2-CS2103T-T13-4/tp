@@ -15,6 +15,13 @@ public class PaymentStatus {
         this.status = status;
     }
 
+    /**
+     * Returns true if this order has been paid for.
+     */
+    public boolean isPaid() {
+        return status;
+    }
+
     @Override
     public String toString() {
         return status ? "PAID" : "UNPAID";
