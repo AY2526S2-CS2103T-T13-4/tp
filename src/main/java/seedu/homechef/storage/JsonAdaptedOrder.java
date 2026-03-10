@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.homechef.commons.exceptions.IllegalValueException;
 import seedu.homechef.model.order.Address;
+import seedu.homechef.model.order.Date;
+import seedu.homechef.model.order.Dish;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
@@ -24,23 +26,28 @@ class JsonAdaptedOrder {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Order's %s field is missing!";
 
+    private final String dish;
     private final String name;
     private final String phone;
     private final String email;
     private final String address;
+    private final String date;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedOrder} with the given order details.
      */
     @JsonCreator
-    public JsonAdaptedOrder(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+    public JsonAdaptedOrder(@JsonProperty("dish") String dish, @JsonProperty("name") String name,
+                            @JsonProperty("phone") String phone, @JsonProperty("email") String email,
+                            @JsonProperty("address") String address, @JsonProperty("date") String date,
+                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+        this.dish = dish;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.date = date;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -50,10 +57,12 @@ class JsonAdaptedOrder {
      * Converts a given {@code Order} into this class for Jackson use.
      */
     public JsonAdaptedOrder(Order source) {
+        dish = source.getDish().dishName;
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        date = source.getDate().toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -69,6 +78,14 @@ class JsonAdaptedOrder {
         for (JsonAdaptedTag tag : tags) {
             orderTags.add(tag.toModelType());
         }
+
+        if (dish == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Dish.class.getSimpleName()));
+        }
+        if (!Dish.isValidDish(dish)) {
+            throw new IllegalValueException(Dish.MESSAGE_CONSTRAINTS);
+        }
+        final Dish modelDish = new Dish(dish);
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -102,8 +119,16 @@ class JsonAdaptedOrder {
         }
         final Address modelAddress = new Address(address);
 
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+        }
+        if (!Date.isValidDate(date)) {
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+        }
+        final Date modelDate = new Date(date);
+
         final Set<Tag> modelTags = new HashSet<>(orderTags);
-        return new Order(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Order(modelDish, modelName, modelPhone, modelEmail, modelAddress, modelDate, modelTags);
     }
 
 }

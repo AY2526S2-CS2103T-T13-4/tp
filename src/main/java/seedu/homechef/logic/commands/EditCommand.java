@@ -2,6 +2,8 @@ package seedu.homechef.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_DISH;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -22,6 +24,8 @@ import seedu.homechef.logic.Messages;
 import seedu.homechef.logic.commands.exceptions.CommandException;
 import seedu.homechef.model.Model;
 import seedu.homechef.model.order.Address;
+import seedu.homechef.model.order.Date;
+import seedu.homechef.model.order.Dish;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
@@ -39,10 +43,12 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed order list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_DISH + "DISH] "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -56,7 +62,7 @@ public class EditCommand extends Command {
     private final EditOrderDescriptor editOrderDescriptor;
 
     /**
-     * @param index of the order in the filtered order list to edit
+     * @param index               of the order in the filtered order list to edit
      * @param editOrderDescriptor details to edit the order with
      */
     public EditCommand(Index index, EditOrderDescriptor editOrderDescriptor) {
@@ -95,13 +101,16 @@ public class EditCommand extends Command {
     private static Order createEditedOrder(Order orderToEdit, EditOrderDescriptor editOrderDescriptor) {
         assert orderToEdit != null;
 
+        Dish updatedDish = editOrderDescriptor.getDish().orElse(orderToEdit.getDish());
         Name updatedName = editOrderDescriptor.getName().orElse(orderToEdit.getName());
         Phone updatedPhone = editOrderDescriptor.getPhone().orElse(orderToEdit.getPhone());
         Email updatedEmail = editOrderDescriptor.getEmail().orElse(orderToEdit.getEmail());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
+        Date updatedDate = editOrderDescriptor.getDate().orElse(orderToEdit.getDate());
         Set<Tag> updatedTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
 
-        return new Order(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Order(updatedDish, updatedName, updatedPhone,
+                updatedEmail, updatedAddress, updatedDate, updatedTags);
     }
 
     @Override
@@ -133,23 +142,28 @@ public class EditCommand extends Command {
      * corresponding field value of the order.
      */
     public static class EditOrderDescriptor {
+        private Dish dish;
         private Name name;
         private Phone phone;
         private Email email;
         private Address address;
+        private Date date;
         private Set<Tag> tags;
 
-        public EditOrderDescriptor() {}
+        public EditOrderDescriptor() {
+        }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
+            setDish(toCopy.dish);
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setDate(toCopy.date);
             setTags(toCopy.tags);
         }
 
@@ -157,7 +171,15 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(dish, name, phone, email, address, date, tags);
+        }
+
+        public void setDish(Dish dish) {
+            this.dish = dish;
+        }
+
+        public Optional<Dish> getDish() {
+            return Optional.ofNullable(dish);
         }
 
         public void setName(Name name) {
@@ -192,6 +214,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
+        public void setDate(Date date) {
+            this.date = date;
+        }
+
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -221,20 +251,24 @@ public class EditCommand extends Command {
             }
 
             EditOrderDescriptor otherEditOrderDescriptor = (EditOrderDescriptor) other;
-            return Objects.equals(name, otherEditOrderDescriptor.name)
+            return Objects.equals(dish, otherEditOrderDescriptor.dish)
+                    && Objects.equals(name, otherEditOrderDescriptor.name)
                     && Objects.equals(phone, otherEditOrderDescriptor.phone)
                     && Objects.equals(email, otherEditOrderDescriptor.email)
                     && Objects.equals(address, otherEditOrderDescriptor.address)
+                    && Objects.equals(date, otherEditOrderDescriptor.date)
                     && Objects.equals(tags, otherEditOrderDescriptor.tags);
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
+                    .add("dish", dish)
                     .add("name", name)
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
+                    .add("date", date)
                     .add("tags", tags)
                     .toString();
         }

@@ -29,6 +29,8 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label dish;
+    @FXML
     private Label name;
     @FXML
     private Label id;
@@ -36,6 +38,8 @@ public class OrderCard extends UiPart<Region> {
     private Label phone;
     @FXML
     private Label address;
+    @FXML
+    private Label date;
     @FXML
     private Label email;
     @FXML
@@ -48,9 +52,11 @@ public class OrderCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
         id.setText(displayedIndex + ". ");
+        dish.setText(order.getDish().dishName);
         name.setText(order.getName().fullName);
         phone.setText(order.getPhone().value);
         address.setText(order.getAddress().value);
+        date.setText(order.getDate().toString());
         email.setText(order.getEmail().value);
         order.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

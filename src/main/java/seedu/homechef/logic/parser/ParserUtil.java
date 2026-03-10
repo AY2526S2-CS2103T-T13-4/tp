@@ -10,6 +10,8 @@ import seedu.homechef.commons.core.index.Index;
 import seedu.homechef.commons.util.StringUtil;
 import seedu.homechef.logic.parser.exceptions.ParseException;
 import seedu.homechef.model.order.Address;
+import seedu.homechef.model.order.Date;
+import seedu.homechef.model.order.Dish;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Phone;
@@ -33,6 +35,21 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String dishName} into a {@code Dish}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dishName} is invalid.
+     */
+    public static Dish parseDish(String dishName) throws ParseException {
+        requireNonNull(dishName);
+        String trimmedName = dishName.trim();
+        if (!Dish.isValidDish(trimmedName)) {
+            throw new ParseException(Dish.MESSAGE_CONSTRAINTS);
+        }
+        return new Dish(trimmedName);
     }
 
     /**
@@ -78,6 +95,21 @@ public class ParserUtil {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedName = date.trim();
+        if (!Date.isValidDate(trimmedName)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        }
+        return new Date(trimmedName);
     }
 
     /**

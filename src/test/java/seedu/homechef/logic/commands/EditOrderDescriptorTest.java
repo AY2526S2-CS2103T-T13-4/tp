@@ -60,11 +60,13 @@ public class EditOrderDescriptorTest {
     @Test
     public void toStringMethod() {
         EditOrderDescriptor editOrderDescriptor = new EditOrderDescriptor();
-        String expected = EditOrderDescriptor.class.getCanonicalName() + "{name="
+        String expected = EditOrderDescriptor.class.getCanonicalName() + "{dish="
+                + editOrderDescriptor.getDish().orElse(null) + ", name="
                 + editOrderDescriptor.getName().orElse(null) + ", phone="
                 + editOrderDescriptor.getPhone().orElse(null) + ", email="
                 + editOrderDescriptor.getEmail().orElse(null) + ", address="
-                + editOrderDescriptor.getAddress().orElse(null) + ", tags="
+                + editOrderDescriptor.getAddress().orElse(null) + ", date="
+                + editOrderDescriptor.getDate().orElse(null) + ", tags="
                 + editOrderDescriptor.getTags().orElse(null) + "}";
         assertEquals(expected, editOrderDescriptor.toString());
     }

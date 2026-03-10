@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.homechef.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -69,8 +70,12 @@ public class OrderTest {
         // different order -> returns false
         assertFalse(ALICE.equals(BOB));
 
+        // different dish -> returns false
+        Order editedAlice = new OrderBuilder(ALICE).withDish(VALID_NAME_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
         // different name -> returns false
-        Order editedAlice = new OrderBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        editedAlice = new OrderBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different phone -> returns false
@@ -85,6 +90,10 @@ public class OrderTest {
         editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
+        // different date -> returns false
+        editedAlice = new OrderBuilder(ALICE).withDate(VALID_DATE_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
         // different tags -> returns false
         editedAlice = new OrderBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
@@ -92,8 +101,9 @@ public class OrderTest {
 
     @Test
     public void toStringMethod() {
-        String expected = Order.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", tags=" + ALICE.getTags() + "}";
+        String expected = Order.class.getCanonicalName() + "{dish=" + ALICE.getDish() + ", name=" + ALICE.getName()
+                + ", phone=" + ALICE.getPhone() + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress()
+                + ", date=" + ALICE.getDate() + ", tags=" + ALICE.getTags() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }
