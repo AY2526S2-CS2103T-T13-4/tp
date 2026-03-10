@@ -39,11 +39,11 @@ public class SampleDataUtil {
                 getTagSet("family"));
         Order irfan = new Order(new Dish("Blueberry Pie"), new Name("Irfan Ibrahim"), new Phone("92492021"),
                 new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"), new Date("31-04-2026"),
+                new Address("Blk 47 Tampines Street 20, #17-35"), new Date("30-04-2026"),
                 getTagSet("classmates"));
         Order roy = new Order(new Dish("Sourdough Bread (3pcs)"), new Name("Roy Balakrishnan"), new Phone("92624417"),
                 new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"), new Date("31-04-2026"),
+                new Address("Blk 45 Aljunied Street 85, #11-31"), new Date("30-04-2026"),
                 getTagSet("colleagues"));
         return new Order[]{alex, bernice, charlotte, david, irfan, roy};
     }
