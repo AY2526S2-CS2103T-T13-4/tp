@@ -17,7 +17,7 @@ import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.model.order.Phone;
-import seedu.homechef.model.tag.Tag;
+import seedu.homechef.model.tag.DietTag;
 
 /**
  * Jackson-friendly version of {@link Order}.
@@ -74,9 +74,9 @@ class JsonAdaptedOrder {
      * @throws IllegalValueException if there were any data constraints violated in the adapted order.
      */
     public Order toModelType() throws IllegalValueException {
-        final List<Tag> orderTags = new ArrayList<>();
+        final List<DietTag> orderDietTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
-            orderTags.add(tag.toModelType());
+            orderDietTags.add(tag.toModelType());
         }
 
         if (dish == null) {
@@ -127,8 +127,8 @@ class JsonAdaptedOrder {
         }
         final Date modelDate = new Date(date);
 
-        final Set<Tag> modelTags = new HashSet<>(orderTags);
-        return new Order(modelDish, modelName, modelPhone, modelEmail, modelAddress, modelDate, modelTags);
+        final Set<DietTag> modelDietTags = new HashSet<>(orderDietTags);
+        return new Order(modelDish, modelName, modelPhone, modelEmail, modelAddress, modelDate, modelDietTags);
     }
 
 }

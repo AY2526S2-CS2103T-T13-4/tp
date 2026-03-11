@@ -15,7 +15,7 @@ import seedu.homechef.model.order.Dish;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Phone;
-import seedu.homechef.model.tag.Tag;
+import seedu.homechef.model.tag.DietTag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -128,29 +128,29 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String tag} into a {@code DietTag}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
+    public static DietTag parseTag(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        if (!DietTag.isValidTagName(trimmedTag)) {
+            throw new ParseException(DietTag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new DietTag(trimmedTag);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> tags} into a {@code Set<DietTag>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+    public static Set<DietTag> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
+        final Set<DietTag> dietTagSet = new HashSet<>();
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+            dietTagSet.add(parseTag(tagName));
         }
-        return tagSet;
+        return dietTagSet;
     }
 }

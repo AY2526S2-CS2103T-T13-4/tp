@@ -13,7 +13,7 @@ import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.model.order.Phone;
-import seedu.homechef.model.tag.Tag;
+import seedu.homechef.model.tag.DietTag;
 
 /**
  * Contains utility methods for populating {@code HomeChef} with sample data.
@@ -59,9 +59,9 @@ public class SampleDataUtil {
     /**
      * Returns a tag set containing the list of strings given.
      */
-    public static Set<Tag> getTagSet(String... strings) {
+    public static Set<DietTag> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
+                .map(DietTag::new)
                 .collect(Collectors.toSet());
     }
 

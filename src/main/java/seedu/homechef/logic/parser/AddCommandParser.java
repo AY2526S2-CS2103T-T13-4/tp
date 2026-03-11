@@ -21,7 +21,7 @@ import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.model.order.Phone;
-import seedu.homechef.model.tag.Tag;
+import seedu.homechef.model.tag.DietTag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -52,9 +52,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<DietTag> dietTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Order order = new Order(dish, name, phone, email, address, date, tagList);
+        Order order = new Order(dish, name, phone, email, address, date, dietTagList);
 
         return new AddCommand(order);
     }

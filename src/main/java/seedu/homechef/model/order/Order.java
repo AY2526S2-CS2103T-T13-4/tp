@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.homechef.commons.util.ToStringBuilder;
-import seedu.homechef.model.tag.Tag;
+import seedu.homechef.model.tag.DietTag;
 
 /**
  * Represents a Order in the HomeChef.
@@ -25,20 +25,20 @@ public class Order {
     // Data fields
     private final Address address;
     private final Date date;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<DietTag> dietTags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Order(Dish dish, Name name, Phone phone, Email email, Address address, Date date, Set<Tag> tags) {
-        requireAllNonNull(dish, name, phone, email, address, tags);
+    public Order(Dish dish, Name name, Phone phone, Email email, Address address, Date date, Set<DietTag> dietTags) {
+        requireAllNonNull(dish, name, phone, email, address, dietTags);
         this.dish = dish;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.date = date;
-        this.tags.addAll(tags);
+        this.dietTags.addAll(dietTags);
     }
 
     public Dish getDish() { return dish; }
@@ -67,8 +67,8 @@ public class Order {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<DietTag> getTags() {
+        return Collections.unmodifiableSet(dietTags);
     }
 
     /**
@@ -108,13 +108,13 @@ public class Order {
                 && email.equals(otherOrder.email)
                 && address.equals(otherOrder.address)
                 && date.equals(otherOrder.date)
-                && tags.equals(otherOrder.tags);
+                && dietTags.equals(otherOrder.dietTags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(dish, name, phone, email, address, date, tags);
+        return Objects.hash(dish, name, phone, email, address, date, dietTags);
     }
 
     @Override
@@ -126,7 +126,7 @@ public class Order {
                 .add("email", email)
                 .add("address", address)
                 .add("date", date)
-                .add("tags", tags)
+                .add("dietTags", dietTags)
                 .toString();
     }
 

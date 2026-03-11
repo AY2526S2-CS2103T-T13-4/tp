@@ -43,7 +43,7 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private FlowPane dietTags;
 
     /**
      * Creates a {@code OrderCode} with the given {@code Order} and index to display.
@@ -60,6 +60,6 @@ public class OrderCard extends UiPart<Region> {
         email.setText(order.getEmail().value);
         order.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> dietTags.getChildren().add(new Label(tag.tagName)));
     }
 }

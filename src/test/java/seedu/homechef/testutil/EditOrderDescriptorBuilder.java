@@ -12,7 +12,7 @@ import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.model.order.Phone;
-import seedu.homechef.model.tag.Tag;
+import seedu.homechef.model.tag.DietTag;
 
 /**
  * A utility class to help with building EditOrderDescriptor objects.
@@ -92,12 +92,12 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditOrderDescriptor}
+     * Parses the {@code tags} into a {@code Set<DietTag>} and set it to the {@code EditOrderDescriptor}
      * that we are building.
      */
     public EditOrderDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+        Set<DietTag> dietTagSet = Stream.of(tags).map(DietTag::new).collect(Collectors.toSet());
+        descriptor.setTags(dietTagSet);
         return this;
     }
 

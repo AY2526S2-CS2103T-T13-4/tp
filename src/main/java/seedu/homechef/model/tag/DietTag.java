@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.homechef.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Tag in the HomeChef.
+ * Represents a DietTag in the HomeChef.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
-public class Tag {
+public class DietTag {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
@@ -15,11 +15,11 @@ public class Tag {
     public final String tagName;
 
     /**
-     * Constructs a {@code Tag}.
+     * Constructs a {@code DietTag}.
      *
      * @param tagName A valid tag name.
      */
-    public Tag(String tagName) {
+    public DietTag(String tagName) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
@@ -39,12 +39,12 @@ public class Tag {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Tag)) {
+        if (!(other instanceof DietTag)) {
             return false;
         }
 
-        Tag otherTag = (Tag) other;
-        return tagName.equals(otherTag.tagName);
+        DietTag otherDietTag = (DietTag) other;
+        return tagName.equals(otherDietTag.tagName);
     }
 
     @Override

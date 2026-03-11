@@ -52,7 +52,7 @@ import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.model.order.Phone;
-import seedu.homechef.model.tag.Tag;
+import seedu.homechef.model.tag.DietTag;
 import seedu.homechef.testutil.OrderBuilder;
 
 public class AddCommandParserTest {
@@ -208,7 +208,7 @@ public class AddCommandParserTest {
 
         // invalid tag
         assertParseFailure(parser, DISH_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + DATE_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+                + DATE_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND, DietTag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser,

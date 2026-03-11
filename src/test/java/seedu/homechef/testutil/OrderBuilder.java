@@ -10,7 +10,7 @@ import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.model.order.Phone;
-import seedu.homechef.model.tag.Tag;
+import seedu.homechef.model.tag.DietTag;
 import seedu.homechef.model.util.SampleDataUtil;
 
 /**
@@ -31,7 +31,7 @@ public class OrderBuilder {
     private Email email;
     private Address address;
     private Date date;
-    private Set<Tag> tags;
+    private Set<DietTag> dietTags;
 
     /**
      * Creates a {@code OrderBuilder} with the default details.
@@ -43,7 +43,7 @@ public class OrderBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         date = new Date(DEFAULT_DATE);
-        tags = new HashSet<>();
+        dietTags = new HashSet<>();
     }
 
     /**
@@ -56,7 +56,7 @@ public class OrderBuilder {
         email = orderToCopy.getEmail();
         address = orderToCopy.getAddress();
         date = orderToCopy.getDate();
-        tags = new HashSet<>(orderToCopy.getTags());
+        dietTags = new HashSet<>(orderToCopy.getTags());
     }
 
     /**
@@ -76,10 +76,10 @@ public class OrderBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Order} that we are building.
+     * Parses the {@code dietTags} into a {@code Set<DietTag>} and set it to the {@code Order} that we are building.
      */
     public OrderBuilder withTags(String... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.dietTags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -116,7 +116,7 @@ public class OrderBuilder {
     }
 
     public Order build() {
-        return new Order(dish, name, phone, email, address, date, tags);
+        return new Order(dish, name, phone, email, address, date, dietTags);
     }
 
 }

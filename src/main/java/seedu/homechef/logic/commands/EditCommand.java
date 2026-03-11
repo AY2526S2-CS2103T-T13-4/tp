@@ -30,7 +30,7 @@ import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.model.order.Phone;
-import seedu.homechef.model.tag.Tag;
+import seedu.homechef.model.tag.DietTag;
 
 /**
  * Edits the details of an existing order in the HomeChef.
@@ -107,10 +107,10 @@ public class EditCommand extends Command {
         Email updatedEmail = editOrderDescriptor.getEmail().orElse(orderToEdit.getEmail());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
         Date updatedDate = editOrderDescriptor.getDate().orElse(orderToEdit.getDate());
-        Set<Tag> updatedTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
+        Set<DietTag> updatedDietTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
 
         return new Order(updatedDish, updatedName, updatedPhone,
-                updatedEmail, updatedAddress, updatedDate, updatedTags);
+                updatedEmail, updatedAddress, updatedDate, updatedDietTags);
     }
 
     @Override
@@ -148,14 +148,14 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Date date;
-        private Set<Tag> tags;
+        private Set<DietTag> dietTags;
 
         public EditOrderDescriptor() {
         }
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code dietTags} is used internally.
          */
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
             setDish(toCopy.dish);
@@ -164,14 +164,14 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setDate(toCopy.date);
-            setTags(toCopy.tags);
+            setTags(toCopy.dietTags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(dish, name, phone, email, address, date, tags);
+            return CollectionUtil.isAnyNonNull(dish, name, phone, email, address, date, dietTags);
         }
 
         public void setDish(Dish dish) {
@@ -223,20 +223,20 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
+         * Sets {@code dietTags} to this object's {@code dietTags}.
+         * A defensive copy of {@code dietTags} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setTags(Set<DietTag> dietTags) {
+            this.dietTags = (dietTags != null) ? new HashSet<>(dietTags) : null;
         }
 
         /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
+         * Returns {@code Optional#empty()} if {@code dietTags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<DietTag>> getTags() {
+            return (dietTags != null) ? Optional.of(Collections.unmodifiableSet(dietTags)) : Optional.empty();
         }
 
         @Override
@@ -257,7 +257,7 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditOrderDescriptor.email)
                     && Objects.equals(address, otherEditOrderDescriptor.address)
                     && Objects.equals(date, otherEditOrderDescriptor.date)
-                    && Objects.equals(tags, otherEditOrderDescriptor.tags);
+                    && Objects.equals(dietTags, otherEditOrderDescriptor.dietTags);
         }
 
         @Override
@@ -269,7 +269,7 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("date", date)
-                    .add("tags", tags)
+                    .add("dietTags", dietTags)
                     .toString();
         }
     }
