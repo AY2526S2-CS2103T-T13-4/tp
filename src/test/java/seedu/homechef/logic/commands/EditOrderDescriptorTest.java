@@ -66,7 +66,7 @@ public class EditOrderDescriptorTest {
                 + editOrderDescriptor.getPhone().orElse(null) + ", email="
                 + editOrderDescriptor.getEmail().orElse(null) + ", address="
                 + editOrderDescriptor.getAddress().orElse(null) + ", date="
-                + editOrderDescriptor.getDate().orElse(null) + ", tags="
+                + editOrderDescriptor.getDate().orElse(null) + ", dietTags="
                 + editOrderDescriptor.getTags().orElse(null) + "}";
         assertEquals(expected, editOrderDescriptor.toString());
     }

@@ -103,7 +103,7 @@ public class OrderTest {
     public void toStringMethod() {
         String expected = Order.class.getCanonicalName() + "{dish=" + ALICE.getDish() + ", name=" + ALICE.getName()
                 + ", phone=" + ALICE.getPhone() + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress()
-                + ", date=" + ALICE.getDate() + ", tags=" + ALICE.getTags() + "}";
+                + ", date=" + ALICE.getDate() + ", dietTags=" + ALICE.getTags() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }
