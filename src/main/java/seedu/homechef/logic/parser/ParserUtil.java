@@ -196,7 +196,8 @@ public class ParserUtil {
         switch (type) {
         case CASH:
             if (hasRef || hasBankName || hasWalletProvider) {
-                throw new ParseException("r/ not expected for CASH payment type.");
+                throw new ParseException(
+                        "No additional payment details (r/, b/, w/) are expected for CASH.");
             }
             paymentInfo = new PaymentInfo(PaymentType.CASH, null, null, null, null, null, null);
             break;
@@ -233,6 +234,9 @@ public class ParserUtil {
             }
             if (hasWalletProvider) {
                 throw new ParseException("w/ only valid for EWALLET payment type.");
+            }
+            if (!PaymentInfo.isValidLastFourDigits(ref.get())) {
+                throw new ParseException("Card last 4 digits must be exactly 4 numeric digits (e.g. r/4321).");
             }
             paymentInfo = new PaymentInfo(PaymentType.CARD, null, null, null, ref.get(), null, null);
             break;

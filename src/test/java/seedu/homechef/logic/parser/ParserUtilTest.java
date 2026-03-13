@@ -300,4 +300,11 @@ public class ParserUtilTest {
                 ParserUtil.parsePaymentInfo(
                         Optional.of("EWALLET"), Optional.of("user@grab.com"), Optional.empty(), Optional.empty()));
     }
+
+    @Test
+    public void parsePaymentInfo_cardInvalidRef_throwsParseException() {
+        assertThrows(ParseException.class, () ->
+                ParserUtil.parsePaymentInfo(
+                        Optional.of("CARD"), Optional.of("AB12"), Optional.empty(), Optional.empty()));
+    }
 }
