@@ -122,9 +122,9 @@ class JsonAdaptedOrder {
      * @throws IllegalValueException if there were any data constraints violated in the adapted order.
      */
     public Order toModelType() throws IllegalValueException {
-        final List<DietTag> orderDietTags = new ArrayList<>();
+        final Set<DietTag> modelDietTags = new HashSet<>();
         for (JsonAdaptedTag tag : tags) {
-            orderDietTags.add(tag.toModelType());
+            modelDietTags.add(tag.toModelType());
         }
 
         if (dish == null) {
@@ -174,8 +174,6 @@ class JsonAdaptedOrder {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
         final Date modelDate = new Date(date);
-
-        final Set<DietTag> modelDietTags = new HashSet<>(orderDietTags);
 
         Optional<PaymentInfo> modelPaymentInfo;
         if (paymentType == null) {

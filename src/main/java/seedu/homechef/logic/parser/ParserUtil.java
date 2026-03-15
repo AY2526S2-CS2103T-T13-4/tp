@@ -29,6 +29,10 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    private static final String VALID_PAYMENT_TYPE_NAMES = Arrays.stream(PaymentType.values())
+            .map(Enum::name)
+            .collect(Collectors.joining(", "));
+
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -189,11 +193,8 @@ public class ParserUtil {
         try {
             type = PaymentType.valueOf(method.get().trim().toUpperCase());
         } catch (IllegalArgumentException e) {
-            String validTypes = Arrays.stream(PaymentType.values())
-                    .map(Enum::name)
-                    .collect(Collectors.joining(", "));
             throw new ParseException(
-                    "Invalid payment method: " + method.get() + ". Valid types: " + validTypes + ".");
+                    "Invalid payment method: " + method.get() + ". Valid types: " + VALID_PAYMENT_TYPE_NAMES + ".");
         }
 
         PaymentInfo paymentInfo;

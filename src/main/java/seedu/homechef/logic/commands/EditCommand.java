@@ -117,9 +117,9 @@ public class EditCommand extends Command {
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
         Date updatedDate = editOrderDescriptor.getDate().orElse(orderToEdit.getDate());
         Set<DietTag> updatedDietTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
-        Optional<PaymentInfo> updatedPaymentInfo = editOrderDescriptor.getPaymentInfo()
-                .map(Optional::of)
-                .orElseGet(orderToEdit::getPaymentInfo);
+        Optional<PaymentInfo> updatedPaymentInfo = editOrderDescriptor.getPaymentInfo().isPresent()
+                ? editOrderDescriptor.getPaymentInfo()
+                : orderToEdit.getPaymentInfo();
 
         return new Order(updatedFood, updatedName, updatedPhone,
                 updatedEmail, updatedAddress, updatedDate, updatedDietTags, updatedPaymentInfo);
