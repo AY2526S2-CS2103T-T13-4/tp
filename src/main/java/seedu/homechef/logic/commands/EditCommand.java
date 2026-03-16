@@ -24,6 +24,7 @@ import seedu.homechef.logic.Messages;
 import seedu.homechef.logic.commands.exceptions.CommandException;
 import seedu.homechef.model.Model;
 import seedu.homechef.model.order.Address;
+import seedu.homechef.model.order.CompletionStatus;
 import seedu.homechef.model.order.Date;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
@@ -107,10 +108,12 @@ public class EditCommand extends Command {
         Email updatedEmail = editOrderDescriptor.getEmail().orElse(orderToEdit.getEmail());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
         Date updatedDate = editOrderDescriptor.getDate().orElse(orderToEdit.getDate());
+        CompletionStatus updatedCompletionStatus =
+                editOrderDescriptor.getCompletionStatus().orElse(orderToEdit.getCompletionStatus());
         Set<DietTag> updatedDietTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
 
         return new Order(updatedFood, updatedName, updatedPhone,
-                updatedEmail, updatedAddress, updatedDate, updatedDietTags);
+                updatedEmail, updatedAddress, updatedDate, updatedCompletionStatus, updatedDietTags);
     }
 
     @Override
@@ -148,6 +151,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Date date;
+        private CompletionStatus completionStatus;
         private Set<DietTag> dietTags;
 
         public EditOrderDescriptor() {
@@ -164,6 +168,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setDate(toCopy.date);
+            setCompletionStatus(toCopy.completionStatus);
             setTags(toCopy.dietTags);
         }
 
@@ -222,6 +227,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(date);
         }
 
+        public void setCompletionStatus(CompletionStatus completionStatus) {
+            this.completionStatus = completionStatus;
+        }
+
+        public Optional<CompletionStatus> getCompletionStatus() {
+            return Optional.ofNullable(completionStatus);
+        }
+
         /**
          * Sets {@code dietTags} to this object's {@code dietTags}.
          * A defensive copy of {@code dietTags} is used internally.
@@ -257,6 +270,7 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditOrderDescriptor.email)
                     && Objects.equals(address, otherEditOrderDescriptor.address)
                     && Objects.equals(date, otherEditOrderDescriptor.date)
+                    && Objects.equals(completionStatus, otherEditOrderDescriptor.completionStatus)
                     && Objects.equals(dietTags, otherEditOrderDescriptor.dietTags);
         }
 
@@ -269,6 +283,7 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("date", date)
+                    .add("completionStatus", completionStatus)
                     .add("dietTags", dietTags)
                     .toString();
         }
