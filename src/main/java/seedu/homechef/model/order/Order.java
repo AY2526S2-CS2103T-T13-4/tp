@@ -21,6 +21,7 @@ public class Order {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final CompletionStatus completionStatus;
 
     // Data fields
     private final Address address;
@@ -30,14 +31,16 @@ public class Order {
     /**
      * Every field must be present and not null.
      */
-    public Order(Food food, Name name, Phone phone, Email email, Address address, Date date, Set<DietTag> dietTags) {
-        requireAllNonNull(food, name, phone, email, address, dietTags);
+    public Order(Food food, Name name, Phone phone, Email email, Address address, Date date,
+                 CompletionStatus completionStatus, Set<DietTag> dietTags) {
+        requireAllNonNull(food, name, phone, email, address, completionStatus, dietTags);
         this.food = food;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.date = date;
+        this.completionStatus = completionStatus;
         this.dietTags.addAll(dietTags);
     }
 
@@ -63,6 +66,10 @@ public class Order {
 
     public Date getDate() {
         return date;
+    }
+
+    public CompletionStatus getCompletionStatus() {
+        return completionStatus;
     }
 
     /**
@@ -110,13 +117,14 @@ public class Order {
                 && email.equals(otherOrder.email)
                 && address.equals(otherOrder.address)
                 && date.equals(otherOrder.date)
+                && completionStatus.equals(otherOrder.completionStatus)
                 && dietTags.equals(otherOrder.dietTags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(food, name, phone, email, address, date, dietTags);
+        return Objects.hash(food, name, phone, email, address, date, dietTags, completionStatus);
     }
 
     @Override
@@ -128,6 +136,7 @@ public class Order {
                 .add("email", email)
                 .add("address", address)
                 .add("date", date)
+                .add("completionStatus", completionStatus)
                 .add("dietTags", dietTags)
                 .toString();
     }
