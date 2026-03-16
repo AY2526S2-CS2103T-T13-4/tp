@@ -22,6 +22,7 @@ import seedu.homechef.logic.commands.ExitCommand;
 import seedu.homechef.logic.commands.FindCommand;
 import seedu.homechef.logic.commands.HelpCommand;
 import seedu.homechef.logic.commands.ListCommand;
+import seedu.homechef.logic.commands.TodayCommand;
 import seedu.homechef.logic.parser.exceptions.ParseException;
 import seedu.homechef.model.order.NameContainsKeywordsPredicate;
 import seedu.homechef.model.order.Order;
@@ -87,6 +88,13 @@ public class HomeChefParserTest {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
+
+    @Test
+    public void parseCommand_today() throws Exception {
+        assertTrue(parser.parseCommand(TodayCommand.COMMAND_WORD) instanceof TodayCommand);
+        assertTrue(parser.parseCommand(TodayCommand.COMMAND_WORD + " 3") instanceof TodayCommand);
+    }
+
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {

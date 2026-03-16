@@ -8,7 +8,7 @@ import seedu.homechef.model.Model;
 import seedu.homechef.model.order.DateIsOnDatePredicate;
 
 /**
- * Lists all orders in the HomeChef to the user.
+ * Lists all orders due today in the HomeChef to the user.
  */
 public class TodayCommand extends Command {
 
@@ -20,7 +20,8 @@ public class TodayCommand extends Command {
     public TodayCommand() {
         this(LocalDate.now());
     }
-    // package-private constructor for testing
+
+    // package-private for tests
     TodayCommand(LocalDate date) {
         requireNonNull(date);
         this.date = date;
@@ -29,7 +30,7 @@ public class TodayCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredOrderList(new DateIsOnDatePredicate(LocalDate.now()));
+        model.updateFilteredOrderList(new DateIsOnDatePredicate(date));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
