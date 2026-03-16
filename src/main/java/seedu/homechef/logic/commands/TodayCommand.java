@@ -21,7 +21,11 @@ public class TodayCommand extends Command {
         this(LocalDate.now());
     }
 
-    // package-private for tests
+    /**
+     * Creates a TodayCommand to list all orders due on the specified date.
+     * This constructor is used for testing purposes to allow for a fixed date.
+     * @param date
+     */
     TodayCommand(LocalDate date) {
         requireNonNull(date);
         this.date = date;

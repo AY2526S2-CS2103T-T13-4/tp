@@ -8,6 +8,9 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests for {@code DateIsOnDatePredicate}.
+ */
 public class DateIsOnDatePredicateTest {
 
     @Test

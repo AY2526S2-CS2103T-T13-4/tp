@@ -14,6 +14,9 @@ import seedu.homechef.model.ModelManager;
 import seedu.homechef.model.UserPrefs;
 import seedu.homechef.model.order.DateIsOnDatePredicate;
 
+/**
+ * Contains integration tests (interaction with the Model) for {@code TodayCommand}.
+ */
 public class TodayCommandTest {
 
     private static final LocalDate DATE_WITH_ORDERS = LocalDate.of(2026, 3, 26);
