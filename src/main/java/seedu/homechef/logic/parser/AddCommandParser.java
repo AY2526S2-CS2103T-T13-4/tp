@@ -2,13 +2,18 @@ package seedu.homechef.logic.parser;
 
 import static seedu.homechef.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_BANK_NAME;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_FOOD;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PAYMENT_METHOD;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PAYMENT_REF;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_WALLET_PROVIDER;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -21,6 +26,7 @@ import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
+import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.Phone;
 import seedu.homechef.model.tag.DietTag;
 
@@ -38,7 +44,8 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FOOD, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                        PREFIX_ADDRESS, PREFIX_DATE, PREFIX_TAG);
+                        PREFIX_ADDRESS, PREFIX_DATE, PREFIX_TAG,
+                        PREFIX_PAYMENT_METHOD, PREFIX_PAYMENT_REF, PREFIX_BANK_NAME, PREFIX_WALLET_PROVIDER);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -56,8 +63,17 @@ public class AddCommandParser implements Parser<AddCommand> {
         // Initialise every Order as "In progress"
         CompletionStatus completionStatus = new CompletionStatus(0);
         Set<DietTag> dietTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Optional<PaymentInfo> paymentInfo = ParserUtil.parsePaymentInfo(
+                argMultimap.getValue(PREFIX_PAYMENT_METHOD),
+                argMultimap.getValue(PREFIX_PAYMENT_REF),
+                argMultimap.getValue(PREFIX_BANK_NAME),
+                argMultimap.getValue(PREFIX_WALLET_PROVIDER));
 
+<<<<<<< implement-completion-status
         Order order = new Order(food, name, phone, email, address, date, completionStatus, dietTagList);
+=======
+        Order order = new Order(food, name, phone, email, address, date, dietTagList, paymentInfo);
+>>>>>>> master
 
         return new AddCommand(order);
     }

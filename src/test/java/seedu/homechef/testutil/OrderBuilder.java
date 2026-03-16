@@ -1,6 +1,7 @@
 package seedu.homechef.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.homechef.model.order.Address;
@@ -10,6 +11,7 @@ import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
 import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
+import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.Phone;
 import seedu.homechef.model.tag.DietTag;
 import seedu.homechef.model.util.SampleDataUtil;
@@ -35,6 +37,7 @@ public class OrderBuilder {
     private Date date;
     private CompletionStatus completionStatus;
     private Set<DietTag> dietTags;
+    private Optional<PaymentInfo> paymentInfo = Optional.empty();
 
     /**
      * Creates a {@code OrderBuilder} with the default details.
@@ -62,6 +65,7 @@ public class OrderBuilder {
         date = orderToCopy.getDate();
         completionStatus = orderToCopy.getCompletionStatus();
         dietTags = new HashSet<>(orderToCopy.getTags());
+        paymentInfo = orderToCopy.getPaymentInfo();
     }
 
     /**
@@ -128,8 +132,19 @@ public class OrderBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code PaymentInfo} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withPaymentInfo(PaymentInfo paymentInfo) {
+        this.paymentInfo = Optional.of(paymentInfo);
+        return this;
+    }
+
+    /**
+     * Builds and returns the {@code Order}.
+     */
     public Order build() {
-        return new Order(food, name, phone, email, address, date, completionStatus, dietTags);
+        return new Order(food, name, phone, email, address, date, completionStatus, dietTags, paymentInfo);
     }
 
 }
