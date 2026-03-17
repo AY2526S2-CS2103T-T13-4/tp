@@ -114,13 +114,9 @@ public class OrderTest {
     public void toStringMethod() {
         String expected = Order.class.getCanonicalName() + "{food=" + ALICE.getFood() + ", name=" + ALICE.getName()
                 + ", phone=" + ALICE.getPhone() + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress()
-<<<<<<< implement-completion-status
                 + ", date=" + ALICE.getDate() + ", completionStatus=" + ALICE.getCompletionStatus()
                 + ", dietTags=" + ALICE.getTags() + "}";
-=======
-                + ", date=" + ALICE.getDate() + ", dietTags=" + ALICE.getTags()
                 + ", paymentInfo=" + ALICE.getPaymentInfo() + "}";
->>>>>>> master
         assertEquals(expected, ALICE.toString());
     }
 
