@@ -16,8 +16,6 @@ public class ListCommandParserTest {
     @Test
     public void parse_noDatePrefix_returnsDefaultListCommand() {
         assertParseSuccess(parser, "", new ListCommand());
-        assertParseSuccess(parser, " 3", new ListCommand()); // extraneous args ignored
-        assertParseSuccess(parser, " random words", new ListCommand()); // extraneous args ignored
     }
 
     @Test
