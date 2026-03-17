@@ -97,15 +97,10 @@ public class EditOrderDescriptorTest {
                 + editOrderDescriptor.getPhone().orElse(null) + ", email="
                 + editOrderDescriptor.getEmail().orElse(null) + ", address="
                 + editOrderDescriptor.getAddress().orElse(null) + ", date="
-<<<<<<< implement-completion-status
                 + editOrderDescriptor.getDate().orElse(null) + ", completionStatus="
                 + editOrderDescriptor.getCompletionStatus().orElse(null) + ", dietTags="
-                + editOrderDescriptor.getTags().orElse(null) + "}";
-=======
-                + editOrderDescriptor.getDate().orElse(null) + ", dietTags="
-                + editOrderDescriptor.getTags().orElse(null)
-                + ", paymentInfo=" + editOrderDescriptor.getPaymentInfo().orElse(null) + "}";
->>>>>>> master
+                + editOrderDescriptor.getTags().orElse(null) + ", paymentInfo=" 
+                + editOrderDescriptor.getPaymentInfo().orElse(null) + "}";
         assertEquals(expected, editOrderDescriptor.toString());
     }
 }
