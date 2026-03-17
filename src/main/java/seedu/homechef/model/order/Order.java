@@ -136,7 +136,7 @@ public class Order {
                 && address.equals(otherOrder.address)
                 && date.equals(otherOrder.date)
                 && completionStatus.equals(otherOrder.completionStatus)
-                && dietTags.equals(otherOrder.dietTags);
+                && dietTags.equals(otherOrder.dietTags)
                 && paymentInfo.equals(otherOrder.paymentInfo);
     }
 
