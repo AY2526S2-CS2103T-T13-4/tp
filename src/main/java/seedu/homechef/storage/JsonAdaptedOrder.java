@@ -176,7 +176,6 @@ class JsonAdaptedOrder {
         }
         final Date modelDate = new Date(date);
         final CompletionStatus modelCompletionStatus = new CompletionStatus(0);
-        final Set<DietTag> modelDietTags = new HashSet<>(orderDietTags);
         Optional<PaymentInfo> modelPaymentInfo;
         if (paymentType == null) {
             modelPaymentInfo = Optional.empty();
