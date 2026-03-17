@@ -176,13 +176,10 @@ class JsonAdaptedOrder {
         }
         final Date modelDate = new Date(date);
 
-<<<<<<< implement-completion-status
         final CompletionStatus modelCompletionStatus = new CompletionStatus(0);
 
         final Set<DietTag> modelDietTags = new HashSet<>(orderDietTags);
-        return new Order(modelFood, modelName, modelPhone, modelEmail, modelAddress, modelDate, modelCompletionStatus,
-                modelDietTags);
-=======
+       
         Optional<PaymentInfo> modelPaymentInfo;
         if (paymentType == null) {
             modelPaymentInfo = Optional.empty();
@@ -204,8 +201,7 @@ class JsonAdaptedOrder {
         }
 
         return new Order(modelFood, modelName, modelPhone, modelEmail,
-                modelAddress, modelDate, modelDietTags, modelPaymentInfo);
->>>>>>> master
+                modelAddress, modelDate,  modelCompletionStatus, modelDietTags, modelPaymentInfo);
     }
 
 }
