@@ -12,7 +12,7 @@ import seedu.homechef.model.order.Date;
 import seedu.homechef.model.order.Order;
 
 /**
- * Lists all orders in the HomeChef to the user.
+ * Lists all orders in Homechef to the user, ordered by fulfillment date.
  */
 public class ListCommand extends Command {
 

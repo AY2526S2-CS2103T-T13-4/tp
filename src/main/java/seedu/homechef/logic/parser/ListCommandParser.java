@@ -9,21 +9,26 @@ import seedu.homechef.logic.commands.ListCommand;
 import seedu.homechef.logic.parser.exceptions.ParseException;
 import seedu.homechef.model.order.Date;
 
+/**
+ * Parses input arguments and creates a new ListCommand object
+ */
 public class ListCommandParser implements Parser<ListCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the ListCommand
+     * and returns a ListCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     @Override
     public ListCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
 
         Optional<String> rawDate = map.getValue(PREFIX_DATE);
 
-        // Keep existing "list ignores extra params" behaviour:
-        // if no d/ prefix is present, just list everything.
         if (rawDate.isEmpty()) {
             return new ListCommand();
         }
 
-        // If there is a d/ prefix, disallow preamble (consistent with other parsers)
         if (!map.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
