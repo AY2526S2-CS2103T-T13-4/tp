@@ -2,7 +2,10 @@ package seedu.homechef.model.order;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.homechef.model.order.PaymentStatus.IS_PAID;
+import static seedu.homechef.model.order.PaymentStatus.IS_UNPAID;
 import static seedu.homechef.model.order.PaymentStatus.STATUS_PAID;
 import static seedu.homechef.model.order.PaymentStatus.STATUS_UNPAID;
 
@@ -12,8 +15,8 @@ public class PaymentStatusTest {
 
     @Test
     public void constructor_paidAndUnpaid_setsStatusCorrectly() {
-        PaymentStatus paidStatus = new PaymentStatus(true);
-        PaymentStatus unpaidStatus = new PaymentStatus(false);
+        PaymentStatus paidStatus = new PaymentStatus(IS_PAID);
+        PaymentStatus unpaidStatus = new PaymentStatus(IS_UNPAID);
 
         assertTrue(paidStatus.isPaid());
         assertFalse(unpaidStatus.isPaid());
@@ -21,8 +24,8 @@ public class PaymentStatusTest {
 
     @Test
     public void toString_paidAndUnpaid_returnsCorrectString() {
-        PaymentStatus paidStatus = new PaymentStatus(true);
-        PaymentStatus unpaidStatus = new PaymentStatus(false);
+        PaymentStatus paidStatus = new PaymentStatus(IS_PAID);
+        PaymentStatus unpaidStatus = new PaymentStatus(IS_UNPAID);
 
         assertEquals(STATUS_PAID, paidStatus.toString());
         assertEquals(STATUS_UNPAID, unpaidStatus.toString());
@@ -30,9 +33,9 @@ public class PaymentStatusTest {
 
     @Test
     public void equals() {
-        PaymentStatus paid1 = new PaymentStatus(true);
-        PaymentStatus paid2 = new PaymentStatus(true);
-        PaymentStatus unpaid = new PaymentStatus(false);
+        PaymentStatus paid1 = new PaymentStatus(IS_PAID);
+        PaymentStatus paid2 = new PaymentStatus(IS_PAID);
+        PaymentStatus unpaid = new PaymentStatus(IS_UNPAID);
 
         // same object
         assertTrue(paid1.equals(paid1));
@@ -48,6 +51,16 @@ public class PaymentStatusTest {
 
         // different type
         assertFalse(paid1.equals(STATUS_PAID));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        PaymentStatus paymentStatus1 = new PaymentStatus(IS_PAID);
+        PaymentStatus paymentStatus2 = new PaymentStatus(IS_UNPAID);
+
+        assertEquals(paymentStatus1.hashCode(), Boolean.hashCode(true));
+        assertNotEquals(paymentStatus1.hashCode(), Boolean.hashCode(false));
+        assertNotEquals(paymentStatus1.hashCode(), paymentStatus2.hashCode());
     }
 
 }
