@@ -21,13 +21,14 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Lists orders, optionally filtered by fulfillment date.\n"
-            + "Format: " + COMMAND_WORD + " [f/FOOD] [c/CUSTOMER] [d/DATE]\n"
+            + "Format: " + COMMAND_WORD + " [f/FOOD] [c/CUSTOMER] [d/DATE] [p/PHONE]\n"
             + "DATE must be in the format dd-MM-yyyy.\n"
             + "Example: " + COMMAND_WORD + "\n"
-            + "Example: " + COMMAND_WORD + " d/16-04-2003\n"
+            + "Example: " + COMMAND_WORD + " d/18-10-2026\n"
             + "Example: " + COMMAND_WORD + " c/alice\n"
             + "Example: " + COMMAND_WORD + " f/cake\n"
-            + "Example: " + COMMAND_WORD + " d/16-04-2003 c/alice f/cake";
+            + "Example: " + COMMAND_WORD + " p/1234\n"
+            + "Example: " + COMMAND_WORD + " d/16-04-2003 c/alice f/cake p/1234";
 
     private final ListFilterDescriptor descriptor;
 
@@ -81,6 +82,12 @@ public class ListCommand extends Command {
                     order.getFood().foodName.toLowerCase().contains(query));
         }
 
+        if (descriptor.getPhoneQuery().isPresent()) {
+            String query = descriptor.getPhoneQuery().get().toLowerCase();
+            predicate = predicate.and(order ->
+                    order.getPhone().value.toLowerCase().contains(query));
+        }
+
         model.updateFilteredOrderList(predicate);
         return new CommandResult(MESSAGE_SUCCESS);
     }
@@ -107,6 +114,7 @@ public class ListCommand extends Command {
         private Date date;
         private String customerQuery;
         private String foodQuery;
+        private String phoneQuery;
 
         public Optional<Date> getDate() {
             return Optional.ofNullable(date);
@@ -120,6 +128,10 @@ public class ListCommand extends Command {
             return Optional.ofNullable(foodQuery);
         }
 
+        public Optional<String> getPhoneQuery() {
+            return Optional.ofNullable(phoneQuery);
+        }
+
         public void setDate(Date date) {
             this.date = date;
         }
@@ -130,6 +142,10 @@ public class ListCommand extends Command {
 
         public void setFoodQuery(String foodQuery) {
             this.foodQuery = foodQuery;
+        }
+
+        public void setPhoneQuery(String phoneQuery) {
+            this.phoneQuery = phoneQuery;
         }
 
         @Override
@@ -145,7 +161,8 @@ public class ListCommand extends Command {
             ListFilterDescriptor otherDescriptor = (ListFilterDescriptor) other;
             return Objects.equals(date, otherDescriptor.date)
                     && Objects.equals(customerQuery, otherDescriptor.customerQuery)
-                    && Objects.equals(foodQuery, otherDescriptor.foodQuery);
+                    && Objects.equals(foodQuery, otherDescriptor.foodQuery)
+                    && Objects.equals(phoneQuery, otherDescriptor.phoneQuery);
         }
     }
 }

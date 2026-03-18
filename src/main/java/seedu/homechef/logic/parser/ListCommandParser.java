@@ -4,6 +4,7 @@ import static seedu.homechef.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_FOOD;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Optional;
 
@@ -24,20 +25,21 @@ public class ListCommandParser implements Parser<ListCommand> {
      */
     @Override
     public ListCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_CUSTOMER, PREFIX_FOOD);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_CUSTOMER, PREFIX_FOOD, PREFIX_PHONE);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATE, PREFIX_CUSTOMER, PREFIX_FOOD);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATE, PREFIX_CUSTOMER, PREFIX_FOOD, PREFIX_PHONE);
 
         Optional<String> dateArg = argMultimap.getValue(PREFIX_DATE);
         Optional<String> customerArg = argMultimap.getValue(PREFIX_CUSTOMER);
         Optional<String> foodArg = argMultimap.getValue(PREFIX_FOOD);
+        Optional<String> phoneArg = argMultimap.getValue(PREFIX_PHONE);
 
         // No recognized prefixes -> keep old behaviour: list everything
-        if (dateArg.isEmpty() && customerArg.isEmpty() && foodArg.isEmpty()) {
+        if (dateArg.isEmpty() && customerArg.isEmpty() && foodArg.isEmpty() && phoneArg.isEmpty()) {
             return new ListCommand();
         }
 
@@ -62,6 +64,14 @@ public class ListCommandParser implements Parser<ListCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
             }
             descriptor.setFoodQuery(trimmed);
+        }
+
+        if (phoneArg.isPresent()) {
+            String trimmed = phoneArg.get().trim();
+            if (trimmed.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+            }
+            descriptor.setPhoneQuery(trimmed);
         }
 
         return new ListCommand(descriptor);
