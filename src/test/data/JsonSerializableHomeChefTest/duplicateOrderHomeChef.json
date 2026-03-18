@@ -1,18 +1,23 @@
 {
-  "orders": [ {
-    "dish": "Birthday Cake",
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "alice@example.com",
-    "date": "26-10-2026",
-    "address": "123, Jurong West Ave 6, #08-111",
-    "tags": [ "friends" ]
-  }, {
-    "dish": "Birthday Cake",
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "pauline@example.com",
-    "date": "26-10-2026",
-    "address": "4th street"
-  } ]
+  "orders": [
+    {
+      "food": "Birthday Cake",
+      "customer": "Alice Pauline",
+      "phone": "94351253",
+      "email": "alice@example.com",
+      "date": "26-10-2026",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "tags": [
+        "friends"
+      ]
+    },
+    {
+      "food": "Birthday Cake",
+      "customer": "Alice Pauline",
+      "phone": "94351253",
+      "email": "pauline@example.com",
+      "date": "26-10-2026",
+      "address": "4th street"
+    }
+  ]
 }

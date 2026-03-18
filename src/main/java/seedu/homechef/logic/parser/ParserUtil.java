@@ -13,10 +13,10 @@ import seedu.homechef.commons.core.index.Index;
 import seedu.homechef.commons.util.StringUtil;
 import seedu.homechef.logic.parser.exceptions.ParseException;
 import seedu.homechef.model.order.Address;
+import seedu.homechef.model.order.Customer;
 import seedu.homechef.model.order.Date;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
-import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.PaymentType;
 import seedu.homechef.model.order.Phone;
@@ -36,6 +36,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -62,18 +63,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String customerName} into a {@code Customer}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code customerName} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+    public static Customer parseCustomer(String customerName) throws ParseException {
+        requireNonNull(customerName);
+        String trimmedName = customerName.trim();
+        if (!Customer.isValidCustomer(trimmedName)) {
+            throw new ParseException(Customer.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Customer(trimmedName);
     }
 
     /**

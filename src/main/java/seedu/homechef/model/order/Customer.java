@@ -5,12 +5,12 @@ import static seedu.homechef.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an Order's customer name in the HomeChef.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidCustomer(String)}
  */
-public class Name {
+public class Customer {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Customer names should only contain alphanumeric characters and spaces, and should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -25,16 +25,16 @@ public class Name {
      *
      * @param name A valid name.
      */
-    public Name(String name) {
+    public Customer(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCustomer(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid Customer name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidCustomer(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -51,12 +51,12 @@ public class Name {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Name)) {
+        if (!(other instanceof Customer)) {
             return false;
         }
 
-        Name otherName = (Name) other;
-        return fullName.equals(otherName.fullName);
+        Customer otherCustomer = (Customer) other;
+        return fullName.equals(otherCustomer.fullName);
     }
 
     @Override

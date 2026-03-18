@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.homechef.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.homechef.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.homechef.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.homechef.logic.commands.CommandTestUtil.VALID_CUSTOMER_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.homechef.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -58,10 +58,10 @@ public class EditCommandTest {
         Order lastOrder = model.getFilteredOrderList().get(indexLastOrder.getZeroBased());
 
         OrderBuilder orderInList = new OrderBuilder(lastOrder);
-        Order editedOrder = orderInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        Order editedOrder = orderInList.withCustomer(VALID_CUSTOMER_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder().withCustomer(VALID_CUSTOMER_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastOrder, descriptor);
 
@@ -90,9 +90,9 @@ public class EditCommandTest {
         showOrderAtIndex(model, INDEX_FIRST_ORDER);
 
         Order orderInFilteredList = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
-        Order editedOrder = new OrderBuilder(orderInFilteredList).withName(VALID_NAME_BOB).build();
+        Order editedOrder = new OrderBuilder(orderInFilteredList).withCustomer(VALID_CUSTOMER_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ORDER,
-                new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditOrderDescriptorBuilder().withCustomer(VALID_CUSTOMER_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, Messages.format(editedOrder));
 
@@ -126,7 +126,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidOrderIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredOrderList().size() + 1);
-        EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder().withCustomer(VALID_CUSTOMER_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
@@ -144,7 +144,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getHomeChef().getOrderList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditOrderDescriptorBuilder().withCustomer(VALID_CUSTOMER_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
     }

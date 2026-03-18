@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,10 +13,10 @@ import seedu.homechef.commons.exceptions.IllegalValueException;
 import seedu.homechef.model.order.Address;
 import seedu.homechef.model.order.CompletionStatus;
 import seedu.homechef.model.order.CompletionStatusEnum;
+import seedu.homechef.model.order.Customer;
 import seedu.homechef.model.order.Date;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
-import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.PaymentType;
@@ -31,8 +30,8 @@ class JsonAdaptedOrder {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Order's %s field is missing!";
 
-    private final String dish;
-    private final String name;
+    private final String food;
+    private final String customer;
     private final String phone;
     private final String email;
     private final String address;
@@ -51,8 +50,8 @@ class JsonAdaptedOrder {
      */
     @JsonCreator
     public JsonAdaptedOrder(
-            @JsonProperty("dish") String dish,
-            @JsonProperty("name") String name,
+            @JsonProperty("food") String food,
+            @JsonProperty("customer") String customer,
             @JsonProperty("phone") String phone,
             @JsonProperty("email") String email,
             @JsonProperty("address") String address,
@@ -65,8 +64,8 @@ class JsonAdaptedOrder {
             @JsonProperty("paymentLastFourDigits") String paymentLastFourDigits,
             @JsonProperty("paymentWalletProvider") String paymentWalletProvider,
             @JsonProperty("paymentWalletAccountId") String paymentWalletAccountId) {
-        this.dish = dish;
-        this.name = name;
+        this.food = food;
+        this.customer = customer;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -87,15 +86,15 @@ class JsonAdaptedOrder {
      * Converts a given {@code Order} into this class for Jackson use.
      */
     public JsonAdaptedOrder(Order source) {
-        dish = source.getFood().foodName;
-        name = source.getName().fullName;
+        food = source.getFood().foodName;
+        customer = source.getCustomer().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         date = source.getDate().toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+                .toList());
 
         Optional<PaymentInfo> optPaymentInfo = source.getPaymentInfo();
         if (optPaymentInfo.isPresent()) {
@@ -129,21 +128,22 @@ class JsonAdaptedOrder {
             modelDietTags.add(tag.toModelType());
         }
 
-        if (dish == null) {
+        if (food == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Food.class.getSimpleName()));
         }
-        if (!Food.isValidFood(dish)) {
+        if (!Food.isValidFood(food)) {
             throw new IllegalValueException(Food.MESSAGE_CONSTRAINTS);
         }
-        final Food modelFood = new Food(dish);
+        final Food modelFood = new Food(food);
 
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        if (customer == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Customer.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!Customer.isValidCustomer(customer)) {
+            throw new IllegalValueException(Customer.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final Customer modelCustomer = new Customer(customer);
 
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
@@ -199,7 +199,7 @@ class JsonAdaptedOrder {
             }
         }
 
-        return new Order(modelFood, modelName, modelPhone, modelEmail,
+        return new Order(modelFood, modelCustomer, modelPhone, modelEmail,
                 modelAddress, modelDate, modelCompletionStatus, modelDietTags, modelPaymentInfo);
     }
 

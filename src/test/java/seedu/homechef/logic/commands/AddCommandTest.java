@@ -70,8 +70,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Order alice = new OrderBuilder().withName("Alice").build();
-        Order bob = new OrderBuilder().withName("Bob").build();
+        Order alice = new OrderBuilder().withCustomer("Alice").build();
+        Order bob = new OrderBuilder().withCustomer("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 

@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.homechef.logic.commands.CommandTestUtil.VALID_CUSTOMER_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_FOOD_BOB;
-import static seedu.homechef.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.homechef.testutil.Assert.assertThrows;
@@ -36,29 +36,29 @@ public class OrderTest {
         // null -> returns false
         assertFalse(ALICE.isSameOrder(null));
 
-        // same name, food and date; other attributes different -> returns true
+        // same Customer, food and date; other attributes different -> returns true
         Order editedAlice = new OrderBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameOrder(editedAlice));
 
-        // different name, all other attributes same -> returns false
-        editedAlice = new OrderBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        // different Customer, all other attributes same -> returns false
+        editedAlice = new OrderBuilder(ALICE).withCustomer(VALID_CUSTOMER_BOB).build();
         assertFalse(ALICE.isSameOrder(editedAlice));
 
-        // name differs in case, all other attributes same -> returns false
-        Order editedBob = new OrderBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
+        // Customer differs in case, all other attributes same -> returns false
+        Order editedBob = new OrderBuilder(BOB).withCustomer(VALID_CUSTOMER_BOB.toLowerCase()).build();
         assertFalse(BOB.isSameOrder(editedBob));
 
-        // name has trailing spaces, all other attributes same -> returns false
-        String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new OrderBuilder(BOB).withName(nameWithTrailingSpaces).build();
+        // Customer has trailing spaces, all other attributes same -> returns false
+        String customerWithTrailingSpaces = VALID_CUSTOMER_BOB + " ";
+        editedBob = new OrderBuilder(BOB).withCustomer(customerWithTrailingSpaces).build();
         assertFalse(BOB.isSameOrder(editedBob));
 
-        // different food, same name and date -> returns false
+        // different food, same customer and date -> returns false
         editedAlice = new OrderBuilder(ALICE).withFood(VALID_FOOD_BOB).build();
         assertFalse(ALICE.isSameOrder(editedAlice));
 
-        // same name and food, different date -> returns false
+        // same customer and food, different date -> returns false
         editedAlice = new OrderBuilder(ALICE).withDate(VALID_DATE_BOB).build();
         assertFalse(ALICE.isSameOrder(editedAlice));
     }
@@ -82,11 +82,11 @@ public class OrderTest {
         assertFalse(ALICE.equals(BOB));
 
         // different food -> returns false
-        Order editedAlice = new OrderBuilder(ALICE).withFood(VALID_NAME_BOB).build();
+        Order editedAlice = new OrderBuilder(ALICE).withFood(VALID_CUSTOMER_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different name -> returns false
-        editedAlice = new OrderBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        editedAlice = new OrderBuilder(ALICE).withCustomer(VALID_CUSTOMER_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different phone -> returns false
@@ -112,7 +112,8 @@ public class OrderTest {
 
     @Test
     public void toStringMethod() {
-        String expected = Order.class.getCanonicalName() + "{food=" + ALICE.getFood() + ", name=" + ALICE.getName()
+        String expected = Order.class.getCanonicalName() + "{food=" + ALICE.getFood()
+                + ", customer=" + ALICE.getCustomer()
                 + ", phone=" + ALICE.getPhone() + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress()
                 + ", date=" + ALICE.getDate() + ", completionStatus=" + ALICE.getCompletionStatus()
                 + ", dietTags=" + ALICE.getTags()

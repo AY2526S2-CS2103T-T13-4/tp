@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.homechef.commons.util.ToStringBuilder;
 import seedu.homechef.logic.Messages;
 import seedu.homechef.model.Model;
-import seedu.homechef.model.order.NameContainsKeywordsPredicate;
+import seedu.homechef.model.order.CustomerContainsKeywordsPredicate;
 
 /**
  * Finds and lists all orders in HomeChef whose name contains any of the argument keywords.
@@ -20,9 +20,9 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final CustomerContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(CustomerContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

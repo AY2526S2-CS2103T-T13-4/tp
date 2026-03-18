@@ -7,19 +7,19 @@ import seedu.homechef.commons.util.StringUtil;
 import seedu.homechef.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Order}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Order}'s {@code Customer} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Order> {
+public class CustomerContainsKeywordsPredicate implements Predicate<Order> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public CustomerContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
     @Override
     public boolean test(Order order) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(order.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(order.getCustomer().fullName, keyword));
     }
 
     @Override
@@ -29,12 +29,11 @@ public class NameContainsKeywordsPredicate implements Predicate<Order> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NameContainsKeywordsPredicate)) {
+        if (!(other instanceof CustomerContainsKeywordsPredicate otherCustomerContainsKeywordsPredicate)) {
             return false;
         }
 
-        NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
-        return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
+        return keywords.equals(otherCustomerContainsKeywordsPredicate.keywords);
     }
 
     @Override
