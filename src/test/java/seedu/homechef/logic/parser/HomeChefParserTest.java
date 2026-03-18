@@ -22,6 +22,8 @@ import seedu.homechef.logic.commands.ExitCommand;
 import seedu.homechef.logic.commands.FindCommand;
 import seedu.homechef.logic.commands.HelpCommand;
 import seedu.homechef.logic.commands.ListCommand;
+import seedu.homechef.logic.commands.MarkCompleteCommand;
+import seedu.homechef.logic.commands.MarkInProgressCommand;
 import seedu.homechef.logic.parser.exceptions.ParseException;
 import seedu.homechef.model.order.NameContainsKeywordsPredicate;
 import seedu.homechef.model.order.Order;
@@ -86,6 +88,20 @@ public class HomeChefParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_mark_complete() throws Exception {
+        MarkCompleteCommand command = (MarkCompleteCommand) parser.parseCommand(
+                MarkCompleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ORDER.getOneBased());
+        assertEquals(new MarkCompleteCommand(INDEX_FIRST_ORDER), command);
+    }
+
+    @Test
+    public void parseCommand_mark_inProgress() throws Exception {
+        MarkInProgressCommand command = (MarkInProgressCommand) parser.parseCommand(
+                MarkInProgressCommand.COMMAND_WORD + " " + INDEX_FIRST_ORDER.getOneBased());
+        assertEquals(new MarkInProgressCommand(INDEX_FIRST_ORDER), command);
     }
 
     @Test

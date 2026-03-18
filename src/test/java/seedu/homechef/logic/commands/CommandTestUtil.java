@@ -70,6 +70,11 @@ public class CommandTestUtil {
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "99-10-2029"; // fake date not allowed in dates
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String VALID_COMPLETION_STATUS_IN_PROGRESS = "In progress";
+    public static final String VALID_COMPLETION_STATUS_COMPLETE = "Completed";
+
+    public static final String INVALID_COMPLETION_STATUS = "Invalid status";
+
     // Payment info test constants
     public static final String VALID_PAYMENT_METHOD_CASH = "CASH";
     public static final String VALID_PAYMENT_METHOD_PAYNOW = "PAYNOW";

@@ -6,7 +6,6 @@ import java.util.Set;
 
 import seedu.homechef.model.order.Address;
 import seedu.homechef.model.order.CompletionStatus;
-import seedu.homechef.model.order.CompletionStatusEnum;
 import seedu.homechef.model.order.Date;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
@@ -28,7 +27,7 @@ public class OrderBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_DATE = "10-03-2026";
-    public static final CompletionStatusEnum DEFAULT_COMPLETION_STATUS = CompletionStatusEnum.IN_PROGRESS;
+    public static final String DEFAULT_COMPLETION_STATUS = "In progress";
 
     private Food food;
     private Name name;
@@ -128,7 +127,7 @@ public class OrderBuilder {
     /**
      * Sets the {@code CompletionStatus} of the {@code Order} that we are building.
      */
-    public OrderBuilder withCompletionStatus(CompletionStatusEnum completionStatus) {
+    public OrderBuilder withCompletionStatus(String completionStatus) {
         this.completionStatus = new CompletionStatus(completionStatus);
         return this;
     }
