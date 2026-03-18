@@ -19,7 +19,7 @@ public class Order {
 
     // Identity fields
     private final Food food;
-    private final Name name;
+    private final Customer customer;
     private final Phone phone;
     private final Email email;
     private final CompletionStatus completionStatus;
@@ -34,21 +34,21 @@ public class Order {
     /**
      * Every field must be present and not null.
      */
-    public Order(Food food, Name name, Phone phone, Email email, Address address, Date date,
-                 CompletionStatus completionStatus,  PaymentStatus paymentStatus, Set<DietTag> dietTags) {
-        this(food, name, phone, email, address, date, completionStatus, paymentStatus, dietTags, Optional.empty());
+    public Order(Food food, Customer customer, Phone phone, Email email, Address address, Date date,
+                 CompletionStatus completionStatus, PaymentStatus paymentStatus, Set<DietTag> dietTags) {
+        this(food, customer, phone, email, address, date, completionStatus, paymentStatus, dietTags, Optional.empty());
     }
 
     /**
      * Every field must be present and not null. {@code paymentInfo} may be empty.
      */
-    public Order(Food food, Name name, Phone phone, Email email, Address address, Date date,
-                 CompletionStatus completionStatus, PaymentStatus paymentStatus,
-                 Set<DietTag> dietTags, Optional<PaymentInfo> paymentInfo) {
-        requireAllNonNull(food, name, phone, email, address, date,
+    public Order(Food food, Customer customer, Phone phone, Email email, Address address, Date date,
+                 CompletionStatus completionStatus, PaymentStatus paymentStatus, Set<DietTag> dietTags,
+                 Optional<PaymentInfo> paymentInfo) {
+        requireAllNonNull(food, customer, phone, email, address, date,
                 completionStatus, paymentStatus, dietTags, paymentInfo);
         this.food = food;
-        this.name = name;
+        this.customer = customer;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -63,8 +63,8 @@ public class Order {
         return food;
     }
 
-    public Name getName() {
-        return name;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public Phone getPhone() {
@@ -116,7 +116,7 @@ public class Order {
         }
 
         return otherOrder != null
-                && otherOrder.getName().equals(getName())
+                && otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getFood().equals(getFood())
                 && otherOrder.getDate().equals(getDate());
     }
@@ -138,7 +138,7 @@ public class Order {
 
         Order otherOrder = (Order) other;
         return food.equals(otherOrder.food)
-                && name.equals(otherOrder.name)
+                && customer.equals(otherOrder.customer)
                 && phone.equals(otherOrder.phone)
                 && email.equals(otherOrder.email)
                 && address.equals(otherOrder.address)
@@ -152,7 +152,7 @@ public class Order {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(food, name, phone, email, address, date, completionStatus,
+        return Objects.hash(food, customer, phone, email, address, date, completionStatus,
                 paymentStatus, dietTags, paymentInfo);
     }
 
@@ -160,7 +160,7 @@ public class Order {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("food", food)
-                .add("name", name)
+                .add("customer", customer)
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)

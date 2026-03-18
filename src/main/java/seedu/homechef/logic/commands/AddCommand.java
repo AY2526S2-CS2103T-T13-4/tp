@@ -3,10 +3,10 @@ package seedu.homechef.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_BANK_NAME;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_FOOD;
-import static seedu.homechef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PAYMENT_METHOD;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PAYMENT_REF;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -29,7 +29,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a order to HomeChef. "
             + "Parameters: "
             + PREFIX_FOOD + "FOOD "
-            + PREFIX_NAME + "NAME "
+            + PREFIX_CUSTOMER + "CUSTOMER "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
@@ -42,7 +42,7 @@ public class AddCommand extends Command {
             + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FOOD + "Birthday Cake "
-            + PREFIX_NAME + "John "
+            + PREFIX_CUSTOMER + "John "
             + PREFIX_PHONE + "1234 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "NUS "

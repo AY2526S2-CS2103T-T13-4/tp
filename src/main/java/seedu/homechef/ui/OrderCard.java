@@ -31,7 +31,7 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label food;
     @FXML
-    private Label name;
+    private Label customer;
     @FXML
     private Label id;
     @FXML
@@ -59,7 +59,7 @@ public class OrderCard extends UiPart<Region> {
         this.order = order;
         id.setText(displayedIndex + ". ");
         food.setText(order.getFood().foodName);
-        name.setText(order.getName().fullName);
+        customer.setText(order.getCustomer().fullName);
         phone.setText(order.getPhone().value);
         address.setText(order.getAddress().value);
         date.setText(order.getDate().toString());

@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.homechef.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_BANK_NAME;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_FOOD;
-import static seedu.homechef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PAYMENT_METHOD;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PAYMENT_REF;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -40,7 +40,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FOOD, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                ArgumentTokenizer.tokenize(args, PREFIX_FOOD, PREFIX_CUSTOMER, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_ADDRESS, PREFIX_DATE, PREFIX_TAG,
                         PREFIX_PAYMENT_METHOD, PREFIX_PAYMENT_REF, PREFIX_BANK_NAME, PREFIX_WALLET_PROVIDER);
 
@@ -52,7 +52,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_FOOD, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_FOOD, PREFIX_CUSTOMER, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_ADDRESS,
                 PREFIX_DATE);
 
         EditOrderDescriptor editOrderDescriptor = new EditOrderDescriptor();
@@ -60,8 +61,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_FOOD).isPresent()) {
             editOrderDescriptor.setFood(ParserUtil.parseFood(argMultimap.getValue(PREFIX_FOOD).get()));
         }
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editOrderDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        if (argMultimap.getValue(PREFIX_CUSTOMER).isPresent()) {
+            editOrderDescriptor.setCustomer(ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_CUSTOMER).get()));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editOrderDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));

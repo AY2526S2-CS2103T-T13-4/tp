@@ -7,10 +7,10 @@ import java.util.Set;
 import seedu.homechef.model.order.Address;
 import seedu.homechef.model.order.CompletionStatus;
 import seedu.homechef.model.order.CompletionStatusEnum;
+import seedu.homechef.model.order.Customer;
 import seedu.homechef.model.order.Date;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
-import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.PaymentStatus;
@@ -24,7 +24,7 @@ import seedu.homechef.model.util.SampleDataUtil;
 public class OrderBuilder {
 
     public static final String DEFAULT_FOOD = "Birthday Cake";
-    public static final String DEFAULT_NAME = "Amy Bee";
+    public static final String DEFAULT_CUSTOMER = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
@@ -32,7 +32,7 @@ public class OrderBuilder {
     public static final CompletionStatusEnum DEFAULT_COMPLETION_STATUS = CompletionStatusEnum.IN_PROGRESS;
 
     private Food food;
-    private Name name;
+    private Customer customer;
     private Phone phone;
     private Email email;
     private Address address;
@@ -47,7 +47,7 @@ public class OrderBuilder {
      */
     public OrderBuilder() {
         food = new Food(DEFAULT_FOOD);
-        name = new Name(DEFAULT_NAME);
+        customer = new Customer(DEFAULT_CUSTOMER);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
@@ -62,7 +62,7 @@ public class OrderBuilder {
      */
     public OrderBuilder(Order orderToCopy) {
         food = orderToCopy.getFood();
-        name = orderToCopy.getName();
+        customer = orderToCopy.getCustomer();
         phone = orderToCopy.getPhone();
         email = orderToCopy.getEmail();
         address = orderToCopy.getAddress();
@@ -82,10 +82,10 @@ public class OrderBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Order} that we are building.
+     * Sets the {@code Customer} of the {@code Order} that we are building.
      */
-    public OrderBuilder withName(String name) {
-        this.name = new Name(name);
+    public OrderBuilder withCustomer(String name) {
+        this.customer = new Customer(name);
         return this;
     }
 
@@ -145,7 +145,6 @@ public class OrderBuilder {
         return this;
     }
 
-
     /**
      * Sets the {@code PaymentInfo} of the {@code Order} that we are building.
      */
@@ -158,7 +157,7 @@ public class OrderBuilder {
      * Builds and returns the {@code Order}.
      */
     public Order build() {
-        return new Order(food, name, phone, email, address, date,
+        return new Order(food, customer, phone, email, address, date,
                 completionStatus, paymentStatus, dietTags, paymentInfo);
     }
 

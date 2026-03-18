@@ -2,8 +2,8 @@
   "_comment": "HomeChef save file which contains the same Order values as in TypicalOrders#getTypicalHomeChef()",
   "orders": [
     {
-      "dish": "Birthday Cake",
-      "name": "Alice Pauline",
+      "food": "Birthday Cake",
+      "customer": "Alice Pauline",
       "phone": "94351253",
       "email": "alice@example.com",
       "address": "123, Jurong West Ave 6, #08-111",
@@ -14,8 +14,8 @@
       ]
     },
     {
-      "dish": "Sourdough Bread",
-      "name": "Benson Meier",
+      "food": "Sourdough Bread",
+      "customer": "Benson Meier",
       "phone": "98765432",
       "email": "johnd@example.com",
       "address": "311, Clementi Ave 2, #02-25",
@@ -27,8 +27,8 @@
       ]
     },
     {
-      "dish": "Cupcakes (24pcs)",
-      "name": "Carl Kurz",
+      "food": "Cupcakes (24pcs)",
+      "customer": "Carl Kurz",
       "phone": "95352563",
       "email": "heinz@example.com",
       "address": "wall street",
@@ -37,8 +37,8 @@
       "tags": []
     },
     {
-      "dish": "Wedding Cake - 3 Tier",
-      "name": "Daniel Meier",
+      "food": "Wedding Cake - 3 Tier",
+      "customer": "Daniel Meier",
       "phone": "87652533",
       "email": "cornelia@example.com",
       "address": "10th street",
@@ -49,8 +49,8 @@
       ]
     },
     {
-      "dish": "Chocolate Chip Cookies (3pcs)",
-      "name": "Elle Meyer",
+      "food": "Chocolate Chip Cookies (3pcs)",
+      "customer": "Elle Meyer",
       "phone": "9482224",
       "email": "werner@example.com",
       "address": "michegan ave",
@@ -59,8 +59,8 @@
       "tags": []
     },
     {
-      "dish": "Muffin (4pc)",
-      "name": "Fiona Kunz",
+      "food": "Muffin (4pc)",
+      "customer": "Fiona Kunz",
       "phone": "9482427",
       "email": "lydia@example.com",
       "address": "little tokyo",
@@ -69,8 +69,8 @@
       "tags": []
     },
     {
-      "dish": "Doughnut Assortment",
-      "name": "George Best",
+      "food": "Doughnut Assortment",
+      "customer": "George Best",
       "phone": "9482442",
       "email": "anna@example.com",
       "address": "4th street",

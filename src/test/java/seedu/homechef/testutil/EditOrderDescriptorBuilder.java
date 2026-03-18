@@ -6,10 +6,10 @@ import java.util.stream.Stream;
 
 import seedu.homechef.logic.commands.EditCommand.EditOrderDescriptor;
 import seedu.homechef.model.order.Address;
+import seedu.homechef.model.order.Customer;
 import seedu.homechef.model.order.Date;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
-import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.Phone;
@@ -36,7 +36,7 @@ public class EditOrderDescriptorBuilder {
     public EditOrderDescriptorBuilder(Order order) {
         descriptor = new EditOrderDescriptor();
         descriptor.setFood(order.getFood());
-        descriptor.setName(order.getName());
+        descriptor.setCustomer(order.getCustomer());
         descriptor.setPhone(order.getPhone());
         descriptor.setEmail(order.getEmail());
         descriptor.setAddress(order.getAddress());
@@ -54,10 +54,10 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditOrderDescriptor} that we are building.
+     * Sets the {@code Customer} of the {@code EditOrderDescriptor} that we are building.
      */
-    public EditOrderDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
+    public EditOrderDescriptorBuilder withCustomer(String name) {
+        descriptor.setCustomer(new Customer(name));
         return this;
     }
 

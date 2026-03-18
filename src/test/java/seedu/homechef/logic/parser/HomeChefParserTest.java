@@ -23,7 +23,7 @@ import seedu.homechef.logic.commands.FindCommand;
 import seedu.homechef.logic.commands.HelpCommand;
 import seedu.homechef.logic.commands.ListCommand;
 import seedu.homechef.logic.parser.exceptions.ParseException;
-import seedu.homechef.model.order.NameContainsKeywordsPredicate;
+import seedu.homechef.model.order.CustomerContainsKeywordsPredicate;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.testutil.EditOrderDescriptorBuilder;
 import seedu.homechef.testutil.OrderBuilder;
@@ -73,7 +73,7 @@ public class HomeChefParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new CustomerContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class HomeChefParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+                -> parser.parseCommand(""));
     }
 
     @Test

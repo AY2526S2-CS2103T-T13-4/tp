@@ -16,21 +16,21 @@ import org.junit.jupiter.api.Test;
 
 import seedu.homechef.logic.parser.exceptions.ParseException;
 import seedu.homechef.model.order.Address;
+import seedu.homechef.model.order.Customer;
 import seedu.homechef.model.order.Email;
-import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.PaymentType;
 import seedu.homechef.model.order.Phone;
 import seedu.homechef.model.tag.DietTag;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_CUSTOMER = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = "Rachel Walker";
+    private static final String VALID_CUSTOMER = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
@@ -47,7 +47,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+                -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -60,26 +60,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+    public void parseCustomer_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCustomer((String) null));
     }
 
     @Test
-    public void parseName_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
+    public void parseCustomer_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCustomer(INVALID_CUSTOMER));
     }
 
     @Test
-    public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME));
+    public void parseCustomer_validValueWithoutWhitespace_returnsCustomer() throws Exception {
+        Customer expectedCustomer = new Customer(VALID_CUSTOMER);
+        assertEquals(expectedCustomer, ParserUtil.parseCustomer(VALID_CUSTOMER));
     }
 
     @Test
-    public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    public void parseCustomer_validValueWithWhitespace_returnsTrimmedCustomer() throws Exception {
+        String customerWithWhitespace = WHITESPACE + VALID_CUSTOMER + WHITESPACE;
+        Customer expectedCustomer = new Customer(VALID_CUSTOMER);
+        assertEquals(expectedCustomer, ParserUtil.parseCustomer(customerWithWhitespace));
     }
 
     @Test

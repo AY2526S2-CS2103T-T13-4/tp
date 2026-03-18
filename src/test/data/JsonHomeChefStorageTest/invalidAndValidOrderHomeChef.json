@@ -1,13 +1,18 @@
 {
-  "orders": [ {
-    "name": "Valid Order",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
-  }, {
-    "name": "Order With Invalid Phone Field",
-    "phone": "948asdf2424",
-    "email": "hans@example.com",
-    "address": "4th street"
-  } ]
+  "orders": [
+    {
+      "food": "Valid Cake",
+      "customer": "Hans",
+      "phone": "9482424",
+      "email": "hans@example.com",
+      "address": "4th street"
+    },
+    {
+      "food": "Invalid Order With Invalid Phone Field",
+      "customer": "Hans",
+      "phone": "948asdf2424",
+      "email": "hans@example.com",
+      "address": "4th street"
+    }
+  ]
 }

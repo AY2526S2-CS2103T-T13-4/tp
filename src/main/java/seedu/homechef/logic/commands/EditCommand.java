@@ -3,10 +3,10 @@ package seedu.homechef.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_BANK_NAME;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_FOOD;
-import static seedu.homechef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PAYMENT_METHOD;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PAYMENT_REF;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -29,10 +29,10 @@ import seedu.homechef.logic.commands.exceptions.CommandException;
 import seedu.homechef.model.Model;
 import seedu.homechef.model.order.Address;
 import seedu.homechef.model.order.CompletionStatus;
+import seedu.homechef.model.order.Customer;
 import seedu.homechef.model.order.Date;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
-import seedu.homechef.model.order.Name;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.PaymentStatus;
@@ -51,7 +51,7 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_FOOD + "FOOD] "
-            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_CUSTOMER + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
@@ -113,7 +113,7 @@ public class EditCommand extends Command {
         assert orderToEdit != null;
 
         Food updatedFood = editOrderDescriptor.getFood().orElse(orderToEdit.getFood());
-        Name updatedName = editOrderDescriptor.getName().orElse(orderToEdit.getName());
+        Customer updatedCustomer = editOrderDescriptor.getCustomer().orElse(orderToEdit.getCustomer());
         Phone updatedPhone = editOrderDescriptor.getPhone().orElse(orderToEdit.getPhone());
         Email updatedEmail = editOrderDescriptor.getEmail().orElse(orderToEdit.getEmail());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
@@ -122,11 +122,11 @@ public class EditCommand extends Command {
         PaymentStatus updatedPaymentStatus = orderToEdit.getPaymentStatus();
         Set<DietTag> updatedDietTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
         Optional<PaymentInfo> updatedPaymentInfo = editOrderDescriptor.getPaymentInfo().isPresent()
-                ? editOrderDescriptor.getPaymentInfo()
-                : orderToEdit.getPaymentInfo();
+                                                   ? editOrderDescriptor.getPaymentInfo()
+                                                   : orderToEdit.getPaymentInfo();
 
-        return new Order(updatedFood, updatedName, updatedPhone, updatedEmail, updatedAddress,
-                updatedDate, updatedCompletionStatus, updatedPaymentStatus, updatedDietTags, updatedPaymentInfo);
+        return new Order(updatedFood, updatedCustomer, updatedPhone, updatedEmail, updatedAddress, updatedDate,
+                updatedCompletionStatus, updatedPaymentStatus, updatedDietTags, updatedPaymentInfo);
     }
 
     @Override
@@ -159,7 +159,7 @@ public class EditCommand extends Command {
      */
     public static class EditOrderDescriptor {
         private Food food;
-        private Name name;
+        private Customer customer;
         private Phone phone;
         private Email email;
         private Address address;
@@ -178,7 +178,7 @@ public class EditCommand extends Command {
          */
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
             setFood(toCopy.food);
-            setName(toCopy.name);
+            setCustomer(toCopy.customer);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
@@ -193,7 +193,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(food, name, phone, email, address, date, dietTags, paymentInfo);
+            return CollectionUtil.isAnyNonNull(food, customer, phone, email, address, date, dietTags, paymentInfo);
         }
 
         public void setFood(Food food) {
@@ -204,12 +204,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(food);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setCustomer(Customer customer) {
+            this.customer = customer;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<Customer> getCustomer() {
+            return Optional.ofNullable(customer);
         }
 
         public void setPhone(Phone phone) {
@@ -304,7 +304,7 @@ public class EditCommand extends Command {
 
             EditOrderDescriptor otherEditOrderDescriptor = (EditOrderDescriptor) other;
             return Objects.equals(food, otherEditOrderDescriptor.food)
-                    && Objects.equals(name, otherEditOrderDescriptor.name)
+                    && Objects.equals(customer, otherEditOrderDescriptor.customer)
                     && Objects.equals(phone, otherEditOrderDescriptor.phone)
                     && Objects.equals(email, otherEditOrderDescriptor.email)
                     && Objects.equals(address, otherEditOrderDescriptor.address)
@@ -319,7 +319,7 @@ public class EditCommand extends Command {
         public String toString() {
             return new ToStringBuilder(this)
                     .add("food", food)
-                    .add("name", name)
+                    .add("customer", customer)
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)

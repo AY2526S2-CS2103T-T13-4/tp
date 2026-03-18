@@ -31,7 +31,7 @@ public class ModelManager implements Model {
             return dateCmp;
         }
 
-        int nameCmp = a.getName().fullName.compareToIgnoreCase(b.getName().fullName);
+        int nameCmp = a.getCustomer().fullName.compareToIgnoreCase(b.getCustomer().fullName);
         if (nameCmp != 0) {
             return nameCmp;
         }

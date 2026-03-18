@@ -17,7 +17,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_ORDER_DISPLAYED_INDEX = "The order index provided is invalid";
     public static final String MESSAGE_ORDERS_LISTED_OVERVIEW = "%1$d orders listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
-                "Multiple values specified for the following single-valued field(s): ";
+            "Multiple values specified for the following single-valued field(s): ";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -36,7 +36,9 @@ public class Messages {
      */
     public static String format(Order order) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(order.getName())
+        builder.append(order.getFood())
+                .append("; Customer: ")
+                .append(order.getCustomer())
                 .append("; Phone: ")
                 .append(order.getPhone())
                 .append("; Email: ")
