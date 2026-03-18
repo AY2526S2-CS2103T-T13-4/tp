@@ -20,6 +20,8 @@ import java.util.stream.Stream;
 import seedu.homechef.logic.commands.AddCommand;
 import seedu.homechef.logic.parser.exceptions.ParseException;
 import seedu.homechef.model.order.Address;
+import seedu.homechef.model.order.CompletionStatus;
+import seedu.homechef.model.order.CompletionStatusEnum;
 import seedu.homechef.model.order.Date;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
@@ -34,6 +36,7 @@ import seedu.homechef.model.tag.DietTag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -59,6 +62,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        // Initialise every Order as "In progress"
+        CompletionStatus completionStatus = new CompletionStatus(CompletionStatusEnum.IN_PROGRESS);
+        // Initialise every Order as unpaid
         PaymentStatus paymentStatus = new PaymentStatus(PaymentStatus.IS_UNPAID);
         Set<DietTag> dietTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Optional<PaymentInfo> paymentInfo = ParserUtil.parsePaymentInfo(
@@ -67,7 +73,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                 argMultimap.getValue(PREFIX_BANK_NAME),
                 argMultimap.getValue(PREFIX_WALLET_PROVIDER));
 
-        Order order = new Order(food, name, phone, email, address, date, paymentStatus, dietTagList, paymentInfo);
+        Order order = new Order(food, name, phone, email, address, date,
+                completionStatus, paymentStatus, dietTagList, paymentInfo);
 
         return new AddCommand(order);
     }

@@ -28,6 +28,7 @@ import seedu.homechef.logic.Messages;
 import seedu.homechef.logic.commands.exceptions.CommandException;
 import seedu.homechef.model.Model;
 import seedu.homechef.model.order.Address;
+import seedu.homechef.model.order.CompletionStatus;
 import seedu.homechef.model.order.Date;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
@@ -117,14 +118,15 @@ public class EditCommand extends Command {
         Email updatedEmail = editOrderDescriptor.getEmail().orElse(orderToEdit.getEmail());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
         Date updatedDate = editOrderDescriptor.getDate().orElse(orderToEdit.getDate());
-        PaymentStatus paymentStatus = orderToEdit.getPaymentStatus();
+        CompletionStatus updatedCompletionStatus = orderToEdit.getCompletionStatus();
+        PaymentStatus updatedPaymentStatus = orderToEdit.getPaymentStatus();
         Set<DietTag> updatedDietTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
         Optional<PaymentInfo> updatedPaymentInfo = editOrderDescriptor.getPaymentInfo().isPresent()
                 ? editOrderDescriptor.getPaymentInfo()
                 : orderToEdit.getPaymentInfo();
 
-        return new Order(updatedFood, updatedName, updatedPhone,
-                updatedEmail, updatedAddress, updatedDate, paymentStatus, updatedDietTags, updatedPaymentInfo);
+        return new Order(updatedFood, updatedName, updatedPhone, updatedEmail, updatedAddress,
+                updatedDate, updatedCompletionStatus, updatedPaymentStatus, updatedDietTags, updatedPaymentInfo);
     }
 
     @Override
@@ -162,6 +164,8 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Date date;
+        private CompletionStatus completionStatus;
+        private PaymentStatus paymentStatus;
         private Set<DietTag> dietTags;
         private PaymentInfo paymentInfo;
 
@@ -179,6 +183,8 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setDate(toCopy.date);
+            setCompletionStatus(toCopy.completionStatus);
+            setPaymentStatus(toCopy.paymentStatus);
             setTags(toCopy.dietTags);
             setPaymentInfo(toCopy.paymentInfo);
         }
@@ -238,6 +244,22 @@ public class EditCommand extends Command {
             return Optional.ofNullable(date);
         }
 
+        public void setCompletionStatus(CompletionStatus completionStatus) {
+            this.completionStatus = completionStatus;
+        }
+
+        public Optional<CompletionStatus> getCompletionStatus() {
+            return Optional.ofNullable(completionStatus);
+        }
+
+        public void setPaymentStatus(PaymentStatus paymentStatus) {
+            this.paymentStatus = paymentStatus;
+        }
+
+        public Optional<PaymentStatus> getPaymentStatus() {
+            return Optional.ofNullable(paymentStatus);
+        }
+
         /**
          * Sets {@code dietTags} to this object's {@code dietTags}.
          * A defensive copy of {@code dietTags} is used internally.
@@ -287,6 +309,8 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditOrderDescriptor.email)
                     && Objects.equals(address, otherEditOrderDescriptor.address)
                     && Objects.equals(date, otherEditOrderDescriptor.date)
+                    && Objects.equals(completionStatus, otherEditOrderDescriptor.completionStatus)
+                    && Objects.equals(paymentStatus, otherEditOrderDescriptor.paymentStatus)
                     && Objects.equals(dietTags, otherEditOrderDescriptor.dietTags)
                     && Objects.equals(paymentInfo, otherEditOrderDescriptor.paymentInfo);
         }
@@ -300,6 +324,8 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("date", date)
+                    .add("completionStatus", completionStatus)
+                    .add("paymentStatus", paymentStatus)
                     .add("dietTags", dietTags)
                     .add("paymentInfo", paymentInfo)
                     .toString();
