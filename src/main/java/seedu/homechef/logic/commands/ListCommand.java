@@ -21,19 +21,24 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Lists orders, optionally filtered by fulfillment date.\n"
-            + "Format: " + COMMAND_WORD + " [d/DATE]\n"
+            + "Format: " + COMMAND_WORD + " [f/FOOD] [c/CUSTOMER] [d/DATE] [p/PHONE]\n"
             + "DATE must be in the format dd-MM-yyyy.\n"
             + "Example: " + COMMAND_WORD + "\n"
-            + "Example: " + COMMAND_WORD + " d/16-04-2003";
+            + "Example: " + COMMAND_WORD + " d/18-10-2026\n"
+            + "Example: " + COMMAND_WORD + " c/alice\n"
+            + "Example: " + COMMAND_WORD + " f/cake\n"
+            + "Example: " + COMMAND_WORD + " p/1234\n"
+            + "Example: " + COMMAND_WORD + " d/16-04-2003 c/alice f/cake p/1234";
 
-    private final Optional<Date> targetDate;
+    private final ListFilterDescriptor descriptor;
 
     /**
      * Creates a ListCommand that lists all orders without filtering.
      */
     public ListCommand() {
-        this.targetDate = Optional.empty();
+        this(new ListFilterDescriptor());
     }
+
     /**
      * Creates a ListCommand that filters orders by the given date.
      *
@@ -41,16 +46,47 @@ public class ListCommand extends Command {
      */
     public ListCommand(Date targetDate) {
         requireNonNull(targetDate);
-        this.targetDate = Optional.of(targetDate);
+        ListFilterDescriptor d = new ListFilterDescriptor();
+        d.setDate(targetDate);
+        this.descriptor = d;
+    }
+
+    /**
+     * Creates a ListCommand that filters orders based on the given descriptor.
+     */
+    public ListCommand(ListFilterDescriptor descriptor) {
+        requireNonNull(descriptor);
+        this.descriptor = descriptor;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        Predicate<Order> predicate = targetDate
-                .<Predicate<Order>>map(targetDate -> order -> order.getDate().equals(targetDate))
-                .orElse(PREDICATE_SHOW_ALL_ORDERS);
+        Predicate<Order> predicate = PREDICATE_SHOW_ALL_ORDERS;
+
+        if (descriptor.getDate().isPresent()) {
+            Date date = descriptor.getDate().get();
+            predicate = predicate.and(order -> order.getDate().equals(date));
+        }
+
+        if (descriptor.getCustomerQuery().isPresent()) {
+            String query = descriptor.getCustomerQuery().get().toLowerCase();
+            predicate = predicate.and(order ->
+                    order.getCustomer().fullName.toLowerCase().contains(query));
+        }
+
+        if (descriptor.getFoodQuery().isPresent()) {
+            String query = descriptor.getFoodQuery().get().toLowerCase();
+            predicate = predicate.and(order ->
+                    order.getFood().foodName.toLowerCase().contains(query));
+        }
+
+        if (descriptor.getPhoneQuery().isPresent()) {
+            String query = descriptor.getPhoneQuery().get().toLowerCase();
+            predicate = predicate.and(order ->
+                    order.getPhone().value.toLowerCase().contains(query));
+        }
 
         model.updateFilteredOrderList(predicate);
         return new CommandResult(MESSAGE_SUCCESS);
@@ -67,6 +103,66 @@ public class ListCommand extends Command {
         }
 
         ListCommand otherListCommand = (ListCommand) other;
-        return Objects.equals(targetDate, otherListCommand.targetDate);
+        return Objects.equals(descriptor, otherListCommand.descriptor);
+    }
+
+    /**
+     * Stores the details to filter the order list with. Each non-empty field value will be used
+     * as a filter criterion.
+     */
+    public static class ListFilterDescriptor {
+        private Date date;
+        private String customerQuery;
+        private String foodQuery;
+        private String phoneQuery;
+
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
+        }
+
+        public Optional<String> getCustomerQuery() {
+            return Optional.ofNullable(customerQuery);
+        }
+
+        public Optional<String> getFoodQuery() {
+            return Optional.ofNullable(foodQuery);
+        }
+
+        public Optional<String> getPhoneQuery() {
+            return Optional.ofNullable(phoneQuery);
+        }
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
+
+        public void setCustomerQuery(String customerQuery) {
+            this.customerQuery = customerQuery;
+        }
+
+        public void setFoodQuery(String foodQuery) {
+            this.foodQuery = foodQuery;
+        }
+
+        public void setPhoneQuery(String phoneQuery) {
+            this.phoneQuery = phoneQuery;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if (other == this) {
+                return true;
+            }
+
+            if (!(other instanceof ListFilterDescriptor)) {
+                return false;
+            }
+
+            ListFilterDescriptor otherDescriptor = (ListFilterDescriptor) other;
+            return Objects.equals(date, otherDescriptor.date)
+                    && Objects.equals(customerQuery, otherDescriptor.customerQuery)
+                    && Objects.equals(foodQuery, otherDescriptor.foodQuery)
+                    && Objects.equals(phoneQuery, otherDescriptor.phoneQuery);
+        }
     }
 }

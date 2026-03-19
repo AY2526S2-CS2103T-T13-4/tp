@@ -58,7 +58,7 @@ HomeChef-Helper (HomeChef) is a **desktop app for managing orders, optimized for
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -94,7 +94,19 @@ Examples:
 
 Shows a list of all orders in the order list.
 
-Format: `list`
+Format: `list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE]`
+
+* Lists all orders when no parameters are given.
+* Filters are case-insensitive for `c/`, `f/` and `p/`.
+* `DATE` must be in the format `dd-MM-yyyy`.
+
+Examples:
+* `list`
+* `list d/18-10-2026`
+* `list c/alice`
+* `list f/cake`
+* `list p/1234`
+* `list d/16-04-2003 c/alice f/cake p/1234`
 
 ### Marking an order as complete: `complete`
 
@@ -159,7 +171,7 @@ Examples:
 
 ### Deleting an order : `delete`
 
-Deletes the specified order from the address book.
+Deletes the specified order.
 
 Format: `delete INDEX`
 
@@ -168,7 +180,7 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd order in the address book.
+* `list` followed by `delete 2` deletes the 2nd order in the current list.
 * `find Betsy` followed by `delete 1` deletes the 1st order in the results of the `find` command.
 
 ### Clearing all entries : `clear`
@@ -229,5 +241,5 @@ Action | Format, Examples
 **Unpaid** | `unpaid INDEX` <br> e.g., `unpaid 1`
 **Edit** | `edit INDEX [f/FOOD] [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​ [m/PAYMENT METHOD] [r/PAYMENT REF] [b/BANK NAME] [w/WALLET PROVIDER]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
+**List** | `list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE]`<br> e.g., `list d/18-10-2026`
 **Help** | `help`
