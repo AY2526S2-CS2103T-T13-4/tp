@@ -124,7 +124,6 @@ public class ModelManagerTest {
         assertEquals(completedEarly, modelManager.getFilteredOrderList().get(2));
     }
 
-
     @Test
     public void getFilteredOrderList_sameDate_tieBreakByCustomerThenFood() {
         Order a1 = new OrderBuilder().withCustomer("Alice").withFood("Brownie").withPhone("11111111")
