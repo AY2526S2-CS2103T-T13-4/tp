@@ -1,78 +1,65 @@
 package seedu.homechef.model.order;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.homechef.commons.util.AppUtil.checkArgument;
+
+import java.util.Arrays;
+
 /**
- * Represents an Order's payment status in the HomeChef.
- * Guarantees: immutable; status is non-null
+ * Represents an Order's payment status in HomeChef.
  */
-public class PaymentStatus {
+public enum PaymentStatus {
+    PAID("Paid"),
+    UNPAID("Unpaid");
 
-    public static final String STATUS_PAID = "$ PAID";
-    public static final String STATUS_UNPAID = "$ UNPAID";
+    public static final String MESSAGE_CONSTRAINTS = "Payment status must be 'Paid' or 'Unpaid'";
 
-    public static final boolean IS_PAID = true;
-    public static final boolean IS_UNPAID = false;
+    public final String displayValue;
 
-    public static final String STYLE_PAID = "-fx-text-fill: limegreen;";
-    public static final String STYLE_UNPAID = "-fx-text-fill: orange;";
-
-    public static final String MESSAGE_CONSTRAINTS =
-            "Payment status should either be $ PAID or $ UNPAID";
-
-    public final boolean status;
-
-    /**
-     * Constructs a {@code PaymentStatus}.
-     */
-    public PaymentStatus(boolean status) {
-        this.status = status;
+    PaymentStatus(String displayValue) {
+        assert displayValue != null && !displayValue.isEmpty();
+        this.displayValue = displayValue;
     }
 
     /**
-     * Returns true if this order has been paid for.
+     * Returns the payment status represented by the specified string.
+     *
+     * @param status String representation of a payment status.
+     * @return Matching payment status.
+     * @throws NullPointerException     If {@code status} is null.
+     * @throws IllegalArgumentException If {@code status} is not a valid payment status.
+     */
+    public static PaymentStatus fromString(String status) {
+        requireNonNull(status);
+        checkArgument(isValidPaymentStatus(status), MESSAGE_CONSTRAINTS);
+        return Arrays.stream(PaymentStatus.values())
+                .filter(s -> s.displayValue.equalsIgnoreCase(status))
+                .findFirst()
+                .get();
+    }
+
+    /**
+     * Returns true if the specified string is a valid payment status.
+     *
+     * @param test String to be tested.
+     * @return True if the specified string is a valid payment status.
+     */
+    public static boolean isValidPaymentStatus(String test) {
+        return Arrays.stream(PaymentStatus.values())
+                .anyMatch(status -> status.displayValue.equalsIgnoreCase(test));
+    }
+
+    /**
+     * Returns true if this payment status represents a paid order.
+     *
+     * @return True if this payment status represents a paid order.
      */
     public boolean isPaid() {
-        return status;
+        return this == PAID;
     }
 
     @Override
     public String toString() {
-        return status ? STATUS_PAID : STATUS_UNPAID;
+        return displayValue;
     }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof PaymentStatus)) {
-            return false;
-        }
-
-        PaymentStatus otherStatus = (PaymentStatus) other;
-        return status == otherStatus.status;
-    }
-
-    /**
-     * Returns if a given string is a valid payment status.
-     */
-    public static boolean isValidStatus(String test) {
-        return STATUS_PAID.equals(test) || STATUS_UNPAID.equals(test);
-    }
-
-    /**
-     * Returns the CSS style string representing the color of the payment status.
-     * Paid statuses are styled in green, while unpaid statuses are styled in red.
-     *
-     * @return a CSS style string for the JavaFX Label
-     */
-    public String getStyle() {
-        return status ? STYLE_PAID : STYLE_UNPAID;
-    }
-
-    @Override
-    public int hashCode() {
-        return Boolean.hashCode(status);
-    }
-
 }
