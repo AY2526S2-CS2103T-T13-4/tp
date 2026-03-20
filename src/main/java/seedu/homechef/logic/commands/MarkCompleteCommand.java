@@ -58,7 +58,7 @@ public class MarkCompleteCommand extends Command {
 
         model.setOrder(orderToMarkComplete, completedOrder);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
-        return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, Messages.format(orderToMarkComplete)));
+        return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, Messages.format(completedOrder)));
     }
 
     /**
@@ -74,7 +74,7 @@ public class MarkCompleteCommand extends Command {
         Email email = orderToMarkComplete.getEmail();
         Address address = orderToMarkComplete.getAddress();
         Date date = orderToMarkComplete.getDate();
-        CompletionStatus updatedCompletionStatus = new CompletionStatus("Completed");
+        CompletionStatus updatedCompletionStatus = CompletionStatus.COMPLETED;
         PaymentStatus paymentStatus = orderToMarkComplete.getPaymentStatus();
         Set<DietTag> dietTags = orderToMarkComplete.getTags();
         Optional<PaymentInfo> paymentInfo = orderToMarkComplete.getPaymentInfo();

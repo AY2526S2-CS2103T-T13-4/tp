@@ -42,7 +42,7 @@ public class UnpaidCommand extends Command {
         }
 
         Order orderToEdit = lastShownList.get(targetIndex.getZeroBased());
-        PaymentStatus unpaidStatus = new PaymentStatus(PaymentStatus.IS_UNPAID);
+        PaymentStatus unpaidStatus = PaymentStatus.UNPAID;
 
         Order editedOrder = new Order(
                 orderToEdit.getFood(), orderToEdit.getCustomer(), orderToEdit.getPhone(),
