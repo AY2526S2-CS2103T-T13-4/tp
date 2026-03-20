@@ -23,8 +23,10 @@ import seedu.homechef.commons.core.index.Index;
 import seedu.homechef.logic.commands.exceptions.CommandException;
 import seedu.homechef.model.HomeChef;
 import seedu.homechef.model.Model;
+import seedu.homechef.model.order.CompletionStatus;
 import seedu.homechef.model.order.CustomerContainsKeywordsPredicate;
 import seedu.homechef.model.order.Order;
+import seedu.homechef.model.order.PaymentStatus;
 import seedu.homechef.testutil.EditOrderDescriptorBuilder;
 
 /**
@@ -44,6 +46,10 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_DATE_AMY = "10-10-2026";
     public static final String VALID_DATE_BOB = "03-10-2026";
+    public static final String VALID_COMPLETION_STATUS_IN_PROGRESS = CompletionStatus.IN_PROGRESS.toString();
+    public static final String VALID_COMPLETION_STATUS_COMPLETE = CompletionStatus.COMPLETED.toString();
+    public static final String VALID_PAYMENT_STATUS_PAID = PaymentStatus.PAID.toString();
+    public static final String VALID_PAYMENT_STATUS_UNPAID = PaymentStatus.UNPAID.toString();
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -69,11 +75,8 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "99-10-2029"; // fake date not allowed in dates
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-
-    public static final String VALID_COMPLETION_STATUS_IN_PROGRESS = "In progress";
-    public static final String VALID_COMPLETION_STATUS_COMPLETE = "Completed";
-
     public static final String INVALID_COMPLETION_STATUS = "Invalid status";
+    public static final String INVALID_PAYMENT_STATUS = "Invalid status";
 
     // Payment info test constants
     public static final String VALID_PAYMENT_METHOD_CASH = "CASH";

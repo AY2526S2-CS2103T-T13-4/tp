@@ -33,7 +33,7 @@ public class UnpaidCommandTest {
         Order orderToEdit = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         UnpaidCommand unpaidCommand = new UnpaidCommand(INDEX_FIRST_ORDER);
 
-        PaymentStatus unpaidStatus = new PaymentStatus(PaymentStatus.IS_UNPAID);
+        PaymentStatus unpaidStatus = PaymentStatus.UNPAID;
         Order editedOrder = new Order(
                 orderToEdit.getFood(), orderToEdit.getCustomer(), orderToEdit.getPhone(),
                 orderToEdit.getEmail(), orderToEdit.getAddress(), orderToEdit.getDate(),
@@ -63,7 +63,7 @@ public class UnpaidCommandTest {
         Order orderToEdit = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         UnpaidCommand unpaidCommand = new UnpaidCommand(INDEX_FIRST_ORDER);
 
-        PaymentStatus unpaidStatus = new PaymentStatus(PaymentStatus.IS_UNPAID);
+        PaymentStatus unpaidStatus = PaymentStatus.UNPAID;
         Order editedOrder = new Order(
                 orderToEdit.getFood(), orderToEdit.getCustomer(), orderToEdit.getPhone(),
                 orderToEdit.getEmail(), orderToEdit.getAddress(), orderToEdit.getDate(),

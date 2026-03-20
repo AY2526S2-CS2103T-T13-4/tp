@@ -34,7 +34,7 @@ public class JsonAdaptedOrderTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_DATE = "2020-13-01";
     private static final String INVALID_COMPLETION_STATUS = "Not in progress";
-    private static final String INVALID_PAYMENT_STATUS = "paid";
+    private static final String INVALID_PAYMENT_STATUS = "Not a payment";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_PAYMENT_TYPE = "CRYPTO";
 
@@ -188,7 +188,6 @@ public class JsonAdaptedOrderTest {
         String expectedMessage = CompletionStatus.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
     }
-
 
 
     @Test

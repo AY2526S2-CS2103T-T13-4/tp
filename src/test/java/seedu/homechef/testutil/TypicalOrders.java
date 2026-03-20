@@ -12,12 +12,12 @@ import static seedu.homechef.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_FOOD_AMY;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_FOOD_BOB;
+import static seedu.homechef.logic.commands.CommandTestUtil.VALID_PAYMENT_STATUS_PAID;
+import static seedu.homechef.logic.commands.CommandTestUtil.VALID_PAYMENT_STATUS_UNPAID;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.homechef.model.order.PaymentStatus.IS_PAID;
-import static seedu.homechef.model.order.PaymentStatus.IS_UNPAID;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,34 +37,34 @@ public class TypicalOrders {
             .withDate("26-03-2026")
             .withPhone("94351253")
             .withCompletionStatus(VALID_COMPLETION_STATUS_IN_PROGRESS)
-            .withPaymentStatus(IS_UNPAID)
+            .withPaymentStatus(VALID_PAYMENT_STATUS_PAID)
             .withTags("friends").build();
     public static final Order BENSON = new OrderBuilder().withFood("Sourdough Bread").withCustomer("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withDate("26-03-2026")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withCompletionStatus(VALID_COMPLETION_STATUS_COMPLETE)
-            .withPaymentStatus(IS_UNPAID)
+            .withPaymentStatus(VALID_PAYMENT_STATUS_UNPAID)
             .withTags("owesMoney", "friends").build();
     public static final Order CARL = new OrderBuilder().withFood("Cupcakes (24pcs)").withCustomer("Carl Kurz")
             .withPhone("95352563").withDate("03-04-2026")
-            .withEmail("heinz@example.com").withPaymentStatus(IS_PAID)
+            .withEmail("heinz@example.com").withPaymentStatus(VALID_PAYMENT_STATUS_PAID)
             .withAddress("wall street").build();
     public static final Order DANIEL = new OrderBuilder().withFood("Wedding Cake - 3 Tier")
             .withCustomer("Daniel Meier").withPhone("87652533").withDate("07-04-2026")
             .withEmail("cornelia@example.com").withAddress("10th street")
-            .withPaymentStatus(IS_PAID).withTags("friends").build();
+            .withPaymentStatus(VALID_PAYMENT_STATUS_PAID).withTags("friends").build();
     public static final Order ELLE = new OrderBuilder().withFood("Chocolate Chip Cookies (3pcs)")
             .withCustomer("Elle Meyer").withPhone("9482224").withDate("02-04-2026")
-            .withEmail("werner@example.com").withPaymentStatus(IS_UNPAID)
+            .withEmail("werner@example.com").withPaymentStatus(VALID_PAYMENT_STATUS_UNPAID)
             .withAddress("michegan ave").build();
     public static final Order FIONA = new OrderBuilder().withFood("Muffin (4pc)").withCustomer("Fiona Kunz")
             .withPhone("9482427").withDate("17-04-2026")
-            .withEmail("lydia@example.com").withPaymentStatus(IS_UNPAID)
+            .withEmail("lydia@example.com").withPaymentStatus(VALID_PAYMENT_STATUS_UNPAID)
             .withAddress("little tokyo").build();
     public static final Order GEORGE = new OrderBuilder().withFood("Doughnut Assortment")
             .withCustomer("George Best").withPhone("9482442").withDate("19-04-2026")
-            .withEmail("anna@example.com").withPaymentStatus(IS_PAID)
+            .withEmail("anna@example.com").withPaymentStatus(VALID_PAYMENT_STATUS_PAID)
             .withAddress("4th street").build();
 
     // Manually added
@@ -73,7 +73,7 @@ public class TypicalOrders {
             .withEmail("stefan@example.com").withAddress("little india").build();
     public static final Order IDA = new OrderBuilder().withFood("Doner Pie").withCustomer("Ida Mueller")
             .withPhone("8482131").withDate("19-04-2026")
-            .withEmail("hans@example.com").withPaymentStatus(IS_UNPAID)
+            .withEmail("hans@example.com").withPaymentStatus(VALID_PAYMENT_STATUS_UNPAID)
             .withAddress("chicago ave").build();
 
     // Manually added - Order's details found in {@code CommandTestUtil}

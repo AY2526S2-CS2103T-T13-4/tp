@@ -54,8 +54,8 @@ public class PaymentStatusTest {
         PaymentStatus paidStatus = PaymentStatus.PAID;
         PaymentStatus unpaidStatus = PaymentStatus.UNPAID;
 
-        assertEquals(paidStatus.hashCode(), Boolean.hashCode(true));
-        assertNotEquals(paidStatus.hashCode(), Boolean.hashCode(false));
+        assertEquals(paidStatus.hashCode(), PaymentStatus.PAID.hashCode());
+        assertNotEquals(paidStatus.hashCode(), PaymentStatus.UNPAID.hashCode());
         assertNotEquals(paidStatus.hashCode(), unpaidStatus.hashCode());
     }
 

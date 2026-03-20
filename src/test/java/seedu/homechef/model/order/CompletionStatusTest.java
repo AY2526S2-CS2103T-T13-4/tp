@@ -54,7 +54,7 @@ public class CompletionStatusTest {
         CompletionStatus completionStatus1 = CompletionStatus.IN_PROGRESS;
         CompletionStatus completionStatus2 = CompletionStatus.COMPLETED;
 
-        assertEquals("In progress", completionStatus1.toString());
+        assertEquals("In Progress", completionStatus1.toString());
         assertEquals("Completed", completionStatus2.toString());
     }
 }
