@@ -59,6 +59,12 @@ public class UniqueMenuItemListTest {
     }
 
     @Test
+    public void setMenuItem_targetNotFound_throwsMenuItemNotFoundException() {
+        assertThrows(MenuItemNotFoundException.class, () -> list.setMenuItem(CHICKEN,
+                new MenuItem(new MenuItemName("Chicken Rice"), new Price("7.00"), true)));
+    }
+
+    @Test
     public void setMenuItem_editedNameConflicts_throwsDuplicateMenuItemException() {
         list.add(CHICKEN);
         list.add(NASI);
