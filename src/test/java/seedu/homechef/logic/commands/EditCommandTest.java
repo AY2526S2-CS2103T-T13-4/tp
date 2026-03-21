@@ -30,13 +30,15 @@ import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.PaymentType;
 import seedu.homechef.testutil.EditOrderDescriptorBuilder;
 import seedu.homechef.testutil.OrderBuilder;
+import seedu.homechef.testutil.TypicalMenuItems;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalHomeChef(), new UserPrefs());
+    private Model model = new ModelManager(
+            getTypicalHomeChef(), TypicalMenuItems.getTypicalMenuBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -46,7 +48,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, Messages.format(editedOrder));
 
-        Model expectedModel = new ModelManager(new HomeChef(model.getHomeChef()), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new HomeChef(model.getHomeChef()), TypicalMenuItems.getTypicalMenuBook(), new UserPrefs());
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -67,7 +70,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, Messages.format(editedOrder));
 
-        Model expectedModel = new ModelManager(new HomeChef(model.getHomeChef()), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new HomeChef(model.getHomeChef()), TypicalMenuItems.getTypicalMenuBook(), new UserPrefs());
         expectedModel.setOrder(lastOrder, editedOrder);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -80,7 +84,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, Messages.format(editedOrder));
 
-        Model expectedModel = new ModelManager(new HomeChef(model.getHomeChef()), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new HomeChef(model.getHomeChef()), TypicalMenuItems.getTypicalMenuBook(), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -96,7 +101,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, Messages.format(editedOrder));
 
-        Model expectedModel = new ModelManager(new HomeChef(model.getHomeChef()), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new HomeChef(model.getHomeChef()), TypicalMenuItems.getTypicalMenuBook(), new UserPrefs());
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -186,7 +192,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_paymentInfoSet_success() {
-        Model model = new ModelManager(getTypicalHomeChef(), new UserPrefs());
+        Model model = new ModelManager(
+                getTypicalHomeChef(), TypicalMenuItems.getTypicalMenuBook(), new UserPrefs());
         Order orderToEdit = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         PaymentInfo payNow = new PaymentInfo(
                 PaymentType.PAYNOW, "+65 91234567", null, null, null, null, null);
@@ -199,7 +206,8 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS,
                 Messages.format(expectedOrder));
 
-        Model expectedModel = new ModelManager(new HomeChef(model.getHomeChef()), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new HomeChef(model.getHomeChef()), TypicalMenuItems.getTypicalMenuBook(), new UserPrefs());
         expectedModel.setOrder(orderToEdit, expectedOrder);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -207,7 +215,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_paymentInfoTypeSwitch_success() {
-        Model model = new ModelManager(getTypicalHomeChef(), new UserPrefs());
+        Model model = new ModelManager(
+                getTypicalHomeChef(), TypicalMenuItems.getTypicalMenuBook(), new UserPrefs());
         Order orderToEdit = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         PaymentInfo payNow = new PaymentInfo(
                 PaymentType.PAYNOW, "+65 91234567", null, null, null, null, null);
@@ -222,7 +231,8 @@ public class EditCommandTest {
         Order expectedOrder = new OrderBuilder(orderWithPayNow).withPaymentInfo(cash).build();
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS,
                 Messages.format(expectedOrder));
-        Model expectedModel = new ModelManager(new HomeChef(model.getHomeChef()), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new HomeChef(model.getHomeChef()), TypicalMenuItems.getTypicalMenuBook(), new UserPrefs());
         expectedModel.setOrder(orderWithPayNow, expectedOrder);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

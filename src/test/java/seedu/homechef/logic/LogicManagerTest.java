@@ -29,8 +29,13 @@ import seedu.homechef.model.Model;
 import seedu.homechef.model.ModelManager;
 import seedu.homechef.model.ReadOnlyHomeChef;
 import seedu.homechef.model.UserPrefs;
+import seedu.homechef.model.menu.MenuBook;
+import seedu.homechef.model.menu.MenuItem;
+import seedu.homechef.model.menu.MenuItemName;
+import seedu.homechef.model.menu.Price;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.storage.JsonHomeChefStorage;
+import seedu.homechef.storage.JsonMenuBookStorage;
 import seedu.homechef.storage.JsonUserPrefsStorage;
 import seedu.homechef.storage.StorageManager;
 import seedu.homechef.testutil.OrderBuilder;
@@ -49,8 +54,10 @@ public class LogicManagerTest {
     public void setUp() {
         JsonHomeChefStorage homeChefStorage =
                 new JsonHomeChefStorage(temporaryFolder.resolve("homeChef.json"));
+        JsonMenuBookStorage menuBookStorage =
+                new JsonMenuBookStorage(temporaryFolder.resolve("menu.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(homeChefStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(homeChefStorage, menuBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -129,7 +136,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getHomeChef(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getHomeChef(), new MenuBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -165,17 +172,23 @@ public class LogicManagerTest {
             }
         };
 
+        JsonMenuBookStorage menuBookStorageForException =
+                new JsonMenuBookStorage(temporaryFolder.resolve("ExceptionMenu.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(homeChefStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(homeChefStorage, menuBookStorageForException, userPrefsStorage);
 
         logic = new LogicManager(model, storage);
+
+        // Add "Birthday Cake" to the menu so that AddCommand passes menu validation
+        model.addMenuItem(new MenuItem(new MenuItemName("Birthday Cake"), new Price("25.00"), true));
 
         // Triggers the saveHomeChef method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + FOOD_DESC_AMY + CUSTOMER_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + DATE_DESC_AMY;
         Order expectedOrder = new OrderBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
+        expectedModel.addMenuItem(new MenuItem(new MenuItemName("Birthday Cake"), new Price("25.00"), true));
         expectedModel.addOrder(expectedOrder);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

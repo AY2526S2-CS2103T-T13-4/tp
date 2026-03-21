@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private OrderListPanel orderListPanel;
+    private MenuListPanel menuListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,6 +44,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane orderListPanelPlaceholder;
+
+    @FXML
+    private StackPane menuListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -68,6 +72,9 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
     }
 
+    /**
+     * Returns the primary stage of this window.
+     */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -107,11 +114,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Fills up all the placeholders of this window with their respective UI parts.
      */
     void fillInnerParts() {
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
         orderListPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
+
+        menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList());
+        menuListPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -147,6 +157,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Shows the main window.
+     */
     void show() {
         primaryStage.show();
     }
@@ -163,6 +176,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Returns the order list panel.
+     */
     public OrderListPanel getOrderListPanel() {
         return orderListPanel;
     }

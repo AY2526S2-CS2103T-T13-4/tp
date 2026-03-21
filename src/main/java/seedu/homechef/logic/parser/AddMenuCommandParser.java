@@ -1,0 +1,59 @@
+package seedu.homechef.logic.parser;
+
+import static seedu.homechef.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_AVAILABILITY;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_MENU_NAME;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PRICE;
+
+import java.util.stream.Stream;
+
+import seedu.homechef.logic.commands.AddMenuCommand;
+import seedu.homechef.logic.parser.exceptions.ParseException;
+import seedu.homechef.model.menu.MenuItem;
+import seedu.homechef.model.menu.MenuItemName;
+import seedu.homechef.model.menu.Price;
+
+/**
+ * Parses input arguments and creates a new AddMenuCommand object.
+ */
+public class AddMenuCommandParser implements Parser<AddMenuCommand> {
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddMenuCommand
+     * and returns an AddMenuCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public AddMenuCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_MENU_NAME, PREFIX_PRICE, PREFIX_AVAILABILITY);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_MENU_NAME, PREFIX_PRICE)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMenuCommand.MESSAGE_USAGE));
+        }
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_MENU_NAME, PREFIX_PRICE, PREFIX_AVAILABILITY);
+
+        MenuItemName name = new MenuItemName(argMultimap.getValue(PREFIX_MENU_NAME).get().trim());
+        Price price = new Price(argMultimap.getValue(PREFIX_PRICE).get().trim());
+        boolean available = true;
+        if (argMultimap.getValue(PREFIX_AVAILABILITY).isPresent()) {
+            String availStr = argMultimap.getValue(PREFIX_AVAILABILITY).get().trim().toLowerCase();
+            if (!availStr.equals("true") && !availStr.equals("false")) {
+                throw new ParseException("Availability must be 'true' or 'false'.");
+            }
+            available = availStr.equals("true");
+        }
+
+        return new AddMenuCommand(new MenuItem(name, price, available));
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+}

@@ -1,5 +1,8 @@
 package seedu.homechef.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.homechef.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.homechef.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.homechef.testutil.TypicalOrders.getTypicalHomeChef;
@@ -8,11 +11,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.homechef.logic.Messages;
+import seedu.homechef.logic.commands.exceptions.CommandException;
 import seedu.homechef.model.Model;
 import seedu.homechef.model.ModelManager;
 import seedu.homechef.model.UserPrefs;
+import seedu.homechef.model.menu.MenuBook;
+import seedu.homechef.model.menu.MenuItem;
+import seedu.homechef.model.menu.MenuItemName;
+import seedu.homechef.model.menu.Price;
 import seedu.homechef.model.order.Order;
 import seedu.homechef.testutil.OrderBuilder;
+import seedu.homechef.testutil.TypicalMenuItems;
+import seedu.homechef.testutil.TypicalOrders;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -23,14 +33,15 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalHomeChef(), new UserPrefs());
+        model = new ModelManager(getTypicalHomeChef(), TypicalMenuItems.getTypicalMenuBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newOrder_success() {
         Order validOrder = new OrderBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getHomeChef(), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                model.getHomeChef(), TypicalMenuItems.getTypicalMenuBook(), new UserPrefs());
         expectedModel.addOrder(validOrder);
 
         assertCommandSuccess(new AddCommand(validOrder), model,
@@ -45,4 +56,64 @@ public class AddCommandIntegrationTest {
                 AddCommand.MESSAGE_DUPLICATE_ORDER);
     }
 
+    @Test
+    public void execute_foodMatchesAvailableMenuItem_success() throws Exception {
+        Order newOrder = new OrderBuilder().withFood("Chicken Rice").build();
+        new AddCommand(newOrder).execute(model);
+        assertTrue(model.getFilteredOrderList().contains(newOrder));
+    }
+
+    @Test
+    public void execute_foodMatchesUnavailableMenuItem_throwsCommandException() {
+        MenuItem unavailableChicken = new MenuItem(
+                new MenuItemName("Chicken Rice"),
+                new Price("5.50"), false);
+        MenuBook mb = new MenuBook();
+        mb.addMenuItem(unavailableChicken);
+        for (MenuItem item : TypicalMenuItems.getTypicalMenuItems()) {
+            if (!item.getName().fullName.equalsIgnoreCase("Chicken Rice")) {
+                mb.addMenuItem(item);
+            }
+        }
+        model = new ModelManager(TypicalOrders.getTypicalHomeChef(), mb, new UserPrefs());
+
+        Order unavailableOrder = new OrderBuilder().withFood("Chicken Rice").build();
+        assertThrows(CommandException.class, () -> new AddCommand(unavailableOrder).execute(model),
+                "Expected unavailable menu item to be rejected");
+    }
+
+    @Test
+    public void execute_foodIsTypo_throwsCommandExceptionWithSuggestion() {
+        Order typoOrder = new OrderBuilder().withFood("Chiken Rice").build();
+        CommandException thrown = assertThrows(CommandException.class, ()
+                -> new AddCommand(typoOrder).execute(model));
+        assertTrue(thrown.getMessage().contains("Chicken Rice"),
+                "Error message should contain the suggestion 'Chicken Rice'");
+    }
+
+    @Test
+    public void execute_foodUnknown_throwsCommandExceptionWithAddMenuSuggestion() {
+        Order unknownOrder = new OrderBuilder().withFood("Pizza Margherita").build();
+        CommandException thrown = assertThrows(CommandException.class, ()
+                -> new AddCommand(unknownOrder).execute(model));
+        assertTrue(thrown.getMessage().contains("add-menu"),
+                "Error message should suggest 'add-menu'");
+        assertTrue(!thrown.getMessage().contains("Did you mean"),
+                "Error message should not contain a suggestion for an unknown food");
+    }
+
+    @Test
+    public void execute_foodNameCaseInsensitive_normalizesToCanonicalName() throws Exception {
+        Order orderWithLowercaseFood = new OrderBuilder().withFood("chicken rice").build();
+        new AddCommand(orderWithLowercaseFood).execute(model);
+
+        Order storedOrder = model.getFilteredOrderList().stream()
+                .filter(o -> o.getCustomer().equals(orderWithLowercaseFood.getCustomer())
+                        && o.getDate().equals(orderWithLowercaseFood.getDate()))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Order not found in model"));
+
+        assertEquals("Chicken Rice", storedOrder.getFood().foodName,
+                "Food name should be normalized to canonical menu casing");
+    }
 }

@@ -172,6 +172,43 @@ public class AddCommandTest {
         public void updateFilteredOrderList(Predicate<Order> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public seedu.homechef.model.menu.ReadOnlyMenuBook getMenuBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMenuItem(seedu.homechef.model.menu.MenuItem menuItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMenuItem(seedu.homechef.model.menu.MenuItem menuItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMenuItem(seedu.homechef.model.menu.MenuItem target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMenuItem(seedu.homechef.model.menu.MenuItem target,
+                seedu.homechef.model.menu.MenuItem editedItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public javafx.collections.ObservableList<seedu.homechef.model.menu.MenuItem> getFilteredMenuItemList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredMenuItemList(
+                java.util.function.Predicate<seedu.homechef.model.menu.MenuItem> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -189,6 +226,15 @@ public class AddCommandTest {
         public boolean hasOrder(Order order) {
             requireNonNull(order);
             return this.order.isSameOrder(order);
+        }
+
+        @Override
+        public seedu.homechef.model.menu.ReadOnlyMenuBook getMenuBook() {
+            seedu.homechef.model.menu.MenuBook menuBook = new seedu.homechef.model.menu.MenuBook();
+            menuBook.addMenuItem(new seedu.homechef.model.menu.MenuItem(
+                    new seedu.homechef.model.menu.MenuItemName("Birthday Cake"),
+                    new seedu.homechef.model.menu.Price("25.00"), true));
+            return menuBook;
         }
     }
 
@@ -213,6 +259,25 @@ public class AddCommandTest {
         @Override
         public ReadOnlyHomeChef getHomeChef() {
             return new HomeChef();
+        }
+
+        @Override
+        public seedu.homechef.model.menu.ReadOnlyMenuBook getMenuBook() {
+            seedu.homechef.model.menu.MenuBook menuBook = new seedu.homechef.model.menu.MenuBook();
+            menuBook.addMenuItem(new seedu.homechef.model.menu.MenuItem(
+                    new seedu.homechef.model.menu.MenuItemName("Birthday Cake"),
+                    new seedu.homechef.model.menu.Price("25.00"), true));
+            return menuBook;
+        }
+
+        @Override
+        public javafx.collections.ObservableList<seedu.homechef.model.menu.MenuItem> getFilteredMenuItemList() {
+            javafx.collections.ObservableList<seedu.homechef.model.menu.MenuItem> list =
+                    javafx.collections.FXCollections.observableArrayList();
+            list.add(new seedu.homechef.model.menu.MenuItem(
+                    new seedu.homechef.model.menu.MenuItemName("Birthday Cake"),
+                    new seedu.homechef.model.menu.Price("25.00"), true));
+            return list;
         }
     }
 
