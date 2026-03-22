@@ -62,8 +62,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        // Initialise every Order as "In progress"
-        CompletionStatus completionStatus = CompletionStatus.IN_PROGRESS;
+        // Initialise every Order as "Pending"
+        CompletionStatus completionStatus = CompletionStatus.PENDING;
         // Initialise every Order as unpaid
         PaymentStatus paymentStatus = PaymentStatus.UNPAID;
         Set<DietTag> dietTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
