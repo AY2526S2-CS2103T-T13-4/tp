@@ -60,12 +60,12 @@ public class OrderCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
         id.setText(displayedIndex + ". ");
-        food.setText(order.getFood().foodName);
-        customer.setText(order.getCustomer().fullName);
-        phone.setText(order.getPhone().value);
-        address.setText(order.getAddress().value);
+        food.setText(order.getFood().toString());
+        customer.setText(order.getCustomer().toString());
+        phone.setText(order.getPhone().toString());
+        address.setText(order.getAddress().toString());
         date.setText(order.getDate().toString());
-        email.setText(order.getEmail().value);
+        email.setText(order.getEmail().toString());
         setCompletionStatusLabel(order.getCompletionStatus());
         setPaymentStatusLabel(order.getPaymentStatus());
         order.getPaymentInfo().ifPresentOrElse(

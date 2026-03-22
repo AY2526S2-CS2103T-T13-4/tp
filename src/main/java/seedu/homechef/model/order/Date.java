@@ -18,7 +18,7 @@ public class Date {
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    public final LocalDate value;
+    private final LocalDate value;
 
     /**
      * Constructs a {@code Date}.
@@ -43,6 +43,9 @@ public class Date {
         }
     }
 
+    public LocalDate getValue() {
+        return value;
+    }
 
     @Override
     public String toString() {
