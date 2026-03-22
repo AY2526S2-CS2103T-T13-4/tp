@@ -18,11 +18,29 @@ import seedu.homechef.model.order.Order;
 
 /**
  * Represents the in-memory model of the HomeChef data.
+ * List sorts orders in the order of completion status, date, customer name and food name.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private static final Comparator<Order> DEFAULT_ORDER_COMPARATOR = (a, b) -> {
+        int statusRankA = switch (a.getCompletionStatus()) {
+        case PENDING -> 0;
+        case IN_PROGRESS -> 1;
+        case COMPLETED -> 2;
+        };
+
+        int statusRankB = switch (b.getCompletionStatus()) {
+        case PENDING -> 0;
+        case IN_PROGRESS -> 1;
+        case COMPLETED -> 2;
+        };
+
+        int statusCmp = Integer.compare(statusRankA, statusRankB);
+        if (statusCmp != 0) {
+            return statusCmp;
+        }
+
         LocalDate da = a.getDate().value;
         LocalDate db = b.getDate().value;
 

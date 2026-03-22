@@ -13,11 +13,13 @@ import seedu.homechef.commons.core.index.Index;
 import seedu.homechef.commons.util.StringUtil;
 import seedu.homechef.logic.parser.exceptions.ParseException;
 import seedu.homechef.model.order.Address;
+import seedu.homechef.model.order.CompletionStatus;
 import seedu.homechef.model.order.Customer;
 import seedu.homechef.model.order.Date;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
 import seedu.homechef.model.order.PaymentInfo;
+import seedu.homechef.model.order.PaymentStatus;
 import seedu.homechef.model.order.PaymentType;
 import seedu.homechef.model.order.Phone;
 import seedu.homechef.model.tag.DietTag;
@@ -267,5 +269,59 @@ public class ParserUtil {
         }
 
         return Optional.of(paymentInfo);
+    }
+
+    /**
+     * Parses a {@code String raw} into a {@code CompletionStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code raw} is invalid.
+     */
+    public static CompletionStatus parseCompletionStatus(String raw) throws ParseException {
+        requireNonNull(raw);
+        String normalized = raw.trim().toLowerCase().replace('-', '_');
+
+        switch (normalized) {
+        case "pending":
+            return CompletionStatus.PENDING;
+        case "in_progress":
+        case "inprogress":
+            return CompletionStatus.IN_PROGRESS;
+        case "complete":
+        case "completed":
+            return CompletionStatus.COMPLETED;
+        default:
+            try {
+                return CompletionStatus.fromString(raw.trim());
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(CompletionStatus.MESSAGE_CONSTRAINTS);
+            }
+        }
+    }
+
+    /**
+     * Parses a {@code String raw} into a {@code PaymentStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code raw} is invalid.
+     */
+    public static PaymentStatus parsePaymentStatus(String raw) throws ParseException {
+        requireNonNull(raw);
+        String normalized = raw.trim().toLowerCase();
+
+        switch (normalized) {
+        case "paid":
+            return PaymentStatus.PAID;
+        case "partial":
+            return PaymentStatus.PARTIAL;
+        case "unpaid":
+            return PaymentStatus.UNPAID;
+        default:
+            try {
+                return PaymentStatus.fromString(raw.trim());
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(PaymentStatus.MESSAGE_CONSTRAINTS);
+            }
+        }
     }
 }
