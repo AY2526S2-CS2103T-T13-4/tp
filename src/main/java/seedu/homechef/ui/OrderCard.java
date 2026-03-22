@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.homechef.model.order.CompletionStatus;
 import seedu.homechef.model.order.Order;
+import seedu.homechef.model.order.PaymentStatus;
 
 /**
  * An UI component that displays information of a {@code Order}.
@@ -46,11 +47,11 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label paymentInfo;
     @FXML
+    private Label completionStatus;
+    @FXML
     private Label paymentStatus;
     @FXML
     private FlowPane dietTags;
-    @FXML
-    private Label completionStatus;
 
     /**
      * Creates a {@code OrderCode} with the given {@code Order} and index to display.
@@ -66,8 +67,7 @@ public class OrderCard extends UiPart<Region> {
         date.setText(order.getDate().toString());
         email.setText(order.getEmail().value);
         setCompletionStatusLabel(order.getCompletionStatus());
-        paymentStatus.setText(order.getPaymentStatus().toString());
-        paymentStatus.setStyle(order.getPaymentStatus().getStyle());
+        setPaymentStatusLabel(order.getPaymentStatus());
         order.getPaymentInfo().ifPresentOrElse(
                 info -> paymentInfo.setText("Payment: " + info.toString()), () -> {
                     paymentInfo.setVisible(false);
@@ -78,19 +78,31 @@ public class OrderCard extends UiPart<Region> {
                 .forEach(tag -> dietTags.getChildren().add(new Label(tag.tagName)));
     }
 
-    private void setCompletionStatusLabel(CompletionStatus completionStatus) {
-        this.completionStatus.setText(order.getCompletionStatus().toString());
-        this.completionStatus.getStyleClass().add("cell_completion_status_label");
-        switch (completionStatus.value) {
+    private void setCompletionStatusLabel(CompletionStatus status) {
+        completionStatus.setText(status.toString());
+        switch (status) {
         case IN_PROGRESS:
-            this.completionStatus.getStyleClass().add("completion_status_label_in_progress");
+            completionStatus.getStyleClass().add("completion_status_label_in_progress");
             break;
         case COMPLETED:
-            this.completionStatus.getStyleClass().add("completion_status_label_complete");
+            completionStatus.getStyleClass().add("completion_status_label_complete");
             break;
         default:
             // Do nothing
         }
-        return;
+    }
+
+    private void setPaymentStatusLabel(PaymentStatus status) {
+        paymentStatus.setText(status.toString());
+        switch (status) {
+        case PAID:
+            paymentStatus.getStyleClass().add("payment_status_label_paid");
+            break;
+        case UNPAID:
+            paymentStatus.getStyleClass().add("payment_status_label_unpaid");
+            break;
+        default:
+            // Do nothing
+        }
     }
 }

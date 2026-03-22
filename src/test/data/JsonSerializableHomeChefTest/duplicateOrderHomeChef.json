@@ -1,22 +1,27 @@
 {
-  "orders": [ {
-    "food": "Birthday Cake",
-    "customer": "Alice Pauline",
-    "phone": "94351253",
-    "email": "alice@example.com",
-    "date": "26-10-2026",
-    "address": "123, Jurong West Ave 6, #08-111",
-    "completionStatus": "In progress",
-    "paymentStatus": "$ UNPAID",
-    "tags": [ "friends" ]
-  }, {
-    "food": "Birthday Cake",
-    "customer": "Alice Pauline",
-    "phone": "94351253",
-    "email": "pauline@example.com",
-    "date": "26-10-2026",
-    "address": "4th street",
-    "completionStatus": "In progress",
-    "paymentStatus": "$ UNPAID"
-  } ]
+  "orders": [
+    {
+      "food": "Birthday Cake",
+      "customer": "Alice Pauline",
+      "phone": "94351253",
+      "email": "alice@example.com",
+      "date": "26-10-2026",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "completionStatus": "In Progress",
+      "paymentStatus": "Unpaid",
+      "tags": [
+        "friends"
+      ]
+    },
+    {
+      "food": "Birthday Cake",
+      "customer": "Alice Pauline",
+      "phone": "94351253",
+      "email": "pauline@example.com",
+      "date": "26-10-2026",
+      "address": "4th street",
+      "completionStatus": "In Progress",
+      "paymentStatus": "Unpaid"
+    }
+  ]
 }

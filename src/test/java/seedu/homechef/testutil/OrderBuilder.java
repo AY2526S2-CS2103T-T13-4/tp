@@ -28,7 +28,8 @@ public class OrderBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_DATE = "10-03-2026";
-    public static final String DEFAULT_COMPLETION_STATUS = "In progress";
+    public static final String DEFAULT_COMPLETION_STATUS = "In Progress";
+    public static final String DEFAULT_PAYMENT_STATUS = "Unpaid";
 
     private Food food;
     private Customer customer;
@@ -51,8 +52,8 @@ public class OrderBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         date = new Date(DEFAULT_DATE);
-        completionStatus = new CompletionStatus(DEFAULT_COMPLETION_STATUS);
-        paymentStatus = new PaymentStatus(false);
+        completionStatus = CompletionStatus.fromString(DEFAULT_COMPLETION_STATUS);
+        paymentStatus = PaymentStatus.fromString(DEFAULT_PAYMENT_STATUS);
         dietTags = new HashSet<>();
     }
 
@@ -132,15 +133,15 @@ public class OrderBuilder {
      * Sets the {@code CompletionStatus} of the {@code Order} that we are building.
      */
     public OrderBuilder withCompletionStatus(String completionStatus) {
-        this.completionStatus = new CompletionStatus(completionStatus);
+        this.completionStatus = CompletionStatus.fromString(completionStatus);
         return this;
     }
 
     /**
      * Sets the {@code PaymentStatus} of the {@code Order} that we are building.
      */
-    public OrderBuilder withPaymentStatus(boolean isPaid) {
-        this.paymentStatus = new PaymentStatus(isPaid);
+    public OrderBuilder withPaymentStatus(String paymentStatus) {
+        this.paymentStatus = PaymentStatus.fromString(paymentStatus);
         return this;
     }
 

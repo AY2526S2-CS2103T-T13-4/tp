@@ -20,13 +20,13 @@ public class Order {
     // Identity fields
     private final Food food;
     private final Customer customer;
-    private final Phone phone;
-    private final Email email;
-    private final CompletionStatus completionStatus;
+    private final Date date;
 
     // Data fields
+    private final Phone phone;
+    private final Email email;
     private final Address address;
-    private final Date date;
+    private final CompletionStatus completionStatus;
     private final PaymentStatus paymentStatus;
     private final Set<DietTag> dietTags = new HashSet<>();
     private final Optional<PaymentInfo> paymentInfo;
@@ -116,8 +116,8 @@ public class Order {
         }
 
         return otherOrder != null
-                && otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getFood().equals(getFood())
+                && otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getDate().equals(getDate());
     }
 

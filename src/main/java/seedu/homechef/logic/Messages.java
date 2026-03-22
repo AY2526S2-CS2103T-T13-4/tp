@@ -45,6 +45,8 @@ public class Messages {
                 .append(order.getEmail())
                 .append("; Address: ")
                 .append(order.getAddress())
+                .append("; Completion Status: ")
+                .append(order.getCompletionStatus())
                 .append("; Payment Status: ")
                 .append(order.getPaymentStatus())
                 .append("; Tags: ");

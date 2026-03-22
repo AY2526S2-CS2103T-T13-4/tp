@@ -40,14 +40,31 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Order editedOrder = new OrderBuilder().build();
-        EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder(editedOrder).build();
+        Order orderToEdit = model.getFilteredOrderList().get(0);
+        Order editedOrder = new OrderBuilder(orderToEdit)
+                .withFood("Birthday Cake")
+                .withCustomer("Amy Bee")
+                .withPhone("85355255")
+                .withEmail("amy@gmail.com")
+                .withAddress("123, Jurong West Ave 6, #08-111")
+                .withDate("10-03-2026")
+                .build();
+
+        EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder()
+                .withFood("Birthday Cake")
+                .withCustomer("Amy Bee")
+                .withPhone("85355255")
+                .withEmail("amy@gmail.com")
+                .withAddress("123, Jurong West Ave 6, #08-111")
+                .withDate("10-03-2026")
+                .build();
+
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ORDER, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, Messages.format(editedOrder));
 
         Model expectedModel = new ModelManager(new HomeChef(model.getHomeChef()), new UserPrefs());
-        expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
+        expectedModel.setOrder(orderToEdit, editedOrder);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

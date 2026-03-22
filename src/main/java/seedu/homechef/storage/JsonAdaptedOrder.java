@@ -192,17 +192,16 @@ class JsonAdaptedOrder {
         if (!CompletionStatus.isValidCompletionStatus(completionStatus)) {
             throw new IllegalValueException(CompletionStatus.MESSAGE_CONSTRAINTS);
         }
-        final CompletionStatus modelCompletionStatus = new CompletionStatus(completionStatus);
+        final CompletionStatus modelCompletionStatus = CompletionStatus.fromString(completionStatus);
 
         if (paymentStatus == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     PaymentStatus.class.getSimpleName()));
         }
-        if (!PaymentStatus.isValidStatus(paymentStatus)) {
+        if (!PaymentStatus.isValidPaymentStatus(paymentStatus)) {
             throw new IllegalValueException(PaymentStatus.MESSAGE_CONSTRAINTS);
         }
-        boolean isPaid = paymentStatus.equals(PaymentStatus.STATUS_PAID);
-        final PaymentStatus modelPaymentStatus = new PaymentStatus(isPaid);
+        final PaymentStatus modelPaymentStatus = PaymentStatus.fromString(paymentStatus);
 
         Optional<PaymentInfo> modelPaymentInfo;
         if (paymentType == null) {

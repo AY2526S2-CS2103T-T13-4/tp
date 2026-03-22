@@ -75,7 +75,7 @@ public class MarkInProgressCommand extends Command {
         Email email = orderToMarkInProgress.getEmail();
         Address address = orderToMarkInProgress.getAddress();
         Date date = orderToMarkInProgress.getDate();
-        CompletionStatus updatedCompletionStatus = new CompletionStatus("In progress");
+        CompletionStatus updatedCompletionStatus = CompletionStatus.IN_PROGRESS;
         PaymentStatus paymentStatus = orderToMarkInProgress.getPaymentStatus();
         Set<DietTag> dietTags = orderToMarkInProgress.getTags();
         Optional<PaymentInfo> paymentInfo = orderToMarkInProgress.getPaymentInfo();

@@ -1,79 +1,57 @@
 package seedu.homechef.model.order;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.homechef.commons.util.AppUtil.checkArgument;
 
+import java.util.Arrays;
+
 /**
- * Represents an Order's completion status in the HomeChef.
+ * Represents an Order's completion status in HomeChef.
  */
-public class CompletionStatus {
-    public static final String MESSAGE_CONSTRAINTS = String.format(
-            "Completion status must be represented as a valid string, 'In progress' or 'Completed'");
+public enum CompletionStatus {
+    PENDING("Pending"),
+    IN_PROGRESS("In Progress"),
+    COMPLETED("Completed");
 
-    public final CompletionStatusEnum value;
+    public static final String MESSAGE_CONSTRAINTS = "Completion status must be 'Pending', 'In progress', 'Completed'";
 
-    /**
-     * Constructs a {@code CompletionStatus}.
-     *
-     * @param value A valid string to represent status.
-     */
-    public CompletionStatus(String value) {
-        checkArgument(isValidCompletionStatus(value), MESSAGE_CONSTRAINTS);
-        this.value = convertStringToEnum(value);
+    private final String displayValue;
+
+    CompletionStatus(String displayValue) {
+        assert displayValue != null && !displayValue.isEmpty();
+        this.displayValue = displayValue;
     }
 
     /**
-     * Returns true if a given string is a valid completion status.
+     * Returns the completion status represented by the specified string.
+     *
+     * @param status String representation of a completion status.
+     * @return Matching completion status.
+     * @throws NullPointerException     If {@code status} is null.
+     * @throws IllegalArgumentException If {@code status} is not a valid completion status.
+     */
+    public static CompletionStatus fromString(String status) {
+        requireNonNull(status);
+        checkArgument(isValidCompletionStatus(status), MESSAGE_CONSTRAINTS);
+        return Arrays.stream(CompletionStatus.values())
+                .filter(completionStatus -> completionStatus.displayValue.equalsIgnoreCase(status))
+                .findFirst()
+                .get();
+    }
+
+    /**
+     * Returns true if the specified string is a valid completion status.
+     *
+     * @param test String to be tested.
+     * @return True if the specified string is a valid completion status.
      */
     public static boolean isValidCompletionStatus(String test) {
-        switch (test) {
-        case "In progress", "Completed":
-            return true;
-        default:
-            return false;
-        }
-    }
-
-    private CompletionStatusEnum convertStringToEnum(String value) {
-        switch (value) {
-        case "In progress":
-            return CompletionStatusEnum.IN_PROGRESS;
-        case "Completed":
-            return CompletionStatusEnum.COMPLETED;
-        default:
-            return CompletionStatusEnum.INVALID_STATUS;
-        }
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof CompletionStatus)) {
-            return false;
-        }
-
-        CompletionStatus otherCompletionStatus = (CompletionStatus) other;
-        return this.value == otherCompletionStatus.value;
+        return Arrays.stream(CompletionStatus.values())
+                .anyMatch(status -> status.displayValue.equalsIgnoreCase(test));
     }
 
     @Override
     public String toString() {
-        switch (value) {
-        case IN_PROGRESS:
-            return "In progress";
-        case COMPLETED:
-            return "Completed";
-        default:
-            return "Invalid completion status";
-        }
+        return displayValue;
     }
-
-    @Override
-    public int hashCode() {
-        return this.value.hashCode();
-    }
-
 }

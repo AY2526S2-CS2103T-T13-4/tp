@@ -32,7 +32,7 @@ public class MarkCompleteCommandTest {
         MarkCompleteCommand markCompleteCommand = new MarkCompleteCommand(INDEX_FIRST_ORDER);
 
         String expectedMessage = String.format(MarkCompleteCommand.MESSAGE_COMPLETE_ORDER_SUCCESS,
-                Messages.format(orderToMark));
+                Messages.format(completedOrder));
 
         Model expectedModel = new ModelManager(new HomeChef(model.getHomeChef()), new UserPrefs());
         expectedModel.setOrder(orderToMark, completedOrder);

@@ -8,8 +8,8 @@
       "email": "alice@example.com",
       "address": "123, Jurong West Ave 6, #08-111",
       "date": "26-03-2026",
-      "completionStatus": "In progress",
-      "paymentStatus": "$ UNPAID",
+      "completionStatus": "In Progress",
+      "paymentStatus": "Paid",
       "tags": [
         "friends"
       ]
@@ -22,7 +22,7 @@
       "address": "311, Clementi Ave 2, #02-25",
       "date": "26-03-2026",
       "completionStatus": "Completed",
-      "paymentStatus": "$ UNPAID",
+      "paymentStatus": "Unpaid",
       "tags": [
         "owesMoney",
         "friends"
@@ -35,8 +35,8 @@
       "email": "heinz@example.com",
       "address": "wall street",
       "date": "03-04-2026",
-      "completionStatus": "In progress",
-      "paymentStatus": "$ PAID",
+      "completionStatus": "In Progress",
+      "paymentStatus": "Paid",
       "tags": []
     },
     {
@@ -46,8 +46,8 @@
       "email": "cornelia@example.com",
       "address": "10th street",
       "date": "07-04-2026",
-      "completionStatus": "In progress",
-      "paymentStatus": "$ PAID",
+      "completionStatus": "In Progress",
+      "paymentStatus": "Paid",
       "tags": [
         "friends"
       ]
@@ -59,8 +59,8 @@
       "email": "werner@example.com",
       "address": "michegan ave",
       "date": "02-04-2026",
-      "completionStatus": "In progress",
-      "paymentStatus": "$ UNPAID",
+      "completionStatus": "In Progress",
+      "paymentStatus": "Unpaid",
       "tags": []
     },
     {
@@ -70,8 +70,8 @@
       "email": "lydia@example.com",
       "address": "little tokyo",
       "date": "17-04-2026",
-      "completionStatus": "In progress",
-      "paymentStatus": "$ UNPAID",
+      "completionStatus": "In Progress",
+      "paymentStatus": "Unpaid",
       "tags": []
     },
     {
@@ -81,8 +81,8 @@
       "email": "anna@example.com",
       "address": "4th street",
       "date": "19-04-2026",
-      "completionStatus": "In progress",
-      "paymentStatus": "$ PAID",
+      "completionStatus": "In Progress",
+      "paymentStatus": "Paid",
       "tags": []
     }
   ]
