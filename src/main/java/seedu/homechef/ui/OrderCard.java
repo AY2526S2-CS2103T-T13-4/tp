@@ -79,12 +79,19 @@ public class OrderCard extends UiPart<Region> {
     }
 
     private void setCompletionStatusLabel(CompletionStatus status) {
-        completionStatus.setText(status.toString());
+        assert status != null;
+
         switch (status) {
+        case PENDING:
+            completionStatus.setText("◯ " + status);
+            completionStatus.getStyleClass().add("completion_status_label_pending");
+            break;
         case IN_PROGRESS:
+            completionStatus.setText("◎ " + status);
             completionStatus.getStyleClass().add("completion_status_label_in_progress");
             break;
         case COMPLETED:
+            completionStatus.setText("⬤ " + status);
             completionStatus.getStyleClass().add("completion_status_label_complete");
             break;
         default:
@@ -93,7 +100,8 @@ public class OrderCard extends UiPart<Region> {
     }
 
     private void setPaymentStatusLabel(PaymentStatus status) {
-        paymentStatus.setText(status.toString());
+        assert status != null;
+        paymentStatus.setText("$ " + status);
         switch (status) {
         case PAID:
             paymentStatus.getStyleClass().add("payment_status_label_paid");

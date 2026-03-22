@@ -132,34 +132,33 @@
     -fx-font-family: "Segoe UI";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
-    -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
 }
 
-.completion_status_label_complete {
-    -fx-background-color: #81d667;
+.cell_status_label.completion_status_label_pending {
+    -fx-text-fill: #9E9E9E;
 }
 
-.completion_status_label_in_progress {
-    -fx-background-color: #FFBF00
+.cell_status_label.completion_status_label_in_progress {
+    -fx-text-fill: #F29655;
 }
 
-.completion_status_label_pending {
-    -fx-background-color: #808080
+.cell_status_label.completion_status_label_complete {
+    -fx-text-fill: #81d667;
 }
 
-.payment_status_label_paid {
-    -fx-background-color: #81d667;
+.cell_status_label.payment_status_label_paid {
+    -fx-text-fill: #81d667;
 }
 
-.payment_status_label_partial {
-    -fx-background-color: #FFBF00;
+.cell_status_label.payment_status_label_partial {
+    -fx-text-fill: #ffbf00;
 }
 
-.payment_status_label_unpaid {
-    -fx-background-color: #e84d4d;
+.cell_status_label.payment_status_label_unpaid {
+    -fx-text-fill: #FF6363;
 }
 
 .stack-pane {
