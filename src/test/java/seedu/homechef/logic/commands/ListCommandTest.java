@@ -73,10 +73,10 @@ public class ListCommandTest {
     @Test
     public void execute_withCompletionStatusFilter_filtersList() {
         ListCommand.ListFilterDescriptor d = new ListCommand.ListFilterDescriptor();
-        d.setCompletionStatus(new CompletionStatus("Completed"));
+        d.setCompletionStatus(CompletionStatus.COMPLETED);
 
         expectedModel.updateFilteredOrderList(order ->
-                order.getCompletionStatus().equals(new CompletionStatus("Completed")));
+                order.getCompletionStatus().equals(CompletionStatus.COMPLETED));
 
         assertCommandSuccess(new ListCommand(d), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -84,18 +84,18 @@ public class ListCommandTest {
     @Test
     public void execute_withPaymentStatusFilter_filtersList() {
         ListCommand.ListFilterDescriptor d = new ListCommand.ListFilterDescriptor();
-        d.setPaymentStatus(new PaymentStatus(true)); // paid
+        d.setPaymentStatus(PaymentStatus.PAID);
 
         expectedModel.updateFilteredOrderList(order ->
-                order.getPaymentStatus().equals(new PaymentStatus(true)));
+                order.getPaymentStatus().equals(PaymentStatus.PAID));
 
         assertCommandSuccess(new ListCommand(d), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_withCompletionAndPaymentFilters_filtersList() {
-        CompletionStatus completed = new CompletionStatus("Completed");
-        PaymentStatus unpaid = new PaymentStatus(false);
+        CompletionStatus completed = CompletionStatus.COMPLETED;
+        PaymentStatus unpaid = PaymentStatus.UNPAID;
 
         ListCommand.ListFilterDescriptor d = new ListCommand.ListFilterDescriptor();
         d.setCompletionStatus(completed);

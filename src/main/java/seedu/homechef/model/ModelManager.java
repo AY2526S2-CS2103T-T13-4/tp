@@ -2,8 +2,6 @@ package seedu.homechef.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.homechef.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.homechef.model.order.CompletionStatusEnum.COMPLETED;
-import static seedu.homechef.model.order.CompletionStatusEnum.IN_PROGRESS;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -26,16 +24,16 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private static final Comparator<Order> DEFAULT_ORDER_COMPARATOR = (a, b) -> {
-        int statusRankA = switch (a.getCompletionStatus().value) {
+        int statusRankA = switch (a.getCompletionStatus()) {
         case IN_PROGRESS -> 0;
-        case COMPLETED -> 1;
-        default -> 2;
+        case PENDING -> 1;
+        case COMPLETED -> 2;
         };
 
-        int statusRankB = switch (b.getCompletionStatus().value) {
+        int statusRankB = switch (b.getCompletionStatus()) {
         case IN_PROGRESS -> 0;
-        case COMPLETED -> 1;
-        default -> 2;
+        case PENDING -> 1;
+        case COMPLETED -> 2;
         };
 
         int statusCmp = Integer.compare(statusRankA, statusRankB);

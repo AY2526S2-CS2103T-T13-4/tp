@@ -282,18 +282,20 @@ public class ParserUtil {
         String normalized = raw.trim().toLowerCase().replace('-', '_');
 
         switch (normalized) {
+        case "pending":
+            return CompletionStatus.PENDING;
         case "in_progress":
         case "inprogress":
-            return new CompletionStatus("In progress");
+            return CompletionStatus.IN_PROGRESS;
         case "complete":
         case "completed":
-            return new CompletionStatus("Completed");
+            return CompletionStatus.COMPLETED;
         default:
-            String exact = raw.trim();
-            if (CompletionStatus.isValidCompletionStatus(exact)) {
-                return new CompletionStatus(exact);
+            try {
+                return CompletionStatus.fromString(raw.trim());
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(CompletionStatus.MESSAGE_CONSTRAINTS);
             }
-            throw new ParseException(CompletionStatus.MESSAGE_CONSTRAINTS);
         }
     }
 
@@ -309,16 +311,17 @@ public class ParserUtil {
 
         switch (normalized) {
         case "paid":
-            return new PaymentStatus(true);
+            return PaymentStatus.PAID;
+        case "partial":
+            return PaymentStatus.PARTIAL;
         case "unpaid":
-            return new PaymentStatus(false);
+            return PaymentStatus.UNPAID;
         default:
-            // allow "$ PAID" / "$ UNPAID" too
-            String exactUpper = raw.trim().toUpperCase();
-            if (PaymentStatus.isValidStatus(exactUpper)) {
-                return new PaymentStatus(PaymentStatus.STATUS_PAID.equals(exactUpper));
+            try {
+                return PaymentStatus.fromString(raw.trim());
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(PaymentStatus.MESSAGE_CONSTRAINTS);
             }
-            throw new ParseException(PaymentStatus.MESSAGE_CONSTRAINTS);
         }
     }
 }

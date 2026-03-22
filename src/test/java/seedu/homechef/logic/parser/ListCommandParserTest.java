@@ -49,8 +49,8 @@ public class ListCommandParserTest {
         d.setCustomerQuery("alice");
         d.setFoodQuery("cake");
         d.setPhoneQuery("9435");
-        d.setCompletionStatus(new CompletionStatus("In progress"));
-        d.setPaymentStatus(new PaymentStatus(true));
+        d.setCompletionStatus(CompletionStatus.IN_PROGRESS);
+        d.setPaymentStatus(PaymentStatus.PAID);
 
         assertParseSuccess(parser,
                 " d/16-04-2003 c/alice f/cake p/9435 cs/in_progress ps/paid",
@@ -77,43 +77,43 @@ public class ListCommandParserTest {
     @Test
     public void parse_validCompletionStatusExactString_success() {
         ListCommand.ListFilterDescriptor d = new ListCommand.ListFilterDescriptor();
-        d.setCompletionStatus(new CompletionStatus("In progress"));
-        assertParseSuccess(parser, " cs/In progress", new ListCommand(d));
+        d.setCompletionStatus(CompletionStatus.IN_PROGRESS);
+        assertParseSuccess(parser, " cs/In Progress", new ListCommand(d));
     }
 
     @Test
     public void parse_validCompletionStatusAlternativeKeyword_success() {
         ListCommand.ListFilterDescriptor d = new ListCommand.ListFilterDescriptor();
-        d.setCompletionStatus(new CompletionStatus("In progress"));
+        d.setCompletionStatus(CompletionStatus.IN_PROGRESS);
         assertParseSuccess(parser, " cs/inprogress", new ListCommand(d));
     }
 
     @Test
     public void parse_validPaymentStatus_success() {
         ListCommand.ListFilterDescriptor d = new ListCommand.ListFilterDescriptor();
-        d.setPaymentStatus(new PaymentStatus(true));
+        d.setPaymentStatus(PaymentStatus.PAID);
         assertParseSuccess(parser, " ps/paid", new ListCommand(d));
     }
 
     @Test
     public void parse_validPaymentStatusUnpaid_success() {
         ListCommand.ListFilterDescriptor d = new ListCommand.ListFilterDescriptor();
-        d.setPaymentStatus(new PaymentStatus(false));
+        d.setPaymentStatus(PaymentStatus.UNPAID);
         assertParseSuccess(parser, " ps/unpaid", new ListCommand(d));
     }
 
     @Test
-    public void parse_validPaymentStatusExactPaidString_success() {
+    public void parse_validPaymentStatusPartial_success() {
         ListCommand.ListFilterDescriptor d = new ListCommand.ListFilterDescriptor();
-        d.setPaymentStatus(new PaymentStatus(true));
-        assertParseSuccess(parser, " ps/$ PAID", new ListCommand(d));
+        d.setPaymentStatus(PaymentStatus.PARTIAL);
+        assertParseSuccess(parser, " ps/partial", new ListCommand(d));
     }
 
     @Test
-    public void parse_validPaymentStatusExactUnpaidString_success() {
+    public void parse_validPaymentStatusExactString_success() {
         ListCommand.ListFilterDescriptor d = new ListCommand.ListFilterDescriptor();
-        d.setPaymentStatus(new PaymentStatus(false));
-        assertParseSuccess(parser, " ps/$ UNPAID", new ListCommand(d));
+        d.setPaymentStatus(PaymentStatus.PAID);
+        assertParseSuccess(parser, " ps/Paid", new ListCommand(d));
     }
 
     @Test
