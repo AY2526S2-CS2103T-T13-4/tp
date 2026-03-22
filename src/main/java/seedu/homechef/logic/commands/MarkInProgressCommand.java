@@ -29,7 +29,7 @@ import seedu.homechef.model.tag.DietTag;
  */
 public class MarkInProgressCommand extends Command {
 
-    public static final String COMMAND_WORD = "in_progress";
+    public static final String COMMAND_WORD = "inprogress";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the order identified by the index number used in the displayed order list as in progress.\n"
