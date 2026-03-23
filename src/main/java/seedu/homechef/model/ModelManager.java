@@ -24,19 +24,8 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private static final Comparator<Order> DEFAULT_ORDER_COMPARATOR = (a, b) -> {
-        int statusRankA = switch (a.getCompletionStatus()) {
-        case PENDING -> 0;
-        case IN_PROGRESS -> 1;
-        case COMPLETED -> 2;
-        };
 
-        int statusRankB = switch (b.getCompletionStatus()) {
-        case PENDING -> 0;
-        case IN_PROGRESS -> 1;
-        case COMPLETED -> 2;
-        };
-
-        int statusCmp = Integer.compare(statusRankA, statusRankB);
+        int statusCmp = a.getCompletionStatus().compareTo(b.getCompletionStatus());
         if (statusCmp != 0) {
             return statusCmp;
         }
