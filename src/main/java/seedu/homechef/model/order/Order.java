@@ -173,10 +173,10 @@ public class Order {
                 .add("email", email)
                 .add("address", address)
                 .add("date", date)
+                .add("price", price)
                 .add("completionStatus", completionStatus)
                 .add("paymentStatus", paymentStatus)
                 .add("dietTags", dietTags)
-                .add("price", price)
                 .add("paymentInfo", paymentInfo)
                 .toString();
     }
