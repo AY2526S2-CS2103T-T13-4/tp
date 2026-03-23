@@ -37,7 +37,7 @@ public class UnpaidCommandTest {
         Order editedOrder = new Order(
                 orderToEdit.getFood(), orderToEdit.getCustomer(), orderToEdit.getPhone(),
                 orderToEdit.getEmail(), orderToEdit.getAddress(), orderToEdit.getDate(),
-                orderToEdit.getCompletionStatus(), unpaidStatus, orderToEdit.getTags());
+                orderToEdit.getCompletionStatus(), unpaidStatus, orderToEdit.getTags(), orderToEdit.getPrice());
 
         String expectedMessage = String.format(UnpaidCommand.MESSAGE_MARK_UNPAID_SUCCESS,
                 Messages.format(editedOrder));
@@ -67,7 +67,7 @@ public class UnpaidCommandTest {
         Order editedOrder = new Order(
                 orderToEdit.getFood(), orderToEdit.getCustomer(), orderToEdit.getPhone(),
                 orderToEdit.getEmail(), orderToEdit.getAddress(), orderToEdit.getDate(),
-                orderToEdit.getCompletionStatus(), unpaidStatus, orderToEdit.getTags());
+                orderToEdit.getCompletionStatus(), unpaidStatus, orderToEdit.getTags(), orderToEdit.getPrice());
 
         String expectedMessage = String.format(UnpaidCommand.MESSAGE_MARK_UNPAID_SUCCESS,
                 Messages.format(editedOrder));

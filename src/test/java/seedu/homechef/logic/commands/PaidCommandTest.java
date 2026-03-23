@@ -37,7 +37,7 @@ public class PaidCommandTest {
         Order editedOrder = new Order(
                 orderToEdit.getFood(), orderToEdit.getCustomer(), orderToEdit.getPhone(),
                 orderToEdit.getEmail(), orderToEdit.getAddress(), orderToEdit.getDate(),
-                orderToEdit.getCompletionStatus(), paidStatus, orderToEdit.getTags());
+                orderToEdit.getCompletionStatus(), paidStatus, orderToEdit.getTags(), orderToEdit.getPrice());
 
         String expectedMessage = String.format(PaidCommand.MESSAGE_MARK_PAID_SUCCESS,
                 Messages.format(editedOrder));
@@ -67,7 +67,7 @@ public class PaidCommandTest {
         Order editedOrder = new Order(
                 orderToEdit.getFood(), orderToEdit.getCustomer(), orderToEdit.getPhone(),
                 orderToEdit.getEmail(), orderToEdit.getAddress(), orderToEdit.getDate(),
-                orderToEdit.getCompletionStatus(), paidStatus, orderToEdit.getTags());
+                orderToEdit.getCompletionStatus(), paidStatus, orderToEdit.getTags(), orderToEdit.getPrice());
 
         String expectedMessage = String.format(PaidCommand.MESSAGE_MARK_PAID_SUCCESS,
                 Messages.format(editedOrder));

@@ -3,14 +3,26 @@ package seedu.homechef.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import seedu.homechef.commons.core.index.Index;
 import seedu.homechef.commons.util.ToStringBuilder;
 import seedu.homechef.logic.Messages;
 import seedu.homechef.logic.commands.exceptions.CommandException;
 import seedu.homechef.model.Model;
+import seedu.homechef.model.order.Address;
+import seedu.homechef.model.order.CompletionStatus;
+import seedu.homechef.model.order.Customer;
+import seedu.homechef.model.order.Date;
+import seedu.homechef.model.order.Email;
+import seedu.homechef.model.order.Food;
 import seedu.homechef.model.order.Order;
+import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.PaymentStatus;
+import seedu.homechef.model.order.Phone;
+import seedu.homechef.model.order.Price;
+import seedu.homechef.model.tag.DietTag;
 
 /**
  * Marks an order as unpaid in HomeChef.
@@ -41,18 +53,36 @@ public class UnpaidCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Order orderToEdit = lastShownList.get(targetIndex.getZeroBased());
-        PaymentStatus unpaidStatus = PaymentStatus.UNPAID;
+        Order orderToMarkUnpaid = lastShownList.get(targetIndex.getZeroBased());
+        Order unpaidOrder = createUnpaidOrder(orderToMarkUnpaid);
 
-        Order editedOrder = new Order(
-                orderToEdit.getFood(), orderToEdit.getCustomer(), orderToEdit.getPhone(),
-                orderToEdit.getEmail(), orderToEdit.getAddress(), orderToEdit.getDate(),
-                orderToEdit.getCompletionStatus(), unpaidStatus, orderToEdit.getTags());
-
-        model.setOrder(orderToEdit, editedOrder);
+        model.setOrder(orderToMarkUnpaid, unpaidOrder);
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
 
-        return new CommandResult(generateSuccessMessage(editedOrder));
+        return new CommandResult(generateSuccessMessage(unpaidOrder));
+    }
+
+    /**
+     * Creates and returns an {@code Order} with the details of {@code orderToMarkUnpaid}
+     * marking {@code PaymentStatus} as unpaid.
+     */
+    private static Order createUnpaidOrder(Order orderToMarkUnpaid) {
+        assert orderToMarkUnpaid != null;
+
+        Food food = orderToMarkUnpaid.getFood();
+        Customer customer = orderToMarkUnpaid.getCustomer();
+        Phone phone = orderToMarkUnpaid.getPhone();
+        Email email = orderToMarkUnpaid.getEmail();
+        Address address = orderToMarkUnpaid.getAddress();
+        Date date = orderToMarkUnpaid.getDate();
+        CompletionStatus completionStatus = orderToMarkUnpaid.getCompletionStatus();
+        PaymentStatus updatedPaymentStatus = PaymentStatus.UNPAID;
+        Set<DietTag> dietTags = orderToMarkUnpaid.getTags();
+        Price price = orderToMarkUnpaid.getPrice();
+        Optional<PaymentInfo> paymentInfo = orderToMarkUnpaid.getPaymentInfo();
+
+        return new Order(food, customer, phone, email, address, date,
+                completionStatus, updatedPaymentStatus, dietTags, price, paymentInfo);
     }
 
     /**
