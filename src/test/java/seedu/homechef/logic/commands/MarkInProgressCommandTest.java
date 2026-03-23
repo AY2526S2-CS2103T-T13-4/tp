@@ -31,7 +31,7 @@ public class MarkInProgressCommandTest {
         MarkInProgressCommand markInProgressCommand = new MarkInProgressCommand(INDEX_FIRST_ORDER);
 
         String expectedMessage = String.format(MarkInProgressCommand.MESSAGE_IN_PROGRESS_ORDER_SUCCESS,
-                Messages.format(orderToMark));
+                Messages.format(inProgressOrder));
 
         Model expectedModel = new ModelManager(new HomeChef(model.getHomeChef()), new UserPrefs());
         expectedModel.setOrder(orderToMark, inProgressOrder);
