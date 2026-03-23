@@ -16,8 +16,8 @@ import seedu.homechef.model.order.Date;
 import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.Food;
 import seedu.homechef.model.order.Order;
-import seedu.homechef.model.order.Phone;
 import seedu.homechef.model.order.PaymentStatus;
+import seedu.homechef.model.order.Phone;
 
 /**
  * An UI component that displays information of a {@code Order}.
