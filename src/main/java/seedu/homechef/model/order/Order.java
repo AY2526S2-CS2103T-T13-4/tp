@@ -29,14 +29,16 @@ public class Order {
     private final CompletionStatus completionStatus;
     private final PaymentStatus paymentStatus;
     private final Set<DietTag> dietTags = new HashSet<>();
+    private final Price price;
     private final Optional<PaymentInfo> paymentInfo;
 
     /**
      * Every field must be present and not null.
      */
     public Order(Food food, Customer customer, Phone phone, Email email, Address address, Date date,
-                 CompletionStatus completionStatus, PaymentStatus paymentStatus, Set<DietTag> dietTags) {
-        this(food, customer, phone, email, address, date, completionStatus, paymentStatus, dietTags, Optional.empty());
+                 CompletionStatus completionStatus, PaymentStatus paymentStatus, Set<DietTag> dietTags, Price price) {
+        this(food, customer, phone, email, address, date,
+                completionStatus, paymentStatus, dietTags, price, Optional.empty());
     }
 
     /**
@@ -44,9 +46,9 @@ public class Order {
      */
     public Order(Food food, Customer customer, Phone phone, Email email, Address address, Date date,
                  CompletionStatus completionStatus, PaymentStatus paymentStatus, Set<DietTag> dietTags,
-                 Optional<PaymentInfo> paymentInfo) {
+                 Price price, Optional<PaymentInfo> paymentInfo) {
         requireAllNonNull(food, customer, phone, email, address, date,
-                completionStatus, paymentStatus, dietTags, paymentInfo);
+                completionStatus, paymentStatus, dietTags, price, paymentInfo);
         this.food = food;
         this.customer = customer;
         this.phone = phone;
@@ -56,6 +58,7 @@ public class Order {
         this.completionStatus = completionStatus;
         this.paymentStatus = paymentStatus;
         this.dietTags.addAll(dietTags);
+        this.price = price;
         this.paymentInfo = paymentInfo;
     }
 
