@@ -48,6 +48,7 @@ public class CommandTestUtil {
     public static final String VALID_DATE_BOB = "03-10-2026";
     public static final String VALID_COMPLETION_STATUS_IN_PROGRESS = CompletionStatus.IN_PROGRESS.toString();
     public static final String VALID_COMPLETION_STATUS_COMPLETE = CompletionStatus.COMPLETED.toString();
+    public static final String VALID_COMPLETION_STATUS_PENDING = CompletionStatus.PENDING.toString();
     public static final String VALID_PAYMENT_STATUS_PAID = PaymentStatus.PAID.toString();
     public static final String VALID_PAYMENT_STATUS_UNPAID = PaymentStatus.UNPAID.toString();
     public static final String VALID_TAG_HUSBAND = "husband";

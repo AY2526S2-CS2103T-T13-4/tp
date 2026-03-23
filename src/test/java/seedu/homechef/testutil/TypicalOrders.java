@@ -4,6 +4,7 @@ import static seedu.homechef.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_COMPLETION_STATUS_COMPLETE;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_COMPLETION_STATUS_IN_PROGRESS;
+import static seedu.homechef.logic.commands.CommandTestUtil.VALID_COMPLETION_STATUS_PENDING;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_CUSTOMER_AMY;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_CUSTOMER_BOB;
 import static seedu.homechef.logic.commands.CommandTestUtil.VALID_DATE_AMY;
@@ -49,7 +50,8 @@ public class TypicalOrders {
     public static final Order CARL = new OrderBuilder().withFood("Cupcakes (24pcs)").withCustomer("Carl Kurz")
             .withPhone("95352563").withDate("03-04-2026")
             .withEmail("heinz@example.com").withPaymentStatus(VALID_PAYMENT_STATUS_PAID)
-            .withAddress("wall street").build();
+            .withAddress("wall street")
+            .withCompletionStatus(VALID_COMPLETION_STATUS_PENDING).build();
     public static final Order DANIEL = new OrderBuilder().withFood("Wedding Cake - 3 Tier")
             .withCustomer("Daniel Meier").withPhone("87652533").withDate("07-04-2026")
             .withEmail("cornelia@example.com").withAddress("10th street")

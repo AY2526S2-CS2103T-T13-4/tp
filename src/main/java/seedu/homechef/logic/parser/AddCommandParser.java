@@ -48,7 +48,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                         PREFIX_ADDRESS, PREFIX_DATE, PREFIX_TAG,
                         PREFIX_PAYMENT_METHOD, PREFIX_PAYMENT_REF, PREFIX_BANK_NAME, PREFIX_WALLET_PROVIDER);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_FOOD, PREFIX_CUSTOMER, PREFIX_ADDRESS,
+                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -62,8 +63,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        // Initialise every Order as "In progress"
-        CompletionStatus completionStatus = CompletionStatus.IN_PROGRESS;
+        // Initialise every Order as "Pending"
+        CompletionStatus completionStatus = CompletionStatus.PENDING;
         // Initialise every Order as unpaid
         PaymentStatus paymentStatus = PaymentStatus.UNPAID;
         Set<DietTag> dietTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.homechef.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +16,7 @@ public class CompletionStatusTest {
         assertFalse(CompletionStatus.isValidCompletionStatus("Invalid status"));
 
         // valid completion status
+        assertTrue(CompletionStatus.isValidCompletionStatus("Pending"));
         assertTrue(CompletionStatus.isValidCompletionStatus("In progress"));
         assertTrue(CompletionStatus.isValidCompletionStatus("Completed"));
     }
@@ -53,8 +55,33 @@ public class CompletionStatusTest {
     public void toStringTest() {
         CompletionStatus completionStatus1 = CompletionStatus.IN_PROGRESS;
         CompletionStatus completionStatus2 = CompletionStatus.COMPLETED;
+        CompletionStatus completionStatus3 = CompletionStatus.PENDING;
 
         assertEquals("In Progress", completionStatus1.toString());
         assertEquals("Completed", completionStatus2.toString());
+        assertEquals("Pending", completionStatus3.toString());
+    }
+
+    @Test
+    public void fromString_validString() {
+        CompletionStatus completionStatus1 = CompletionStatus.IN_PROGRESS;
+        CompletionStatus completionStatus2 = CompletionStatus.COMPLETED;
+        CompletionStatus completionStatus3 = CompletionStatus.PENDING;
+
+        assertEquals(completionStatus1, CompletionStatus.fromString("In progress"));
+        assertEquals(completionStatus2, CompletionStatus.fromString("Completed"));
+        assertEquals(completionStatus3, CompletionStatus.fromString("Pending"));
+    }
+
+    @Test
+    public void fromString_invalidString_throwsIllegalArgumentException() {
+        String invalidString = "";
+        assertThrows(IllegalArgumentException.class, () -> CompletionStatus.fromString(invalidString));
+    }
+
+    @Test
+    public void fromString_nullString_throwsNullPointerException() {
+        String nullString = null;
+        assertThrows(NullPointerException.class, () -> CompletionStatus.fromString(nullString));
     }
 }

@@ -196,6 +196,14 @@ public class AddCommandParserTest {
         assertParseFailure(parser, CUSTOMER_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB,
                 expectedMessage);
 
+        // missing food prefix
+        assertParseFailure(parser, VALID_FOOD_AMY + CUSTOMER_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + DATE_DESC_BOB, expectedMessage);
+
+        // missing date prefix
+        assertParseFailure(parser, FOOD_DESC_BOB + CUSTOMER_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + VALID_DATE_AMY, expectedMessage);
+
         // all prefixes missing
         assertParseFailure(parser, VALID_CUSTOMER_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB,
                 expectedMessage);
