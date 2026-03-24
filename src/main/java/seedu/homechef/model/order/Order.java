@@ -94,6 +94,9 @@ public class Order {
         return paymentStatus;
     }
 
+    /**
+     * Returns the {@code Price} for this order.
+     */
     public Price getPrice() {
         return price;
     }
