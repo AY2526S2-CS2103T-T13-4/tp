@@ -1,6 +1,7 @@
 package seedu.homechef.logic.parser;
 
 import static seedu.homechef.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.homechef.logic.parser.AddMenuCommandParser.MESSAGE_INVALID_AVAILABILITY;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_AVAILABILITY;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_MENU_NAME;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -47,7 +48,7 @@ public class EditMenuCommandParser implements Parser<EditMenuCommand> {
         if (argMultimap.getValue(PREFIX_AVAILABILITY).isPresent()) {
             String availStr = argMultimap.getValue(PREFIX_AVAILABILITY).get().trim().toLowerCase();
             if (!availStr.equals("true") && !availStr.equals("false")) {
-                throw new ParseException("Availability must be 'true' or 'false'.");
+                throw new ParseException(MESSAGE_INVALID_AVAILABILITY);
             }
             editMenuDescriptor.setAvailable(availStr.equals("true"));
         }

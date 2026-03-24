@@ -18,6 +18,8 @@ import seedu.homechef.model.menu.Price;
  */
 public class AddMenuCommandParser implements Parser<AddMenuCommand> {
 
+    static final String MESSAGE_INVALID_AVAILABILITY = "Availability must be 'true' or 'false'.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddMenuCommand
      * and returns an AddMenuCommand object for execution.
@@ -41,7 +43,7 @@ public class AddMenuCommandParser implements Parser<AddMenuCommand> {
         if (argMultimap.getValue(PREFIX_AVAILABILITY).isPresent()) {
             String availStr = argMultimap.getValue(PREFIX_AVAILABILITY).get().trim().toLowerCase();
             if (!availStr.equals("true") && !availStr.equals("false")) {
-                throw new ParseException("Availability must be 'true' or 'false'.");
+                throw new ParseException(MESSAGE_INVALID_AVAILABILITY);
             }
             available = availStr.equals("true");
         }
