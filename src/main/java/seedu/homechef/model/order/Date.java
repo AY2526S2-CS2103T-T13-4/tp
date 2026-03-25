@@ -54,6 +54,8 @@ public class Date implements Comparable<Date> {
     @Override
     public int compareTo(Date other) {
         return this.value.compareTo(other.value);
+    }
+    
     /**
      * Returns a string representation of the urgency status of a Date.
      * A Date is considered urgent if it is within the specified URGENT_PERIOD_DAYS.
