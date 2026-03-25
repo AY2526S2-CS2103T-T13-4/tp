@@ -38,7 +38,7 @@ HomeChef-Helper (HomeChef) is a **desktop app for managing orders, optimized for
    
    * `list f/cake` : Lists all orders with "cake" in the food's name.
 
-   * `add f/Red Bean Bun c/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/30-03-2026`
+   * `add f/Red Bean Bun c/John Doe p/1234 e/johnd@example.com a/John street, block 123, #01-01 d/30-03-2026 $/1.20`
    : Adds a order named `Red Bean Bun` with customer name `John Doe` to HomeChef. <br>
    The order should look like this:<br>
    ![sample_order](images/sampleOrder.png)<br>
@@ -62,16 +62,16 @@ HomeChef-Helper (HomeChef) is a **desktop app for managing orders, optimized for
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add f/FOOD`, `FOOD` is a parameter which can be used as `add f/Chocolate Cake`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `f/FOOD [t/TAG]` can be used as `f/Butter Cake t/no dairy` or as `n/no dairy`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/no peanuts`, `t/gluten-free t/extra sprinkles` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `f/FOOD p/PHONE`, `p/PHONE f/FOOD` is also acceptable.
 
 * Extra parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -102,34 +102,36 @@ An order can have any number of dietTags (including 0)
 
 Orders have their dates coloured according to the urgency of the Order.
 > White indicates that the `Order` is not late, it is due ***more than 3 days*** from today's date.<br>
-> ![normal date](images/normal_date.png) <br>
+> ![normal date](images/normalDate.png) <br>
 > Orange indicates that the `Order` is not late, but it is ***due within 3 days*** of today's date.<br>
-> ![urgent date](images/urgent_date.png) <br>
+> ![urgent date](images/urgentDate.png) <br>
 > Red indicates that the `Order` is late, it was due ***before*** today's date.
-> ![overdue date](images/overdue_date.png) <br>
+> ![overdue date](images/overdueDate.png) <br>
 
 Examples:
-* `add f/Red Bean Bun c/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/30-03-2026`
-* `add f/Hawaiian Pizza c/Betsy Crowe t/Halal e/betsycrowe@example.com a/Newgate Prison p/1234567 d/12-12-2026 t/No peanuts`
-* `add f/Bananas c/Monkey p/80801414 t/An actual monkey e/ooaa@ananab.com a/Monkey Village m/Bank r/123456789 b/Monkey Bank d/18-03-2026`
+* `add f/Red Bean Bun c/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/30-03-2026 $/1.20`
+* `add f/Hawaiian Pizza c/Betsy Crowe t/Halal e/betsycrowe@example.com a/Newgate Prison p/1234567 d/12-12-2026 $/18.80 t/No peanuts`
+* `add f/Bananas c/Monkey p/80801414 t/An actual monkey e/ooaa@ananab.com a/Monkey Village m/Bank r/123456789 b/Monkey Bank d/18-03-2026 $/6.70`
 
 ### Listing all orders : `list`
 
-Shows a list of all orders in the order list.
+Shows a list of all orders in the order list when no parameters are given, 
+Otherwise, shows a filtered list of orders that match the keywords given as parameters.
 
-Format: `list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE]`
+Format: `list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE] [cs/COMPLETION STATUS] [ps/PAYMENT STATUS]`
 
 * Lists all orders when no parameters are given.
 * Filters are case-insensitive for `c/`, `f/` and `p/`.
 * `DATE` must be in the format `dd-MM-yyyy`.
+*  `COMPLETION_STATUS` must be one of `Pending`, `In progress` or `Completed`.
+* `PAYMENT_STATUS` must be one of `$ Paid`, `$ Unpaid` or `$ Partial`.
 
 Examples:
 * `list`
 * `list d/18-10-2026`
-* `list c/alice`
-* `list f/cake`
 * `list p/1234`
 * `list d/16-04-2003 c/alice f/cake p/1234`
+* `list cs/Completed ps/$ Paid`
 
 ### Marking an order as in progress: `in progress`
 
@@ -178,7 +180,7 @@ Format: `unpaid INDEX`
 Edits an existing order in the order list.
 
 Format: 
-`edit INDEX [f/FOOD] [c/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DATE] [t/TAG]…​ 
+`edit INDEX [f/FOOD] [c/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DATE] [$/PRICE] [t/TAG]…​
 [m/PAYMENT METHOD] [r/PAYMENT REF] [b/BANK NAME] [w/WALLET PROVIDER]`
 
 * Edits the order at the specified `INDEX`. The index refers to the index number shown in the displayed order list. The index **must be a positive integer** 1, 2, 3, …​
@@ -273,7 +275,7 @@ Furthermore, certain edits can cause the HomeChef to behave in unexpected ways (
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add f/FOOD c/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ [m/PAYMENT METHOD] [r/PAYMENT REF] [b/BANK NAME] [w/WALLET PROVIDER]` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add f/FOOD c/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS $/PRICE [t/TAG]…​ [m/PAYMENT METHOD] [r/PAYMENT REF] [b/BANK NAME] [w/WALLET PROVIDER]` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Mark Complete** | `complete INDEX` <br> e.g., `complete 4`
@@ -282,5 +284,5 @@ Action | Format, Examples
 **Unpaid** | `unpaid INDEX` <br> e.g., `unpaid 1`
 **Edit** | `edit INDEX [f/FOOD] [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​ [m/PAYMENT METHOD] [r/PAYMENT REF] [b/BANK NAME] [w/WALLET PROVIDER]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE]`<br> e.g., `list d/18-10-2026`
+**List** | `list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE] [cs/COMPLETION_STATUS] [ps/PAYMENT_STATUS]`<br> e.g., `list d/18-10-2026 cs/completed ps/Paid`
 **Help** | `help`
