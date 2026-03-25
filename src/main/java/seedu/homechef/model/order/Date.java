@@ -106,5 +106,5 @@ public class Date implements Comparable<Date> {
     public int hashCode() {
         return value.hashCode();
     }
-
+}
 }
