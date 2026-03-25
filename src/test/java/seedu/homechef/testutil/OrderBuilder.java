@@ -14,6 +14,7 @@ import seedu.homechef.model.order.Order;
 import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.PaymentStatus;
 import seedu.homechef.model.order.Phone;
+import seedu.homechef.model.order.Price;
 import seedu.homechef.model.tag.DietTag;
 import seedu.homechef.model.util.SampleDataUtil;
 
@@ -28,8 +29,9 @@ public class OrderBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_DATE = "10-03-2026";
-    public static final String DEFAULT_COMPLETION_STATUS = "In Progress";
+    public static final String DEFAULT_COMPLETION_STATUS = "Pending";
     public static final String DEFAULT_PAYMENT_STATUS = "Unpaid";
+    public static final String DEFAULT_PRICE = "6.70";
 
     private Food food;
     private Customer customer;
@@ -40,6 +42,7 @@ public class OrderBuilder {
     private CompletionStatus completionStatus;
     private PaymentStatus paymentStatus;
     private Set<DietTag> dietTags;
+    private Price price;
     private Optional<PaymentInfo> paymentInfo = Optional.empty();
 
     /**
@@ -54,6 +57,7 @@ public class OrderBuilder {
         date = new Date(DEFAULT_DATE);
         completionStatus = CompletionStatus.fromString(DEFAULT_COMPLETION_STATUS);
         paymentStatus = PaymentStatus.fromString(DEFAULT_PAYMENT_STATUS);
+        price = new Price(DEFAULT_PRICE);
         dietTags = new HashSet<>();
     }
 
@@ -69,6 +73,7 @@ public class OrderBuilder {
         date = orderToCopy.getDate();
         completionStatus = orderToCopy.getCompletionStatus();
         paymentStatus = orderToCopy.getPaymentStatus();
+        price = orderToCopy.getPrice();
         dietTags = new HashSet<>(orderToCopy.getTags());
         paymentInfo = orderToCopy.getPaymentInfo();
     }
@@ -146,6 +151,14 @@ public class OrderBuilder {
     }
 
     /**
+     * Sets the {@code Price} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withPrice(String price) {
+        this.price = new Price(price);
+        return this;
+    }
+
+    /**
      * Sets the {@code PaymentInfo} of the {@code Order} that we are building.
      */
     public OrderBuilder withPaymentInfo(PaymentInfo paymentInfo) {
@@ -158,7 +171,7 @@ public class OrderBuilder {
      */
     public Order build() {
         return new Order(food, customer, phone, email, address, date,
-                completionStatus, paymentStatus, dietTags, paymentInfo);
+                completionStatus, paymentStatus, dietTags, price, paymentInfo);
     }
 
 }

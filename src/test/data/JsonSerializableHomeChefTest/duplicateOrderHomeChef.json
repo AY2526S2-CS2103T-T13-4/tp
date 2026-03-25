@@ -7,6 +7,7 @@
       "email": "alice@example.com",
       "date": "26-10-2026",
       "address": "123, Jurong West Ave 6, #08-111",
+      "price": "20.00",
       "completionStatus": "In Progress",
       "paymentStatus": "Unpaid",
       "tags": [
@@ -20,6 +21,7 @@
       "email": "pauline@example.com",
       "date": "26-10-2026",
       "address": "4th street",
+      "price": "20.00",
       "completionStatus": "In Progress",
       "paymentStatus": "Unpaid"
     }

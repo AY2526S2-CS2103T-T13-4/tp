@@ -7,15 +7,15 @@ import static seedu.homechef.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.homechef.logic.commands.MarkInProgressCommand;
+import seedu.homechef.logic.commands.MarkPendingCommand;
 
-public class MarkInProgressCommandParserTest {
+public class MarkPendingCommandParserTest {
 
-    private MarkInProgressCommandParser parser = new MarkInProgressCommandParser();
+    private MarkPendingCommandParser parser = new MarkPendingCommandParser();
 
     @Test
-    public void parse_validArgs_returnsMarkInProgressCommand() {
-        assertParseSuccess(parser, "1", new MarkInProgressCommand(INDEX_FIRST_ORDER));
+    public void parse_validArgs_returnsMarkPendingCommand() {
+        assertParseSuccess(parser, "1", new MarkPendingCommand(INDEX_FIRST_ORDER));
     }
 
     @Test
@@ -23,6 +23,6 @@ public class MarkInProgressCommandParserTest {
         assertParseFailure(
                 parser,
                 "a",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkInProgressCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkPendingCommand.MESSAGE_USAGE));
     }
 }

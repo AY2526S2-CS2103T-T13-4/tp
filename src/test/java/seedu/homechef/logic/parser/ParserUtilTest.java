@@ -21,6 +21,7 @@ import seedu.homechef.model.order.Email;
 import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.PaymentType;
 import seedu.homechef.model.order.Phone;
+import seedu.homechef.model.order.Price;
 import seedu.homechef.model.tag.DietTag;
 
 public class ParserUtilTest {
@@ -28,12 +29,15 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_PRICE = "05.50";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_CUSTOMER = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_PRICE = "10.50";
+    private static final String VALID_PRICE_NO_DECIMAL = "10";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -197,6 +201,42 @@ public class ParserUtilTest {
         );
 
         assertEquals(expectedDietTagSet, actualDietTagSet);
+    }
+
+    @Test
+    public void parsePrice_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePrice((String) null));
+    }
+
+    @Test
+    public void parsePrice_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePrice(INVALID_PRICE));
+    }
+
+    @Test
+    public void parsePrice_validValueWithoutWhitespace_returnsPrice() throws Exception {
+        Price expectedPrice = new Price(VALID_PRICE);
+        assertEquals(expectedPrice, ParserUtil.parsePrice(VALID_PRICE));
+    }
+
+    @Test
+    public void parsePrice_validValueWithWhitespace_returnsTrimmedPrice() throws Exception {
+        String priceWithWhitespace = WHITESPACE + VALID_PRICE + WHITESPACE;
+        Price expectedPrice = new Price(VALID_PRICE);
+        assertEquals(expectedPrice, ParserUtil.parsePrice(priceWithWhitespace));
+    }
+
+    @Test
+    public void parsePrice_validIntegerValueWithoutWhitespace_returnsPrice() throws Exception {
+        Price expectedPrice = new Price(VALID_PRICE_NO_DECIMAL);
+        assertEquals(expectedPrice, ParserUtil.parsePrice(VALID_PRICE_NO_DECIMAL));
+    }
+
+    @Test
+    public void parsePrice_validIntegerValueWithWhitespace_returnsTrimmedPrice() throws Exception {
+        String priceWithWhitespace = WHITESPACE + VALID_PRICE_NO_DECIMAL + WHITESPACE;
+        Price expectedPrice = new Price(VALID_PRICE_NO_DECIMAL);
+        assertEquals(expectedPrice, ParserUtil.parsePrice(priceWithWhitespace));
     }
 
     @Test

@@ -29,14 +29,16 @@ public class Order {
     private final CompletionStatus completionStatus;
     private final PaymentStatus paymentStatus;
     private final Set<DietTag> dietTags = new HashSet<>();
+    private final Price price;
     private final Optional<PaymentInfo> paymentInfo;
 
     /**
      * Every field must be present and not null.
      */
     public Order(Food food, Customer customer, Phone phone, Email email, Address address, Date date,
-                 CompletionStatus completionStatus, PaymentStatus paymentStatus, Set<DietTag> dietTags) {
-        this(food, customer, phone, email, address, date, completionStatus, paymentStatus, dietTags, Optional.empty());
+                 CompletionStatus completionStatus, PaymentStatus paymentStatus, Set<DietTag> dietTags, Price price) {
+        this(food, customer, phone, email, address, date,
+                completionStatus, paymentStatus, dietTags, price, Optional.empty());
     }
 
     /**
@@ -44,9 +46,9 @@ public class Order {
      */
     public Order(Food food, Customer customer, Phone phone, Email email, Address address, Date date,
                  CompletionStatus completionStatus, PaymentStatus paymentStatus, Set<DietTag> dietTags,
-                 Optional<PaymentInfo> paymentInfo) {
+                 Price price, Optional<PaymentInfo> paymentInfo) {
         requireAllNonNull(food, customer, phone, email, address, date,
-                completionStatus, paymentStatus, dietTags, paymentInfo);
+                completionStatus, paymentStatus, dietTags, price, paymentInfo);
         this.food = food;
         this.customer = customer;
         this.phone = phone;
@@ -56,6 +58,7 @@ public class Order {
         this.completionStatus = completionStatus;
         this.paymentStatus = paymentStatus;
         this.dietTags.addAll(dietTags);
+        this.price = price;
         this.paymentInfo = paymentInfo;
     }
 
@@ -89,6 +92,13 @@ public class Order {
 
     public PaymentStatus getPaymentStatus() {
         return paymentStatus;
+    }
+
+    /**
+     * Returns the {@code Price} for this order.
+     */
+    public Price getPrice() {
+        return price;
     }
 
     /**
@@ -146,6 +156,7 @@ public class Order {
                 && completionStatus.equals(otherOrder.completionStatus)
                 && paymentStatus.equals(otherOrder.paymentStatus)
                 && dietTags.equals(otherOrder.dietTags)
+                && price.equals(otherOrder.price)
                 && paymentInfo.equals(otherOrder.paymentInfo);
     }
 
@@ -153,7 +164,7 @@ public class Order {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(food, customer, phone, email, address, date, completionStatus,
-                paymentStatus, dietTags, paymentInfo);
+                paymentStatus, dietTags, price, paymentInfo);
     }
 
     @Override
@@ -165,6 +176,7 @@ public class Order {
                 .add("email", email)
                 .add("address", address)
                 .add("date", date)
+                .add("price", price)
                 .add("completionStatus", completionStatus)
                 .add("paymentStatus", paymentStatus)
                 .add("dietTags", dietTags)

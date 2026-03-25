@@ -7,6 +7,7 @@ import static seedu.homechef.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_FOOD;
+import static seedu.homechef.logic.parser.CliSyntax.PREFIX_ORDER_PRICE;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PAYMENT_METHOD;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PAYMENT_REF;
 import static seedu.homechef.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -34,6 +35,7 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
             + PREFIX_DATE + "DATE "
+            + PREFIX_ORDER_PRICE + "PRICE "
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_PAYMENT_METHOD + "PAYMENT_METHOD] "
             + "[" + PREFIX_PAYMENT_REF + "PAYMENT_REF] "
@@ -47,6 +49,7 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "NUS "
             + PREFIX_DATE + "20-10-2026 "
+            + PREFIX_ORDER_PRICE + "18.20 "
             + PREFIX_TAG + "dairyfree ";
 
     public static final String MESSAGE_SUCCESS = "New order added: %1$s";

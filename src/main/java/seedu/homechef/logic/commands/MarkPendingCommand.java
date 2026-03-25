@@ -26,22 +26,22 @@ import seedu.homechef.model.order.Price;
 import seedu.homechef.model.tag.DietTag;
 
 /**
- * Marks an order identified using it's displayed index from the HomeChef as In Progress.
+ * Marks an order identified using it's displayed index from the HomeChef as completed.
  */
-public class MarkInProgressCommand extends Command {
+public class MarkPendingCommand extends Command {
 
-    public static final String COMMAND_WORD = "inprogress";
+    public static final String COMMAND_WORD = "pending";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the order identified by the index number used in the displayed order list as in progress.\n"
+            + ": Marks the order identified by the index number used in the displayed order list as pending.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_IN_PROGRESS_ORDER_SUCCESS = "Marked Order as In Progress: %1$s";
+    public static final String MESSAGE_PENDING_ORDER_SUCCESS = "Marked Order as Pending: %1$s";
 
     private final Index targetIndex;
 
-    public MarkInProgressCommand(Index targetIndex) {
+    public MarkPendingCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -54,33 +54,32 @@ public class MarkInProgressCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Order orderToMarkInProgress = lastShownList.get(targetIndex.getZeroBased());
-        Order incompleteOrder = createIncompleteOrder(orderToMarkInProgress);
+        Order orderToMarkPending = lastShownList.get(targetIndex.getZeroBased());
+        Order pendingOrder = createPendingOrder(orderToMarkPending);
 
-        model.setOrder(orderToMarkInProgress, incompleteOrder);
+        model.setOrder(orderToMarkPending, pendingOrder);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
-        return new CommandResult(String.format(
-                MESSAGE_IN_PROGRESS_ORDER_SUCCESS, Messages.format(orderToMarkInProgress)));
+        return new CommandResult(String.format(MESSAGE_PENDING_ORDER_SUCCESS, Messages.format(pendingOrder)));
     }
 
     /**
-     * Creates and returns a {@code Order} with the details of {@code orderToMarkIncomplete}
-     * marking {@code CompletionStatus} in progress.
+     * Creates and returns a {@code Order} with the details of {@code orderToMarkComplete}
+     * marking {@code CompletionStatus} to pending.
      */
-    private static Order createIncompleteOrder(Order orderToMarkInProgress) {
-        assert orderToMarkInProgress != null;
+    private static Order createPendingOrder(Order orderToMarkPending) {
+        assert orderToMarkPending != null;
 
-        Food food = orderToMarkInProgress.getFood();
-        Customer customer = orderToMarkInProgress.getCustomer();
-        Phone phone = orderToMarkInProgress.getPhone();
-        Email email = orderToMarkInProgress.getEmail();
-        Address address = orderToMarkInProgress.getAddress();
-        Date date = orderToMarkInProgress.getDate();
-        CompletionStatus updatedCompletionStatus = CompletionStatus.IN_PROGRESS;
-        PaymentStatus paymentStatus = orderToMarkInProgress.getPaymentStatus();
-        Set<DietTag> dietTags = orderToMarkInProgress.getTags();
-        Price price = orderToMarkInProgress.getPrice();
-        Optional<PaymentInfo> paymentInfo = orderToMarkInProgress.getPaymentInfo();
+        Food food = orderToMarkPending.getFood();
+        Customer customer = orderToMarkPending.getCustomer();
+        Phone phone = orderToMarkPending.getPhone();
+        Email email = orderToMarkPending.getEmail();
+        Address address = orderToMarkPending.getAddress();
+        Date date = orderToMarkPending.getDate();
+        CompletionStatus updatedCompletionStatus = CompletionStatus.PENDING;
+        PaymentStatus paymentStatus = orderToMarkPending.getPaymentStatus();
+        Set<DietTag> dietTags = orderToMarkPending.getTags();
+        Price price = orderToMarkPending.getPrice();
+        Optional<PaymentInfo> paymentInfo = orderToMarkPending.getPaymentInfo();
 
         return new Order(food, customer, phone,
                 email, address, date, updatedCompletionStatus, paymentStatus, dietTags, price, paymentInfo);
@@ -93,12 +92,12 @@ public class MarkInProgressCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof MarkInProgressCommand)) {
+        if (!(other instanceof MarkPendingCommand)) {
             return false;
         }
 
-        MarkInProgressCommand otherMarkInProgressCommand = (MarkInProgressCommand) other;
-        return targetIndex.equals(otherMarkInProgressCommand.targetIndex);
+        MarkPendingCommand otherMarkPendingCommand = (MarkPendingCommand) other;
+        return targetIndex.equals(otherMarkPendingCommand.targetIndex);
     }
 
     @Override

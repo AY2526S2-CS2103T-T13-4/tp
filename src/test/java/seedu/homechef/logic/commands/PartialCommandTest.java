@@ -22,38 +22,38 @@ import seedu.homechef.model.order.PaymentStatus;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
- * {@code UnpaidCommand}.
+ * {@code PartialCommand}.
  */
-public class UnpaidCommandTest {
+public class PartialCommandTest {
 
     private Model model = new ModelManager(getTypicalHomeChef(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Order orderToEdit = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
-        UnpaidCommand unpaidCommand = new UnpaidCommand(INDEX_FIRST_ORDER);
+        PartialCommand partialCommand = new PartialCommand(INDEX_FIRST_ORDER);
 
-        PaymentStatus unpaidStatus = PaymentStatus.UNPAID;
+        PaymentStatus partialStatus = PaymentStatus.PARTIAL;
         Order editedOrder = new Order(
                 orderToEdit.getFood(), orderToEdit.getCustomer(), orderToEdit.getPhone(),
                 orderToEdit.getEmail(), orderToEdit.getAddress(), orderToEdit.getDate(),
-                orderToEdit.getCompletionStatus(), unpaidStatus, orderToEdit.getTags(), orderToEdit.getPrice());
+                orderToEdit.getCompletionStatus(), partialStatus, orderToEdit.getTags(), orderToEdit.getPrice());
 
-        String expectedMessage = String.format(UnpaidCommand.MESSAGE_MARK_UNPAID_SUCCESS,
+        String expectedMessage = String.format(PartialCommand.MESSAGE_MARK_PARTIAL_SUCCESS,
                 Messages.format(editedOrder));
 
         ModelManager expectedModel = new ModelManager(model.getHomeChef(), new UserPrefs());
         expectedModel.setOrder(orderToEdit, editedOrder);
 
-        assertCommandSuccess(unpaidCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(partialCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredOrderList().size() + 1);
-        UnpaidCommand unpaidCommand = new UnpaidCommand(outOfBoundIndex);
+        PartialCommand partialCommand = new PartialCommand(outOfBoundIndex);
 
-        assertCommandFailure(unpaidCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        assertCommandFailure(partialCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
     }
 
     @Test
@@ -61,21 +61,21 @@ public class UnpaidCommandTest {
         showOrderAtIndex(model, INDEX_FIRST_ORDER);
 
         Order orderToEdit = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
-        UnpaidCommand unpaidCommand = new UnpaidCommand(INDEX_FIRST_ORDER);
+        PartialCommand partialCommand = new PartialCommand(INDEX_FIRST_ORDER);
 
-        PaymentStatus unpaidStatus = PaymentStatus.UNPAID;
+        PaymentStatus partialStatus = PaymentStatus.PARTIAL;
         Order editedOrder = new Order(
                 orderToEdit.getFood(), orderToEdit.getCustomer(), orderToEdit.getPhone(),
                 orderToEdit.getEmail(), orderToEdit.getAddress(), orderToEdit.getDate(),
-                orderToEdit.getCompletionStatus(), unpaidStatus, orderToEdit.getTags(), orderToEdit.getPrice());
+                orderToEdit.getCompletionStatus(), partialStatus, orderToEdit.getTags(), orderToEdit.getPrice());
 
-        String expectedMessage = String.format(UnpaidCommand.MESSAGE_MARK_UNPAID_SUCCESS,
+        String expectedMessage = String.format(PartialCommand.MESSAGE_MARK_PARTIAL_SUCCESS,
                 Messages.format(editedOrder));
 
         Model expectedModel = new ModelManager(model.getHomeChef(), new UserPrefs());
         expectedModel.setOrder(orderToEdit, editedOrder);
 
-        assertCommandSuccess(unpaidCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(partialCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -85,38 +85,38 @@ public class UnpaidCommandTest {
         Index outOfBoundIndex = INDEX_SECOND_ORDER;
         assertTrue(outOfBoundIndex.getZeroBased() < model.getHomeChef().getOrderList().size());
 
-        UnpaidCommand unpaidCommand = new UnpaidCommand(outOfBoundIndex);
+        PartialCommand partialCommand = new PartialCommand(outOfBoundIndex);
 
-        assertCommandFailure(unpaidCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        assertCommandFailure(partialCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        UnpaidCommand unpaidFirstCommand = new UnpaidCommand(INDEX_FIRST_ORDER);
-        UnpaidCommand unpaidSecondCommand = new UnpaidCommand(INDEX_SECOND_ORDER);
+        PartialCommand partialFirstCommand = new PartialCommand(INDEX_FIRST_ORDER);
+        PartialCommand partialSecondCommand = new PartialCommand(INDEX_SECOND_ORDER);
 
         // same object -> true
-        assertTrue(unpaidFirstCommand.equals(unpaidFirstCommand));
+        assertTrue(partialFirstCommand.equals(partialFirstCommand));
 
         // same values -> true
-        UnpaidCommand unpaidFirstCommandCopy = new UnpaidCommand(INDEX_FIRST_ORDER);
-        assertTrue(unpaidFirstCommand.equals(unpaidFirstCommandCopy));
+        PartialCommand partialFirstCommandCopy = new PartialCommand(INDEX_FIRST_ORDER);
+        assertTrue(partialFirstCommand.equals(partialFirstCommandCopy));
 
         // different types -> false
-        assertFalse(unpaidFirstCommand.equals(1));
+        assertFalse(partialFirstCommand.equals(1));
 
         // null -> false
-        assertFalse(unpaidFirstCommand.equals(null));
+        assertFalse(partialFirstCommand.equals(null));
 
         // different index -> false
-        assertFalse(unpaidFirstCommand.equals(unpaidSecondCommand));
+        assertFalse(partialFirstCommand.equals(partialSecondCommand));
     }
 
     @Test
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
-        UnpaidCommand unpaidCommand = new UnpaidCommand(targetIndex);
-        String expected = UnpaidCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
-        assertEquals(expected, unpaidCommand.toString());
+        PartialCommand partialCommand = new PartialCommand(targetIndex);
+        String expected = PartialCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
+        assertEquals(expected, partialCommand.toString());
     }
 }

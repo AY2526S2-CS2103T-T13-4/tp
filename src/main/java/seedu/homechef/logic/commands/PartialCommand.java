@@ -25,22 +25,21 @@ import seedu.homechef.model.order.Price;
 import seedu.homechef.model.tag.DietTag;
 
 /**
- * Marks an order as unpaid in HomeChef.
+ * Marks an order as partially paid in HomeChef.
  */
-public class UnpaidCommand extends Command {
+public class PartialCommand extends Command {
+    public static final String COMMAND_WORD = "partial";
 
-    public static final String COMMAND_WORD = "unpaid";
-
-    public static final String MESSAGE_MARK_UNPAID_SUCCESS = "Marked order as unpaid: %1$s";
+    public static final String MESSAGE_MARK_PARTIAL_SUCCESS = "Marked order as partially paid: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks as unpaid the order identified by the index number used in the displayed order list.\n"
+            + ": Marks as partially paid the order identified by the index number used in the displayed order list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Example: " + COMMAND_WORD + " 1";
 
     private final Index targetIndex;
 
-    public UnpaidCommand(Index targetIndex) {
+    public PartialCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -53,43 +52,40 @@ public class UnpaidCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Order orderToMarkUnpaid = lastShownList.get(targetIndex.getZeroBased());
-        Order unpaidOrder = createUnpaidOrder(orderToMarkUnpaid);
+        Order orderToMarkPartial = lastShownList.get(targetIndex.getZeroBased());
+        Order partialOrder = createPartialOrder(orderToMarkPartial);
 
-        model.setOrder(orderToMarkUnpaid, unpaidOrder);
+        model.setOrder(orderToMarkPartial, partialOrder);
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
 
-        return new CommandResult(generateSuccessMessage(unpaidOrder));
+        return new CommandResult(generateSuccessMessage(partialOrder));
     }
 
     /**
-     * Creates and returns an {@code Order} with the details of {@code orderToMarkUnpaid}
-     * marking {@code PaymentStatus} as unpaid.
+     * Creates and returns an {@code Order} with the details of {@code orderToMarkPartial}
+     * marking {@code PaymentStatus} as partial.
      */
-    private static Order createUnpaidOrder(Order orderToMarkUnpaid) {
-        assert orderToMarkUnpaid != null;
+    private static Order createPartialOrder(Order orderToMarkPartial) {
+        assert orderToMarkPartial != null;
 
-        Food food = orderToMarkUnpaid.getFood();
-        Customer customer = orderToMarkUnpaid.getCustomer();
-        Phone phone = orderToMarkUnpaid.getPhone();
-        Email email = orderToMarkUnpaid.getEmail();
-        Address address = orderToMarkUnpaid.getAddress();
-        Date date = orderToMarkUnpaid.getDate();
-        CompletionStatus completionStatus = orderToMarkUnpaid.getCompletionStatus();
-        PaymentStatus updatedPaymentStatus = PaymentStatus.UNPAID;
-        Set<DietTag> dietTags = orderToMarkUnpaid.getTags();
-        Price price = orderToMarkUnpaid.getPrice();
-        Optional<PaymentInfo> paymentInfo = orderToMarkUnpaid.getPaymentInfo();
+        Food food = orderToMarkPartial.getFood();
+        Customer customer = orderToMarkPartial.getCustomer();
+        Phone phone = orderToMarkPartial.getPhone();
+        Email email = orderToMarkPartial.getEmail();
+        Address address = orderToMarkPartial.getAddress();
+        Date date = orderToMarkPartial.getDate();
+        CompletionStatus completionStatus = orderToMarkPartial.getCompletionStatus();
+        PaymentStatus updatedPaymentStatus = PaymentStatus.PARTIAL;
+        Set<DietTag> dietTags = orderToMarkPartial.getTags();
+        Price price = orderToMarkPartial.getPrice();
+        Optional<PaymentInfo> paymentInfo = orderToMarkPartial.getPaymentInfo();
 
         return new Order(food, customer, phone, email, address, date,
                 completionStatus, updatedPaymentStatus, dietTags, price, paymentInfo);
     }
 
-    /**
-     * Generates a command execution success message when an order is marked as unpaid.
-     */
     private String generateSuccessMessage(Order order) {
-        return String.format(MESSAGE_MARK_UNPAID_SUCCESS, Messages.format(order));
+        return String.format(MESSAGE_MARK_PARTIAL_SUCCESS, Messages.format(order));
     }
 
     @Override
@@ -97,10 +93,10 @@ public class UnpaidCommand extends Command {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof UnpaidCommand)) {
+        if (!(other instanceof PartialCommand)) {
             return false;
         }
-        UnpaidCommand otherCommand = (UnpaidCommand) other;
+        PartialCommand otherCommand = (PartialCommand) other;
         return targetIndex.equals(otherCommand.targetIndex);
     }
 

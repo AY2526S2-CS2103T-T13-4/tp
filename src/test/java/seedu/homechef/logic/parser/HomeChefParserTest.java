@@ -24,6 +24,10 @@ import seedu.homechef.logic.commands.HelpCommand;
 import seedu.homechef.logic.commands.ListCommand;
 import seedu.homechef.logic.commands.MarkCompleteCommand;
 import seedu.homechef.logic.commands.MarkInProgressCommand;
+import seedu.homechef.logic.commands.MarkPendingCommand;
+import seedu.homechef.logic.commands.PaidCommand;
+import seedu.homechef.logic.commands.PartialCommand;
+import seedu.homechef.logic.commands.UnpaidCommand;
 import seedu.homechef.logic.parser.exceptions.ParseException;
 import seedu.homechef.model.order.CustomerContainsKeywordsPredicate;
 import seedu.homechef.model.order.Order;
@@ -102,6 +106,34 @@ public class HomeChefParserTest {
         MarkInProgressCommand command = (MarkInProgressCommand) parser.parseCommand(
                 MarkInProgressCommand.COMMAND_WORD + " " + INDEX_FIRST_ORDER.getOneBased());
         assertEquals(new MarkInProgressCommand(INDEX_FIRST_ORDER), command);
+    }
+
+    @Test
+    public void parseCommand_mark_pending() throws Exception {
+        MarkPendingCommand command = (MarkPendingCommand) parser.parseCommand(
+                MarkPendingCommand.COMMAND_WORD + " " + INDEX_FIRST_ORDER.getOneBased());
+        assertEquals(new MarkPendingCommand(INDEX_FIRST_ORDER), command);
+    }
+
+    @Test
+    public void parseCommand_mark_paid() throws Exception {
+        PaidCommand command = (PaidCommand) parser.parseCommand(
+                PaidCommand.COMMAND_WORD + " " + INDEX_FIRST_ORDER.getOneBased());
+        assertEquals(new PaidCommand(INDEX_FIRST_ORDER), command);
+    }
+
+    @Test
+    public void parseCommand_mark_unpaid() throws Exception {
+        UnpaidCommand command = (UnpaidCommand) parser.parseCommand(
+                UnpaidCommand.COMMAND_WORD + " " + INDEX_FIRST_ORDER.getOneBased());
+        assertEquals(new UnpaidCommand(INDEX_FIRST_ORDER), command);
+    }
+
+    @Test
+    public void parseCommand_mark_partial() throws Exception {
+        PartialCommand command = (PartialCommand) parser.parseCommand(
+                PartialCommand.COMMAND_WORD + " " + INDEX_FIRST_ORDER.getOneBased());
+        assertEquals(new PartialCommand(INDEX_FIRST_ORDER), command);
     }
 
     @Test

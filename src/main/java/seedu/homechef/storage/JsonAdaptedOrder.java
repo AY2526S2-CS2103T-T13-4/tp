@@ -21,6 +21,7 @@ import seedu.homechef.model.order.PaymentInfo;
 import seedu.homechef.model.order.PaymentStatus;
 import seedu.homechef.model.order.PaymentType;
 import seedu.homechef.model.order.Phone;
+import seedu.homechef.model.order.Price;
 import seedu.homechef.model.tag.DietTag;
 
 /**
@@ -39,6 +40,7 @@ class JsonAdaptedOrder {
     private final String completionStatus;
     private final String paymentStatus;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final String price;
     private final String paymentType;
     private final String paymentHandle;
     private final String paymentBankName;
@@ -58,6 +60,7 @@ class JsonAdaptedOrder {
             @JsonProperty("email") String email,
             @JsonProperty("address") String address,
             @JsonProperty("date") String date,
+            @JsonProperty("price") String price,
             @JsonProperty("completionStatus") String completionStatus,
             @JsonProperty("paymentStatus") String paymentStatus,
             @JsonProperty("tags") List<JsonAdaptedTag> tags,
@@ -79,6 +82,7 @@ class JsonAdaptedOrder {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.price = price;
         this.paymentType = paymentType;
         this.paymentHandle = paymentHandle;
         this.paymentBankName = paymentBankName;
@@ -100,6 +104,7 @@ class JsonAdaptedOrder {
         date = source.getDate().toString();
         completionStatus = source.getCompletionStatus().toString();
         paymentStatus = source.getPaymentStatus().toString();
+        price = source.getPrice().toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .toList());
@@ -203,6 +208,15 @@ class JsonAdaptedOrder {
         }
         final PaymentStatus modelPaymentStatus = PaymentStatus.fromString(paymentStatus);
 
+        if (price == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Price.class.getSimpleName()));
+        }
+        if (!Price.isValidPrice(price)) {
+            throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
+        }
+        final Price modelPrice = new Price(price);
+
         Optional<PaymentInfo> modelPaymentInfo;
         if (paymentType == null) {
             modelPaymentInfo = Optional.empty();
@@ -223,8 +237,8 @@ class JsonAdaptedOrder {
             }
         }
 
-        return new Order(modelFood, modelCustomer, modelPhone, modelEmail, modelAddress,
-                modelDate, modelCompletionStatus, modelPaymentStatus, modelDietTags, modelPaymentInfo);
+        return new Order(modelFood, modelCustomer, modelPhone, modelEmail, modelAddress, modelDate,
+                modelCompletionStatus, modelPaymentStatus, modelDietTags, modelPrice, modelPaymentInfo);
     }
 
 }
