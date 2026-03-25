@@ -10,39 +10,48 @@ HomeChef-Helper (HomeChef) is a **desktop app for managing orders, optimized for
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## Looking to get started?
+### Here's a quick guide:
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
     A tutorial on how to download Java `17` can be found [here](https://se-education.org/guides/tutorials/javaInstallation.html).<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103T-T13-4/tp/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103T-T13-4/tp/releases).<br>Only the `.jar` file is needed, not the source code.
 
 1. Copy the file to the folder you want to use as the _home folder_ for your HomeChef.
 
 1. Double click on the `homechef.jar` file to launch the app.<br>
    If that does not work, try the following:
-   > 1. Open a command terminal, (Command Prompt or Powershell on Windows, Terminal on Mac).<br>
-   > 1. `cd` into the folder you put the jar file in.<br> For example:<br> `cd Desktop/Folder1/FolderContainingHomeChef`<br>
+   > 1. Open a command terminal. <br>(Command Prompt or Powershell on Windows, Terminal on Mac)<br>
+   > 1. Use the `cd` command to navigate into the folder you put the jar file in.<br> For example:<br> `cd Desktop/Folder1/FolderContainingHomeChef`<br>
    > 1. Type the `java -jar homechef.jar` command to run the application.<br>
       
-    If successful, a screen similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-      ![Ui](images/Ui.png)
+    If successful, a screen similar to the one below should appear in a few seconds. The app contains some sample data for you to get an idea of how the it functions.<br>
+
+    ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all orders.
+   
+   * `list f/cake` : Lists all orders with "cake" in the food's name.
 
-   * `add f/Red Bean Bun c/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/30-03-2026` : Adds a order named `John Doe` to HomeChef.
+   * `add f/Red Bean Bun c/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/30-03-2026`
+   : Adds a order named `Red Bean Bun` with customer name `John Doe` to HomeChef. <br>
+   The order should look like this:<br>
+   ![sample_order](images/sampleOrder.png)<br>
+   Note that the ID number may defer if there are other orders in the list.<br>
+   The date may also be of a different colour if the current date is after 30-03-2026.
 
+   * `complete 1` : Marks the 1st order shown in the current list as completed.
+   
    * `delete 3` : Deletes the 3rd order shown in the current list.
-
-   * `clear` : Deletes all orders.
 
    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+1. Do refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -64,7 +73,7 @@ HomeChef-Helper (HomeChef) is a **desktop app for managing orders, optimized for
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
+* Extra parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -93,8 +102,11 @@ An order can have any number of dietTags (including 0)
 
 Orders have their dates coloured according to the urgency of the Order.
 > White indicates that the `Order` is not late, it is due ***more than 3 days*** from today's date.<br>
-> Orange indicates that the `Order` is not late, but it is ***due within 3 days***.<br>
+> ![normal date](images/normal_date.png) <br>
+> Orange indicates that the `Order` is not late, but it is ***due within 3 days*** of today's date.<br>
+> ![urgent date](images/urgent_date.png) <br>
 > Red indicates that the `Order` is late, it was due ***before*** today's date.
+> ![overdue date](images/overdue_date.png) <br>
 
 Examples:
 * `add f/Red Bean Bun c/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/30-03-2026`
@@ -147,6 +159,13 @@ Paid orders have their payment status coloured green.
 
 Format: `paid INDEX`
 
+### Marking an order as partially paid: `partial`
+
+Sets the payment status of an order to '$ Partial'.
+Partially paid orders have their payment status coloured yellow.
+
+Format: `partial INDEX`
+
 ### Marking an order as unpaid: `unpaid`
 
 Sets the payment status of an order to '$ Unpaid'.
@@ -173,7 +192,7 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st order to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 c/Betsy Crower t/` Edits the name of the 2nd order's customer to be `Betsy Crower` and clears all existing dietTags.
 
-### Locating orders by name: `find`
+### Locating orders by customer name: `find`
 
 Finds orders whose customer names contain any of the given keywords.
 
@@ -207,6 +226,10 @@ Examples:
 
 ### Clearing all entries : `clear`
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+This action **cannot be reversed** so only do this if you are sure you want to delete **every** order in the list. <br> If not, use the delete command instead.
+</div>
+
 Clears all entries from the order list.
 
 Format: `clear`
@@ -229,10 +252,6 @@ HomeChef data is saved automatically as a JSON file `[JAR file location]/data/ho
 If your changes to the data file makes its format invalid, HomeChef will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the HomeChef to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
