@@ -75,7 +75,7 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        String foodName = toAdd.getFood().foodName;
+        String foodName = toAdd.getFood().toString();
         Optional<MenuItem> matchingItem = model.getMenuBook().getMenuItemList().stream()
                 .filter(item -> item.getName().fullName.equalsIgnoreCase(foodName))
                 .findFirst();
@@ -94,7 +94,7 @@ public class AddCommand extends Command {
                 : new Order(new Food(canonicalName), toAdd.getCustomer(), toAdd.getPhone(),
                         toAdd.getEmail(), toAdd.getAddress(), toAdd.getDate(),
                         toAdd.getCompletionStatus(), toAdd.getPaymentStatus(),
-                        toAdd.getTags(), toAdd.getPaymentInfo());
+                        toAdd.getTags(), toAdd.getPrice(), toAdd.getPaymentInfo());
 
         if (model.hasOrder(orderToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);

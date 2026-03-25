@@ -82,7 +82,7 @@ public class EditCommandIntegrationTest {
         descriptor.setFood(new Food("chicken RICE"));
         new EditCommand(indexAlice, descriptor).execute(model);
 
-        String storedFoodName = model.getFilteredOrderList().get(0).getFood().foodName;
+        String storedFoodName = model.getFilteredOrderList().get(0).getFood().toString();
         assertEquals("Chicken Rice", storedFoodName,
                 "Food name should be normalized to canonical menu casing");
     }

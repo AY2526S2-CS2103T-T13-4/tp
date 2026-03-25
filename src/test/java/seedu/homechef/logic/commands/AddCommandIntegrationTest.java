@@ -102,7 +102,7 @@ public class AddCommandIntegrationTest {
                 .findFirst()
                 .orElseThrow(() -> new AssertionError("Order not found in model"));
 
-        assertEquals("Chicken Rice", storedOrder.getFood().foodName,
+        assertEquals("Chicken Rice", storedOrder.getFood().toString(),
                 "Food name should be normalized to canonical menu casing");
     }
 }

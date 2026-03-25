@@ -103,7 +103,7 @@ public class EditCommand extends Command {
         Order editedOrder = createEditedOrder(orderToEdit, descriptor);
 
         if (descriptor.getFood().isPresent()) {
-            String newFoodName = editedOrder.getFood().foodName;
+            String newFoodName = editedOrder.getFood().toString();
             Optional<MenuItem> matchingItem = model.getMenuBook().getMenuItemList().stream()
                     .filter(item -> item.getName().fullName.equalsIgnoreCase(newFoodName))
                     .findFirst();
@@ -118,7 +118,7 @@ public class EditCommand extends Command {
                             editedOrder.getPhone(), editedOrder.getEmail(), editedOrder.getAddress(),
                             editedOrder.getDate(), editedOrder.getCompletionStatus(),
                             editedOrder.getPaymentStatus(), editedOrder.getTags(),
-                            editedOrder.getPaymentInfo());
+                            editedOrder.getPrice(), editedOrder.getPaymentInfo());
                 }
             } else {
                 throw new CommandException(String.format(MESSAGE_MENU_ITEM_NOT_FOUND, newFoodName));

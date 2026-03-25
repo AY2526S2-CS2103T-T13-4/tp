@@ -9,7 +9,6 @@ import seedu.homechef.model.ReadOnlyHomeChef;
 import seedu.homechef.model.menu.MenuBook;
 import seedu.homechef.model.menu.MenuItem;
 import seedu.homechef.model.menu.MenuItemName;
-import seedu.homechef.model.menu.Price;
 import seedu.homechef.model.menu.ReadOnlyMenuBook;
 import seedu.homechef.model.order.Address;
 import seedu.homechef.model.order.CompletionStatus;
@@ -91,7 +90,8 @@ public class SampleDataUtil {
             "Sourdough Bread (3pcs)"
         };
         for (String foodName : sampleFoodNames) {
-            menuBook.addMenuItem(new MenuItem(new MenuItemName(foodName), new Price("10.00"), true));
+            seedu.homechef.model.menu.Price menuPrice = new seedu.homechef.model.menu.Price("10.00");
+            menuBook.addMenuItem(new MenuItem(new MenuItemName(foodName), menuPrice, true));
         }
         return menuBook;
     }
