@@ -13,7 +13,7 @@ title: Setting up and getting started
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 
-Follow the steps in the following guide precisely. Things will not work out if you deviate in some steps.
+Please follow the steps in the following guide precisely. Issues may occur if some steps are changed or skipped.
 </div>
 
 First, **fork** this repo, and **clone** the fork into your computer.
