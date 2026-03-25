@@ -21,5 +21,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_MENU_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PRICE = new Prefix("x/");
     public static final Prefix PREFIX_AVAILABILITY = new Prefix("v/");
-
+    public static final Prefix PREFIX_COMPLETION_STATUS = new Prefix("cs/");
+    public static final Prefix PREFIX_PAYMENT_STATUS = new Prefix("ps/");
 }
