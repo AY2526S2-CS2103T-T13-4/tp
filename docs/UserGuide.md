@@ -124,14 +124,14 @@ Format: `list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE] [cs/COMPLETION STATUS] [p
 * Filters are case-insensitive for `c/`, `f/` and `p/`.
 * `DATE` must be in the format `dd-MM-yyyy`.
 *  `COMPLETION_STATUS` must be one of `Pending`, `In progress` or `Completed`.
-* `PAYMENT_STATUS` must be one of `$ Paid`, `$ Unpaid` or `$ Partial`.
+* `PAYMENT_STATUS` must be one of `Paid`, `Unpaid` or `Partial`.
 
 Examples:
 * `list`
 * `list d/18-10-2026`
 * `list p/1234`
 * `list d/16-04-2003 c/alice f/cake p/1234`
-* `list cs/Completed ps/$ Paid`
+* `list cs/Completed ps/Paid`
 
 ### Marking an order as in progress: `in progress`
 
