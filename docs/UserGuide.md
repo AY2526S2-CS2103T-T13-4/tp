@@ -3,7 +3,9 @@ layout: page
 title: User Guide
 ---
 
-HomeChef-Helper (HomeChef) is a **desktop app for managing orders, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HomeChef can get your order management tasks done faster than traditional GUI apps.
+HomeChef-Helper (HomeChef) is a simple, intuitive desktop app for managing orders and payments for any **self-made food business owners!**<br>
+From new cooks to expert home food business owners, the app helps to **consolidate the order and food information in an easy to read format**, helping you get things done faster!<br>
+With a simple typing interface and a clear order list and food menu, this app is here to help you **manage orders quick** if you can **type fast**.
 
 * Table of Contents
 {:toc}
@@ -27,7 +29,7 @@ HomeChef-Helper (HomeChef) is a **desktop app for managing orders, optimized for
    > 1. Use the `cd` command to navigate into the folder you put the jar file in.<br> For example:<br> `cd Desktop/Folder1/FolderContainingHomeChef`<br>
    > 1. Type the `java -jar homechef.jar` command to run the application.<br>
       
-    If successful, a screen similar to the one below should appear in a few seconds. The app contains some sample data for you to get an idea of how the it functions.<br>
+    If successful, a screen similar to the one below should appear in a few seconds. The app contains some sample data for you to get an idea of how it functions.<br>
 
     ![Ui](images/Ui.png)
 
@@ -68,8 +70,18 @@ HomeChef-Helper (HomeChef) is a **desktop app for managing orders, optimized for
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add f/FOOD`, `FOOD` is a parameter which can be used as `add f/Chocolate Cake`.
 
+* `INDEX` values can only be non-zero positive whole numbers. Any input `INDEX` that is `0`, **negative** or a **decimal** will give an error message.<br>
+  e.g. `0`, `-1` and `2.0` will give `Invalid command format` error messages.
+
+* `INDEX` values cannot be larger than the size of the shown list.<br>
+  e.g. With an order list of size `3`, inputting `INDEX` as `4` or **more** will give an error message saying `The order index provided is invalid`.
+
 * Items in square brackets are optional.<br>
-  e.g `f/FOOD [t/TAG]` can be used as `f/Butter Cake t/no dairy` or as `n/no dairy`.
+  e.g `f/FOOD [t/TAG]` can be used as `f/Butter Cake t/no dairy` or as `f/Butter Cake`.
+
+* Any items **not** in the square brackets are thus mandatory.<br>
+  If any of the mandatory fields are missing, an `Invalid command format` error message will be shown.<br>
+  e.g. `f/FOOD [t/TAG]` will give an error message if only `t/no dairy` is given.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/no peanuts`, `t/gluten-free t/extra sprinkles` etc.
@@ -97,22 +109,25 @@ The following are the commands that interact with this order list.
 Adds an order to the order list.
 All orders are initially set as 'Pending' and 'Unpaid'.
 
-Format: `edit INDEX f/FOOD c/NAME p/PHONE e/EMAIL a/ADDRESS d/DATE $/PRICE [t/TAG]…​ 
+Format: `add f/FOOD c/NAME p/PHONE e/EMAIL a/ADDRESS d/DATE $/PRICE [t/TAG]…​ 
 [m/PAYMENT METHOD] [r/PAYMENT REF] [b/BANK NAME] [w/WALLET PROVIDER]`
 
-* `PRICE` is a non-negative number up to 2 decimal places. Any more decimals will cause an error message to appear.
+* `PRICE` is a non-negative number up to 2 decimal places. Having less than 2 decimals is accepted.
+  * Giving an input that is **not a number** or a number with **more than 2 decimals** will cause an error message to appear telling you the correct format you should use.
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 An order can have any number of dietTags (including 0)
 </div>
 
-Orders have their price set to dollars `$`. Other currencies are not supported.
-Orders have their dates coloured according to the urgency of the Order.
+* Orders have their price set to dollars `$`. Other currencies are not supported.
+* Orders have their dates coloured according to the urgency of the Order.
 > White indicates that the `Order` is not late, it is due ***more than 3 days*** from today's date.<br>
 > ![normal date](images/normalDate.png)<br>
 > Orange indicates that the `Order` is not late, but it is ***due within 3 days*** of today's date.<br>
 > ![urgent date](images/urgentDate.png)<br>
 > Red indicates that the `Order` is late, it was due ***before*** today's date.<br>
 > ![overdue date](images/overdueDate.png)
+
 
 Examples:
 * `add f/Red Bean Bun c/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/30-03-2026 $/1.20`
@@ -139,7 +154,7 @@ Examples:
 * `list d/16-04-2003 c/alice f/cake p/1234`
 * `list cs/Completed ps/Paid`
 
-### Marking an order as in progress: `in progress`
+### Marking an order as in progress: `inprogress`
 
 Sets the completion status of an order to 'In progress'.
 In progress orders have their completion status coloured orange.
@@ -191,6 +206,7 @@ Format:
 
 * Edits the order at the specified `INDEX`. The index refers to the index number shown in the displayed order list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
+  * If no fields are provided, a message will appear telling you to provide a field.
 * Existing values will be updated to the input values.
 * When editing dietTags, the existing dietTags of the order will be removed i.e adding of dietTags is not cumulative.
 * You can remove all the order’s dietTags by typing `t/` without
@@ -199,6 +215,7 @@ Format:
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st order to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 c/Betsy Crower t/` Edits the name of the 2nd order's customer to be `Betsy Crower` and clears all existing dietTags.
+*  `edit 1` Shows an error message saying `At least one field to edit must be provided.`
 
 ### Locating orders by customer name: `find`
 
@@ -258,8 +275,9 @@ Adds a food item of the given name, price and availability to the menu.
 Format: `add-menu n/NAME x/PRICE [v/AVAILABILITY]`
 
 * Similar functionality to that of `add` for the order list, except the fields have different prefixes.
-* `AVAILABILITY` is a boolean that only accepts `true` or `false` spelled exactly.
-* If not specified, `AVAILABILITY` is set as `Available` by default.
+* `AVAILABILITY` only accepts `true` or `false` spelled exactly.
+  * Typing anything else will give an error message stating `Availability must be 'true' or 'false'`.
+* If not specified, `AVAILABILITY` will be set as `Available`.
 
 Examples:
 * `add-menu n/Bee Hoon x/5` will add a food item called `Bee Hoon` into the menu with a price of `$5` and is specified as `Available`.
@@ -278,7 +296,9 @@ Edits an existing food item in the menu.
 Format: `edit-menu INDEX [n/NAME] [x/PRICE] [v/AVAILABILITY]`
 
 * Similar functionality to that of `edit` for the order list, except the fields have different prefixes.
-* `AVAILABILITY` is a boolean that only accepts `true` or `false` spelled exactly.
+* `AVAILABILITY` only accepts `true` or `false` spelled exactly.
+  * * Typing anything else will give an error message stating `Availability must be 'true' or 'false'`.
+  
 
 Example:
 * `edit-menu 1 n/Raisin Cookies x/2.00` edits the food in the first position of the displayed menu to have the name `Raisin Cookies` and a price of `$2.00`.
@@ -306,7 +326,7 @@ Format: `exit`
 
 HomeChef data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.<br> 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** 
-It is, however, recommended that a backup of the homechef.json and menu.json files are made by copying them to a seperate folder outside of the Homechef folder. This will allow you to copy the files back to the `data` folder as and when is needed, such as when a `clear` command is accidentally executed.
+It is, however, recommended that a backup of the homechef.json and menu.json files are made by copying them to a separate folder outside of the Homechef folder. This will allow you to copy the files back to the `data` folder when needed, such as when a `clear` command is accidentally executed.
 </div>
 
 ### Editing the data file
@@ -314,7 +334,7 @@ It is, however, recommended that a backup of the homechef.json and menu.json fil
 HomeChef data is saved automatically as a JSON file `[JAR file location]/data/homechef.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, HomeChef will **discard all data** and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+If your changes to the data file make its format invalid, HomeChef will **discard all data** and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the HomeChef to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
