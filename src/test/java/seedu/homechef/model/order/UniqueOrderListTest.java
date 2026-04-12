@@ -59,6 +59,28 @@ public class UniqueOrderListTest {
     }
 
     @Test
+    public void add_caseVariantCustomerSameFoodAndDate_throwsDuplicateOrderException() {
+        // Orders identical except customer name casing must be treated as duplicates
+        Order order1 = new OrderBuilder().withCustomer("alice")
+                .withFood("Chicken Rice").withDate("10-04-2026").build();
+        Order order2 = new OrderBuilder().withCustomer("ALICE")
+                .withFood("Chicken Rice").withDate("10-04-2026").build();
+        uniqueOrderList.add(order1);
+        assertThrows(DuplicateOrderException.class, () -> uniqueOrderList.add(order2));
+    }
+
+    @Test
+    public void add_caseVariantFoodSameCustomerAndDate_throwsDuplicateOrderException() {
+        // Orders identical except food name casing must be treated as duplicates
+        Order order1 = new OrderBuilder().withCustomer("Alice")
+                .withFood("Chicken Rice").withDate("10-04-2026").build();
+        Order order2 = new OrderBuilder().withCustomer("Alice")
+                .withFood("chicken rice").withDate("10-04-2026").build();
+        uniqueOrderList.add(order1);
+        assertThrows(DuplicateOrderException.class, () -> uniqueOrderList.add(order2));
+    }
+
+    @Test
     public void setOrder_nullTargetOrder_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueOrderList.setOrder(null, ALICE));
     }

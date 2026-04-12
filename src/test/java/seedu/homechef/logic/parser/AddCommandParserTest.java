@@ -278,6 +278,13 @@ public class AddCommandParserTest {
                 PREAMBLE_NON_EMPTY + FOOD_DESC_BOB + CUSTOMER_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ADDRESS_DESC_BOB + DATE_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        // EP: slash in customer name leaks into prefix parsing
+        // "c/Ramesh s/o Kumar" causes the tokenizer to treat "o/" as an unknown prefix.
+        // The error should clearly indicate the customer name is invalid, not an unrelated parse error.
+        assertParseFailure(parser,
+                " f/Chicken Rice c/Ramesh s/o Kumar p/91234567 e/a@b.com a/123 Main d/10-04-2026",
+                Customer.MESSAGE_CONSTRAINTS);
     }
 
     @Test
