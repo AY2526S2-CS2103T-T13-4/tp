@@ -132,7 +132,7 @@ You're ready to start using HomeChef now! Head to the [Features](#features) sect
   to a size of 3. This makes `5` an invalid `INDEX` now.
 
 * `PHONE` can only have numerical characters (`0` to `9`) and the special character `+`, and must be at least 3 characters long.<br>
-  If using the `+` symbol to indicate international phone numbers, a blank space must be found between to country code
+  If using the `+` symbol to indicate international phone numbers, a blank space must be found between the country code
   and the phone number. The country code itself must be at least 1 character long, and can be at most 3 characters
   long.<br>
   e.g. `+65 98898998` and `98765432` are accepted numbers, but `+6598898998` and `9876 5432` are not accepted numbers.
