@@ -13,7 +13,7 @@ With a simple typing interface and clear order and menu panels, HomeChef is espe
 input** over mouse clicks.
 
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -21,32 +21,32 @@ input** over mouse clicks.
 
 1. **Ensure you have Java `17` or above installed on your computer.**
 
-    > **To check your Java version:**
-    > 1. Open a command terminal (Command Prompt or Powershell on Windows, Terminal on Mac).
-    > 2. Type the command `java -version` and press Enter.
-    > 3. The version number will be shown in the output. If it is `17` or above, you are good to go! If not, you will need to update your Java version before running HomeChef.
-    > 
-    > Example:
-    > ```bash 
+   > **To check your Java version:**
+   > 1. Open a command terminal (Command Prompt or Powershell on Windows, Terminal on Mac).
+   > 2. Type the command `java -version` and press Enter.
+   > 3. The version number will be shown in the output. If it is `17` or above, you are good to go! If not, you will need to update your Java version before running HomeChef.
+   >
+   > Example:
+   > ```bash 
     > $ java -version
     > java version "17.0.2" 2022-01-18 LTS
     > ```
-    > 
-    >  **If Java is not installed or you have an older version:**
-    > - Install Java 17 using a tutorial here for your operating system:
-    >   - [Windows](https://se-education.org/guides/tutorials/javaInstallationWindows.html)
-    >   - [Mac](https://se-education.org/guides/tutorials/javaInstallationMac.html)
-    >   - [Linux](https://se-education.org/guides/tutorials/javaInstallationLinux.html)
-    > - After installation, you can check the version again using `java -version` to confirm that you have Java 17 or above.
+   >
+   >  **If Java is not installed or you have an older version:**
+   > - Install Java 17 using a tutorial here for your operating system:
+       >   - [Windows](https://se-education.org/guides/tutorials/javaInstallationWindows.html)
+   >   - [Mac](https://se-education.org/guides/tutorials/javaInstallationMac.html)
+   >   - [Linux](https://se-education.org/guides/tutorials/javaInstallationLinux.html)
+   > - After installation, you can check the version again using `java -version` to confirm that you have Java 17 or above.
 
 2. **Download the latest `homechef.jar` file** from the [Release page](https://github.com/AY2526S2-CS2103T-T13-4/tp/releases).
 
 3. **Copy the file to the folder you want to use as the _home folder_ for your HomeChef.**<br>
    This folder will be used to store your data file and generated receipts, so make sure to choose a location you can easily access.
 
-    > **Example:**
-    > 1. Create a folder called `HomeChef` on your Desktop.
-    > 2. Copy the downloaded `homechef.jar` file into this `HomeChef` folder.
+   > **Example:**
+   > 1. Create a folder called `HomeChef` on your Desktop.
+   > 2. Copy the downloaded `homechef.jar` file into this `HomeChef` folder.
 
 4. **Double-click on the `homechef.jar` file to launch the app.**
    If that does not work, try the following:
@@ -61,7 +61,7 @@ input** over mouse clicks.
    > $ java -jar homechef.jar
    > ```
 
-   If successful, a screen similar to the one below should appear in a few seconds. 
+   If successful, a screen similar to the one below should appear in a few seconds.
    The app contains some sample data for you to try out some commands.
 
    The main window shows the order list on the left, the menu on the right, and the command box at the bottom.
@@ -81,9 +81,9 @@ input** over mouse clicks.
       The newly added order should look like this:
 
       ![sample order](images/sampleOrder.png)
-      
+
       Note that the ID number may differ if there are other orders in the list.
-      
+
       The date may also be of a different colour (red or orange) if the current date is after 30-03-2026.
 
     * `complete 1` : Marks the 1st order shown in the current list as completed. Helpful when you want to spot finished
@@ -95,7 +95,7 @@ input** over mouse clicks.
     * `add-menu f/Potato Wedges $/2.20` : Adds a food item called `Potato Wedges` with a price of `$2.20` into the menu
       on the right.
       The newly added menu item should look like this:
-   
+
       ![menu item](images/sampleMenuItem.png)
 
     * `exit` : Exits the app.
@@ -110,59 +110,48 @@ You're ready to start using HomeChef now! Head to the [Features](#features) sect
 
 **:information_source: Notes on Parameters:**
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add f/FOOD`, `FOOD` is a parameter which can be used as `add f/Chocolate Cake`.
 
-* `INDEX` values can only be non-zero positive whole numbers. Any input `INDEX` that is `0`, **negative** or a
-  **decimal** will give an error message.
-  e.g. `0`, `-1` and `2.0` will give `Invalid command format` error messages.
+* Parameters in square brackets are optional.<br>
+  e.g `f/FOOD [t/TAG]` can be used as `f/Butter Cake t/no dairy` or as `f/Butter Cake`.
 
-* `INDEX` values cannot be larger than the size of the shown list.
-  e.g. With an order list of size `3`, inputting `INDEX` as `4` or **more** will give an error message saying
-  `The order index provided is invalid`.
+* Any items **not** in the square brackets are thus mandatory.<br>
+  If any of the mandatory fields are missing, an `Invalid command format` error message will be shown.<br>
+  e.g. `f/FOOD [t/TAG]` will give an error message if only `t/no dairy` is given.
 
-* `INDEX` values refer to the index number shown in the displayed order list.
+* Items with `…`​ after them can be used multiple times including zero times.<br>
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/no peanuts`, `t/gluten-free t/extra sprinkles` etc.
+
+* Prefixes without `...` are single-valued and must not be repeated in the same command.<br>
+  e.g. `q/2 q/3` is invalid.
+
+* `INDEX` values can only be must refer to the index number shown in the displayed order list.<br>
+  Attempting to use an `INDEX` that is out of bounds of the current list will show an error message.<br>
   e.g. A list may originally be of size 10, so `5` is a valid `INDEX`. Using `list f/Cake` shortens the displayed list
   to a size of 3. This makes `5` an invalid `INDEX` now.
 
-* `PHONE` can only have numerical characters (`0` to `9`) and the special character `+`.
-  More specifically, `PHONE` must be at least 3 numerical characters long.
+* `PHONE` can only have numerical characters (`0` to `9`) and the special character `+`, and must be atleast 3 characters long.<br>
   If using the `+` symbol to indicate international phone numbers, a blank space must be found between to country code
   and the phone number. The country code itself must be at least 1 character long, and can be at most 3 characters
-  long.
+  long.<br>
   e.g. `+65 98898998` and `98765432` are accepted numbers, but `+6598898998` and `9876 5432` are not accepted numbers.
 
-* Items in square brackets are optional.
-  e.g `f/FOOD [t/TAG]` can be used as `f/Butter Cake t/no dairy` or as `f/Butter Cake`.
-
-* Any items **not** in the square brackets are thus mandatory.
-  If any of the mandatory fields are missing, an `Invalid command format` error message will be shown.
-  e.g. `f/FOOD [t/TAG]` will give an error message if only `t/no dairy` is given.
-
-* Items with `…`​ after them can be used multiple times including zero times.
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/no peanuts`, `t/gluten-free t/extra sprinkles` etc.
-
-* Prefixes without `...` are single-valued and must not be repeated in the same command.
-  e.g. `q/2 q/3` is invalid.
-
-* For prefixed parameters, inputs can be in any order.
+* For prefixed parameters, inputs can be in any order.<br>
   e.g. if the command specifies `f/FOOD p/PHONE`, `p/PHONE f/FOOD` is also acceptable.
-  For commands that require an `INDEX` (e.g. `edit`, `delete`, `paid`), put `INDEX` immediately after the command word.
 
-* Character rules differ by field. For example, `c/NAME` and `f/FOOD` accept letters/digits (including international
-  characters) and selected punctuation; details are listed under each command.
-* For `c/NAME` and `f/FOOD`, the first character must be a letter or digit.
+* For commands that require an `INDEX`, put `INDEX` immediately after the command word.<br>
+  e.g. `edit 1 f/FOOD` is valid, but `edit f/FOOD 1` is not valid.
 
-* `COMPLETION_STATUS` is meant to be a marker for you to know that you have completed an order, not a "finalised state"
-  which confirms that the order information is fixed. Thus, it does not affect the ability to modify any of the orders.
+* Character rules differ by field. <br>
+  e.g. `c/NAME` and `f/FOOD` accept letters/digits (including international characters) and selected punctuation; details are listed under each command.
 
-* Extra parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.
+* Extra parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines
-  as space characters surrounding line-breaks may be omitted when copied over to the application.
-
 </div>
+
+If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines
+as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 ## Order Management
 
@@ -176,14 +165,14 @@ The following are the commands that interact with this order list.
 
 To begin adding an order to the order list, use the `add` command followed by the order's details.
 
+By default, orders have their completion status set to `Pending` and payment status set to `Unpaid`, so you can update these details later when the order is in progress or completed, and when the customer has paid.
+
+Orders also have their dates coloured according to their urgency, so you can easily tell at a glance which orders are due soon or overdue.
+
 **Format:**
 ```
 add f/FOOD c/NAME p/PHONE e/EMAIL a/ADDRESS d/DATE [q/QUANTITY] [t/TAG]... [bank/BANK_DETAILS] [paynow/PAYNOW_CONTACT] [cash/YES_OR_NO]
 ```
-
-* Orders have their completion status set to `Pending` by default.
-* Orders also have their payment status set to `Unpaid` by default.
-* Orders have their dates coloured according to the urgency of the Order.
 
 > White indicates that the `Order` is not late, it is due **_more than 3 days_** from today's date.
 >
@@ -236,7 +225,7 @@ add f/FOOD c/NAME p/PHONE e/EMAIL a/ADDRESS d/DATE [q/QUANTITY] [t/TAG]... [bank
 * `add f/Red Bean Bun c/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/30-03-2026` Adds the
   order of the given information to the order list.
 * `add f/Hawaiian Pizza c/Betsy Crowe t/Halal e/betsycrowe@example.com a/Newgate Prison p/1234567 d/12-12-2026 t/No peanuts`
-Adds the order of the given information to the order list.
+  Adds the order of the given information to the order list.
 * `add f/Bananas c/Monkey p/80801414 t/An actual monkey e/ooaa@ananab.com a/Monkey Village d/18-03-2026 cash/yes` Adds
   the order of the given information to the order list.
 * `add f/Nasi Lemak q/3 c/John p/91234567 e/john@example.com a/123 Street d/01-12-2024` Adds an order of `3` units of
@@ -247,9 +236,8 @@ the [menu commands](#menu-commands) for more information in adding these food na
 
 ### Listing all orders : `list`
 
-To view the orders you have, use the `list` command with no other parameters.
+To view the orders you have, use the `list` command with parameters to filter by.
 
-To filter the orders shown in the order list, use the `list` command with parameters to specify keywords to filter by. 
 This can be useful for finding orders specific to a certain customer, a certain address or even of a certain food name.
 
 **Format:**
@@ -259,14 +247,21 @@ list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE] [cs/COMPLETION_STATUS] [ps/PAYMENT
 
 <div markdown="1" class="alert alert-info">:information_source:
 **Notes:**
-* Lists all orders when no parameters are given.
+* Lists all orders when no parameters are given, and is a good way to reset the order list view to show every order stored.
 * Filters are case-insensitive for `c/`, `f/`, `p/`, `cs/` and `ps/` parameters. For example, `list cs/pending` and `list cs/Pending` will give the same results.
 * `DATE` must be in the format `dd-MM-yyyy`. (e.g. `18-10-2026` for 18th October 2026)
 * `COMPLETION_STATUS` must be one of `Pending`, `In progress` or `Completed`.
 * `PAYMENT_STATUS` must be one of `Paid` or `Unpaid`.
-* Using `list` with no parameters is a good way to reset the order list view to show every order stored.
-* A common `list` command is `list cs/Pending ps/Paid` to easily find orders that should be started on, since they have already been paid.
-* Another common command is `list cs/Completed ps/Unpaid` to find orders that have been completed but not yet paid, to track troublesome customers who have yet to pay for their food.
+</div>
+
+<div markdown="span" class="alert alert-primary">:bulb:
+**Tip:**
+A common `list` command is `list cs/Pending ps/Paid` to easily find orders that should be started on, since they have already been paid.
+</div>
+
+<div markdown="span" class="alert alert-primary">:bulb:
+**Tip:**
+Another common command is `list cs/Completed ps/Unpaid` to find orders that have been completed but not yet paid, to track troublesome customers who have yet to pay for their food.
 </div>
 
 **Examples:**
@@ -283,15 +278,18 @@ list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE] [cs/COMPLETION_STATUS] [ps/PAYMENT
 
 To begin working on an order, use the `inprogress` command to mark it as 'In progress'.
 
-In progress orders have their completion status coloured orange. 
+In progress orders have their completion status coloured orange.
 This helps to easily tell at a glance when an order is currently in progress.
-
-> On an order that is already `In progress`, the command will show an error message instead of updating the order.
 
 **Format:**
 ```
 inprogress INDEX
 ```
+
+<div markdown="span" class="alert alert-warning">:exclamation: 
+**Caution:**
+On an order that is already `In progress`, the command will show an error message instead of updating the order.
+</div>
 
 ### Marking an order as complete: `complete`
 
@@ -299,8 +297,6 @@ To indicate that you have finished working on an order, use the `complete` comma
 
 Completed orders have their completion status coloured green.
 This helps to easily tell at a glance when an order is completed.
-
-> On an order that is already `Completed`, the command will show an error message instead of updating the order.
 
 **Format:**
 ```
@@ -310,7 +306,12 @@ complete INDEX
 <div markdown="1" class="alert alert-info">:information_source:
 **Notes:**
 * Orders are meant to be editable after completion, because if a mistake was made, you can fix it before printing it to receipt without having to change the status back.
-* As mentioned before, completion status is meant to be a marker for you to know that you have completed an order, so marking an order as complete will **not** make the information fixed. You still can edit an order after it is complete.
+* Completion status is meant to be a marker for you to know that you have completed an order, so marking an order as complete will **not** make the information fixed. You still can edit an order after it is complete.
+</div>
+
+<div markdown="span" class="alert alert-warning">:exclamation: 
+**Caution:**
+On an order that is already `Completed`, the command will show an error message instead of updating the order.
 </div>
 
 ### Marking an order as pending: `pending`
@@ -320,12 +321,16 @@ To indicate that an order has yet to be worked on, use the `pending` command to 
 Pending orders have their completion status coloured dark grey.
 This helps to easily tell at a glance when an order has yet to be worked on.
 
-> On an order that is already `Pending`, the command will show an error message instead of updating the order.
-
 **Format:**
 ```
 pending INDEX
 ```
+
+<div markdown="span" class="alert alert-warning">:exclamation: 
+**Caution:**
+On an order that is already `Pending`, the command will show an error message instead of updating the order.
+</div>
+
 
 ### Marking an order as paid: `paid`
 
@@ -334,12 +339,15 @@ To indicate that an order has been paid for, use the `paid` command to mark it a
 Paid orders have their payment status coloured green.
 This helps to easily tell at a glance when an order has been totally paid for by a customer.
 
-> On an order that is already `Paid`, the command will show an error message instead of updating the order.
-
 **Format:**
 ```
 paid INDEX
 ```
+
+<div markdown="span" class="alert alert-warning">:exclamation: 
+**Caution:**
+* On an order that is already `Paid`, the command will show an error message instead of updating the order.
+</div>
 
 ### Marking an order as unpaid: `unpaid`
 
@@ -348,12 +356,15 @@ To indicate that an order has yet to be paid for, use the `unpaid` command to ma
 Unpaid orders have their payment status coloured red.
 This helps to easily tell at a glance when an order has yet to be paid by a customer.
 
-> On an order that is already `Unpaid`, the command will show an error message instead of updating the order.
-
 **Format:**
 ```
 unpaid INDEX
 ```
+
+<div markdown="span" class="alert alert-warning">:exclamation: 
+**Caution:**
+On an order that is already `Unpaid`, the command will show an error message instead of updating the order.
+</div>
 
 ### Generating a receipt: `receipt`
 
@@ -371,11 +382,12 @@ receipt INDEX
 
 <div markdown="span" class="alert alert-primary">:bulb:
 **Tip:**
-You can also use the shortcut command `rec`.
+You can also use the shortcut command `rec`
 </div>
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**:
-* Receipts can only be generated for orders with payment status **Paid**.
+<div markdown="span" class="alert alert-warning">:exclamation: 
+**Caution:**
+Receipts can only be generated for orders with payment status **Paid**.
   Use `paid INDEX` to mark the order as paid first.
 </div>
 
@@ -384,8 +396,11 @@ You can also use the shortcut command `rec`.
 * `receipt 1` Displays and saves a receipt for the order located at `INDEX` 1 of the shown list.
 * `rec 2` Displays and saves a receipt for the order located at `INDEX` 2 of the shown list.
 * For the example order as shown:
+
   ![example order](images/receiptExampleOrder.png)
+
   The generated receipt will look like this:
+
   ![receipt](images/sampleReceipt.png)
 
 ### Editing an order : `edit`
@@ -396,7 +411,7 @@ This helps with updating orders when information changes, without having to dele
 
 <div markdown="span" class="alert alert-warning">:exclamation:
 **Caution:**
-* Completion status and payment status cannot be modified using the `edit` command and **must** be modified using the above commands.
+Completion status and payment status cannot be modified using the `edit` command and **must** be modified using the above commands.
 </div>
 
 **Format:**
@@ -446,10 +461,6 @@ To remove an order that you no longer need from the order list, use the `delete`
 delete INDEX
 ```
 
-* Deletes the order at the specified `INDEX`.
-* The index refers to the index number shown in the displayed order list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
 **Examples:**
 
 * `list` followed by `delete 2` deletes the 2nd order in the current list.
@@ -457,12 +468,7 @@ delete INDEX
 
 ### Clearing all entries : `clear`
 
-<div markdown="span" class="alert alert-warning">:exclamation:
-**Caution:**
-* This action **cannot be reversed** so only do this if you are sure you want to delete **every** order in the list. If not, use the delete command instead.
-</div>
-
-To clear all orders from the order list, use the `clear` command to delete all orders at once. 
+To clear all orders from the order list, use the `clear` command to delete all orders at once.
 
 This is useful when you want to clear out old orders after a long period of time, without having to delete each order one by one.
 
@@ -470,6 +476,11 @@ This is useful when you want to clear out old orders after a long period of time
 ```
 clear
 ```
+
+<div markdown="span" class="alert alert-warning">:exclamation:
+**Caution:**
+This action **cannot be reversed** so only do this if you are sure you want to delete **every** order in the list. If not, use the delete command instead.
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -485,7 +496,7 @@ The following are the commands that interact with this menu.
 **:information_source: Notes:**
 
 * **Any modifications to the menu will not affect existing orders.**
-    * For example: There is an order with a food name `Birthday Cake`. Deleting or editing `Birthday Cake` in the 
+    * For example: There is an order with a food name `Birthday Cake`. Deleting or editing `Birthday Cake` in the
       **menu** will not affect this existing order.
       But **future orders** will not be able to add the food called `Birthday Cake` as it now does not exist in the
       menu.
@@ -610,7 +621,7 @@ HomeChef Helper data is saved in the hard disk automatically after any command t
 to save manually.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-It is, however, recommended that a backup of the homechef.json and menu.json files are made by copying them to a separate folder outside of the HomeChef Helper folder. This will allow you to copy the files back to the `data` folder when needed, such as when a `clear` command is accidentally executed.
+It is highly recommended to backup the homechef.json and menu.json files by copying them to a separate folder outside of the HomeChef Helper folder. This will allow you to copy the files back to the `data` folder when needed, such as when a `clear` command is accidentally executed.
 </div>
 
 ### Editing the data file
@@ -621,8 +632,9 @@ to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation:
 **Caution:**
-* If your changes to the data file make its format invalid, HomeChef will **discard all data** and start with empty data at the next run. The corrupted file will be overwritten with clean data only after a data-modifying command (e.g. `add`, `delete`, `edit`) is executed. Hence, it is recommended to take a backup of the file before editing it.
-* Furthermore, certain edits can cause the HomeChef to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file make its format invalid, HomeChef will **discard all data** and start with empty data at the next run. The corrupted file will be overwritten with clean data only after a data-modifying command (e.g. `add`, `delete`, `edit`) is executed. Hence, it is recommended to take a backup of the file before editing it.
+
+Furthermore, certain edits can cause the HomeChef to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
