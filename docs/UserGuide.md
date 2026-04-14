@@ -126,7 +126,7 @@ You're ready to start using HomeChef now! Head to the [Features](#features) sect
 * Prefixes without `...` are single-valued and must not be repeated in the same command.<br>
   e.g. `q/2 q/3` is invalid.
 
-* `INDEX` values can only be must refer to the index number shown in the displayed order list.<br>
+* `INDEX` values must refer to an index number shown in the displayed order list.<br>
   Attempting to use an `INDEX` that is out of bounds of the current list will show an error message.<br>
   e.g. A list may originally be of size 10, so `5` is a valid `INDEX`. Using `list f/Cake` shortens the displayed list
   to a size of 3. This makes `5` an invalid `INDEX` now.
