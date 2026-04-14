@@ -248,7 +248,8 @@ This can be useful for finding orders specific to a certain customer, a certain 
 
 **Format:**
 ```
-list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE] [cs/COMPLETION_STATUS] [ps/PAYMENT_STATUS]
+list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE] [cs/COMPLETION_STATUS] 
+ [ps/PAYMENT_STATUS]
 ```
 
 <div markdown="1" class="alert alert-info">:information_source:
@@ -713,21 +714,21 @@ downloaded.
 
 # **Parameter summary**
 
-| Parameter | Prefix | Rules | Examples |
-| --------- | ------ | ----- | -------- |
-| Index | none | Positive whole number within the currently shown list (`1, 2, 3, ...`). | `2`, `15` |
-| Food (order) | `f/` | Must match an existing menu item (case-insensitive); can use menu index shortcut. | `f/Chicken Rice`, `f/1` |
-| Name (customer/menu item) | `c/` or `f/` | Letters/digits (including international characters), spaces, and allowed punctuation as documented per command. | `c/John Tan`, `f/Pain au Chocolat` |
-| Phone | `p/` | Digits only, or `+` country code followed by a space and digits; at least 3 numeric characters. | `p/98765432`, `p/+65 91234567` |
-| Email | `e/` | Must be valid `local-part@domain.tld` format. | `e/jane@example.com` |
-| Address | `a/` | Any non-blank text. | `a/Blk 123 Clementi Ave 3 #10-01` |
-| Date | `d/` | Must be a valid calendar date in `DD-MM-YYYY` format. | `d/30-03-2026` |
-| Quantity | `q/` | Positive integer from `1` to `999` (inclusive). | `q/1`, `q/25` |
-| Tag | `t/` | Optional diet tag text; repeatable for `add`/`edit`. | `t/No peanuts`, `t/Halal` |
-| Completion status | `cs/` | One of `Pending`, `In progress`, `Completed` (case-insensitive). | `cs/Pending` |
-| Payment status | `ps/` | One of `Paid` or `Unpaid` (case-insensitive). | `ps/Paid` |
-| Menu price | `$/` | Non-negative number with up to 2 decimal places. | `$/5`, `$/2.50`, `$/0.00` |
-| Availability | `v/` | Must be `yes` or `no` (case-insensitive). | `v/yes`, `v/no` |
-| Bank details | `bank/` | 1-50 chars, must include at least one letter or digit; allows selected symbols. | `bank/DBS 123-456-789` |
-| PayNow contact | `paynow/` | Any non-blank PayNow identifier/reference. | `paynow/+65 91234567`, `paynow/UEN201234567A` |
-| Cash flag | `cash/` | Must be `yes` or `no`. | `cash/yes`, `cash/no` |
+| Parameter               | Prefix | Rules | Examples |
+|-------------------------| ------ | ----- | -------- |
+| Index                   | none | Positive whole number within the currently shown list (`1, 2, 3, ...`). | `2`, `15` |
+| Food (order)            | `f/` | Must match an existing menu item (case-insensitive); can use menu index shortcut. | `f/Chicken Rice`, `f/1` |
+| Customer Name/Menu Food | `c/` or `f/` | Letters/digits (including international characters), spaces, and allowed punctuation as documented per command. | `c/John Tan`, `f/Pain au Chocolat` |
+| Phone                   | `p/` | Digits only, or `+` country code followed by a space and digits; at least 3 numeric characters. | `p/98765432`, `p/+65 91234567` |
+| Email                   | `e/` | Must be valid `local-part@domain.tld` format. | `e/jane@example.com` |
+| Address                 | `a/` | Any non-blank text. | `a/Blk 123 Clementi Ave 3 #10-01` |
+| Date                    | `d/` | Must be a valid calendar date in `DD-MM-YYYY` format. | `d/30-03-2026` |
+| Quantity                | `q/` | Positive integer from `1` to `999` (inclusive). | `q/1`, `q/25` |
+| Tag                     | `t/` | Optional diet tag text; repeatable for `add`/`edit`. | `t/No peanuts`, `t/Halal` |
+| Completion status       | `cs/` | One of `Pending`, `In progress`, `Completed` (case-insensitive). | `cs/Pending` |
+| Payment status          | `ps/` | One of `Paid` or `Unpaid` (case-insensitive). | `ps/Paid` |
+| Menu price              | `$/` | Non-negative number with up to 2 decimal places. | `$/5`, `$/2.50`, `$/0.00` |
+| Availability            | `v/` | Must be `yes` or `no` (case-insensitive). | `v/yes`, `v/no` |
+| Bank details            | `bank/` | 1-50 chars, must include at least one letter or digit; allows selected symbols. | `bank/DBS 123-456-789` |
+| PayNow contact          | `paynow/` | Any non-blank PayNow identifier/reference. | `paynow/+65 91234567`, `paynow/UEN201234567A` |
+| Cash flag               | `cash/` | Must be `yes` or `no`. | `cash/yes`, `cash/no` |
