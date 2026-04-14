@@ -126,13 +126,13 @@ You're ready to start using HomeChef now! Head to the [Features](#features) sect
 * Prefixes without `...` are single-valued and must not be repeated in the same command.<br>
   e.g. `q/2 q/3` is invalid.
 
-* `INDEX` values can only be must refer to the index number shown in the displayed order list.<br>
+* `INDEX` values must refer to an index number shown in the displayed order list.<br>
   Attempting to use an `INDEX` that is out of bounds of the current list will show an error message.<br>
   e.g. A list may originally be of size 10, so `5` is a valid `INDEX`. Using `list f/Cake` shortens the displayed list
   to a size of 3. This makes `5` an invalid `INDEX` now.
 
-* `PHONE` can only have numerical characters (`0` to `9`) and the special character `+`, and must be atleast 3 characters long.<br>
-  If using the `+` symbol to indicate international phone numbers, a blank space must be found between to country code
+* `PHONE` can only have numerical characters (`0` to `9`) and the special character `+`, and must be at least 3 characters long.<br>
+  If using the `+` symbol to indicate international phone numbers, a blank space must be found between the country code
   and the phone number. The country code itself must be at least 1 character long, and can be at most 3 characters
   long.<br>
   e.g. `+65 98898998` and `98765432` are accepted numbers, but `+6598898998` and `9876 5432` are not accepted numbers.
@@ -248,7 +248,8 @@ This can be useful for finding orders specific to a certain customer, a certain 
 
 **Format:**
 ```
-list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE] [cs/COMPLETION_STATUS] [ps/PAYMENT_STATUS]
+list [d/DATE] [c/CUSTOMER] [f/FOOD] [p/PHONE] [cs/COMPLETION_STATUS] 
+ [ps/PAYMENT_STATUS]
 ```
 
 <div markdown="1" class="alert alert-info">:information_source:
@@ -713,21 +714,21 @@ downloaded.
 
 # **Parameter summary**
 
-| Parameter | Prefix | Rules | Examples |
-| --------- | ------ | ----- | -------- |
-| Index | none | Positive whole number within the currently shown list (`1, 2, 3, ...`). | `2`, `15` |
-| Food (order) | `f/` | Must match an existing menu item (case-insensitive); can use menu index shortcut. | `f/Chicken Rice`, `f/1` |
-| Name (customer/menu item) | `c/` or `f/` | Letters/digits (including international characters), spaces, and allowed punctuation as documented per command. | `c/John Tan`, `f/Pain au Chocolat` |
-| Phone | `p/` | Digits only, or `+` country code followed by a space and digits; at least 3 numeric characters. | `p/98765432`, `p/+65 91234567` |
-| Email | `e/` | Must be valid `local-part@domain.tld` format. | `e/jane@example.com` |
-| Address | `a/` | Any non-blank text. | `a/Blk 123 Clementi Ave 3 #10-01` |
-| Date | `d/` | Must be a valid calendar date in `DD-MM-YYYY` format. | `d/30-03-2026` |
-| Quantity | `q/` | Positive integer from `1` to `999` (inclusive). | `q/1`, `q/25` |
-| Tag | `t/` | Optional diet tag text; repeatable for `add`/`edit`. | `t/No peanuts`, `t/Halal` |
-| Completion status | `cs/` | One of `Pending`, `In progress`, `Completed` (case-insensitive). | `cs/Pending` |
-| Payment status | `ps/` | One of `Paid` or `Unpaid` (case-insensitive). | `ps/Paid` |
-| Menu price | `$/` | Non-negative number with up to 2 decimal places. | `$/5`, `$/2.50`, `$/0.00` |
-| Availability | `v/` | Must be `yes` or `no` (case-insensitive). | `v/yes`, `v/no` |
-| Bank details | `bank/` | 1-50 chars, must include at least one letter or digit; allows selected symbols. | `bank/DBS 123-456-789` |
-| PayNow contact | `paynow/` | Any non-blank PayNow identifier/reference. | `paynow/+65 91234567`, `paynow/UEN201234567A` |
-| Cash flag | `cash/` | Must be `yes` or `no`. | `cash/yes`, `cash/no` |
+| Parameter               | Prefix | Rules | Examples |
+|-------------------------| ------ | ----- | -------- |
+| Index                   | none | Positive whole number within the currently shown list (`1, 2, 3, ...`). | `2`, `15` |
+| Food (order)            | `f/` | Must match an existing menu item (case-insensitive); can use menu index shortcut. | `f/Chicken Rice`, `f/1` |
+| Customer Name/Menu Food | `c/` or `f/` | Letters/digits (including international characters), spaces, and allowed punctuation as documented per command. | `c/John Tan`, `f/Pain au Chocolat` |
+| Phone                   | `p/` | Digits only, or `+` country code followed by a space and digits; at least 3 numeric characters. | `p/98765432`, `p/+65 91234567` |
+| Email                   | `e/` | Must be valid `local-part@domain.tld` format. | `e/jane@example.com` |
+| Address                 | `a/` | Any non-blank text. | `a/Blk 123 Clementi Ave 3 #10-01` |
+| Date                    | `d/` | Must be a valid calendar date in `DD-MM-YYYY` format. | `d/30-03-2026` |
+| Quantity                | `q/` | Positive integer from `1` to `999` (inclusive). | `q/1`, `q/25` |
+| Tag                     | `t/` | Optional diet tag text; repeatable for `add`/`edit`. | `t/No peanuts`, `t/Halal` |
+| Completion status       | `cs/` | One of `Pending`, `In progress`, `Completed` (case-insensitive). | `cs/Pending` |
+| Payment status          | `ps/` | One of `Paid` or `Unpaid` (case-insensitive). | `ps/Paid` |
+| Menu price              | `$/` | Non-negative number with up to 2 decimal places. | `$/5`, `$/2.50`, `$/0.00` |
+| Availability            | `v/` | Must be `yes` or `no` (case-insensitive). | `v/yes`, `v/no` |
+| Bank details            | `bank/` | 1-50 chars, must include at least one letter or digit; allows selected symbols. | `bank/DBS 123-456-789` |
+| PayNow contact          | `paynow/` | Any non-blank PayNow identifier/reference. | `paynow/+65 91234567`, `paynow/UEN201234567A` |
+| Cash flag               | `cash/` | Must be `yes` or `no`. | `cash/yes`, `cash/no` |

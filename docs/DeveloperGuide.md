@@ -484,7 +484,7 @@ otherwise)
 
 1. User requests to list orders.
 2. System shows a list of orders.
-3. User requests to update the status of a specific order (e.g., pending → in progress → delivered).
+3. User requests to update the status of a specific order (e.g., pending → in progress → completed).
 4. System updates the status and displays the updated order.
 
    Use case ends.
