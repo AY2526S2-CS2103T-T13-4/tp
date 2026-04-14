@@ -131,7 +131,7 @@ You're ready to start using HomeChef now! Head to the [Features](#features) sect
   e.g. A list may originally be of size 10, so `5` is a valid `INDEX`. Using `list f/Cake` shortens the displayed list
   to a size of 3. This makes `5` an invalid `INDEX` now.
 
-* `PHONE` can only have numerical characters (`0` to `9`) and the special character `+`, and must be atleast 3 characters long.<br>
+* `PHONE` can only have numerical characters (`0` to `9`) and the special character `+`, and must be at least 3 characters long.<br>
   If using the `+` symbol to indicate international phone numbers, a blank space must be found between to country code
   and the phone number. The country code itself must be at least 1 character long, and can be at most 3 characters
   long.<br>
