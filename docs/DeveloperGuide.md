@@ -19,7 +19,7 @@ It assumes familiarity with Java 17, Gradle, JavaFX, and basic object-oriented p
 * Libraries
   used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)
 * No additional external libraries are used in this project.
-
+* This project uses AI tools such as ChatGPT and GitHub Copilot for code generation and documentation. All AI-generated code and documentation are reviewed and edited by the development team to ensure quality and accuracy.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
